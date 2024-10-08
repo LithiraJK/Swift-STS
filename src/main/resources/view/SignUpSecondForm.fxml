@@ -5,7 +5,7 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="paneSignUpSecond" prefHeight="465.0" prefWidth="300.0" styleClass="bg" stylesheets="@../CSS/Login.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse72.swiftsts.controller.SignUpSecondFormController">
+<AnchorPane fx:id="paneSignUpSecond" prefHeight="465.0" prefWidth="300.0" styleClass="bg" stylesheets="@../css-file/Login.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse72.swiftsts.controller.SignUpSecondFormController">
     <children>
           <JFXPasswordField focusColor="#ffd600" labelFloat="true" layoutX="11.0" layoutY="168.0" prefHeight="26.0" prefWidth="280.0" promptText="Password" styleClass="custom-textfield" unFocusColor="WHITE" />
           <JFXPasswordField focusColor="#ffd600" labelFloat="true" layoutX="11.0" layoutY="218.0" prefHeight="26.0" prefWidth="280.0" promptText="Confirm password" styleClass="custom-textfield" unFocusColor="WHITE" />

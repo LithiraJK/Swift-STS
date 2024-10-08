@@ -5,7 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="paneStudent" prefHeight="550.0" prefWidth="960.0" styleClass="bg-bodypane" stylesheets="@../CSS/DashBoard.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse72.swiftsts.controller.StudentFormController">
+<AnchorPane fx:id="paneStudent" prefHeight="550.0" prefWidth="960.0" styleClass="bg-bodypane" stylesheets="@../css-file/DashBoard.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse72.swiftsts.controller.StudentFormController">
    <children>
       <AnchorPane layoutX="20.0" layoutY="271.0" prefHeight="261.0" prefWidth="920.0" style="-fx-background-color: white;" styleClass="bg-whitepane" />
       <AnchorPane layoutX="556.0" layoutY="21.0" prefHeight="237.0" prefWidth="380.0" style="-fx-background-color: black;" styleClass="bg-whitepane" />

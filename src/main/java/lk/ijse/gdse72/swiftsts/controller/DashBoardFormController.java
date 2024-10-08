@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -48,7 +49,10 @@ public class DashBoardFormController {
     }
 
     @FXML
-    void btnDriverOnAction(ActionEvent event) {
+    void btnDriverOnAction(ActionEvent event) throws IOException {
+        paneBody.getChildren().clear();
+        AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/view/DriverForm.fxml"));
+        paneBody.getChildren().add(anchorPane);
 
     }
 
@@ -80,8 +84,19 @@ public class DashBoardFormController {
     }
 
     @FXML
-    void btnVehicleOnAction(ActionEvent event) {
+    void btnVehicleOnAction(ActionEvent event) throws IOException {
+        paneBody.getChildren().clear();
+        AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/view/VehicleForm.fxml"));
+        paneBody.getChildren().add(anchorPane);
 
     }
 
+    public void calculatorOnClicked(MouseEvent mouseEvent) throws IOException {
+       // Window window = paneDashBoard.getScene().getWindow();
+        //window.hide();
+        AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/view/CalculatorForm.fxml"));
+        Stage stage = new Stage();
+        stage.setScene(new Scene(anchorPane));
+        stage.show();
+    }
 }

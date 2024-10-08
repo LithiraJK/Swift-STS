@@ -4,7 +4,7 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="paneSignUp" prefHeight="465.0" prefWidth="300.0" styleClass="bg" stylesheets="@../CSS/Login.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse72.swiftsts.controller.SignUpFormController">
+<AnchorPane fx:id="paneSignUp" prefHeight="465.0" prefWidth="300.0" styleClass="bg" stylesheets="@../css-file/Login.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse72.swiftsts.controller.SignUpFormController">
    <children>
       <JFXButton fx:id="btnNext" layoutX="11.0" layoutY="370.0" onAction="#btnNextOnAction" prefHeight="37.0" prefWidth="280.0" styleClass="loginbtn" text="Next" />
       <JFXTextField focusColor="#ffd600" labelFloat="true" layoutX="11.0" layoutY="175.0" prefHeight="26.0" prefWidth="280.0" promptText="Username" styleClass="custom-textfield" unFocusColor="WHITE" />
