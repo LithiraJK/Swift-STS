@@ -1,7 +1,7 @@
 .button{
     -fx-border-radius: 50;
     -fx-background-radius: 50;
-    -fx-background-color: #171717;
+    -fx-background-color: #000000;
     -fx-border-width: 3;
     -fx-border-style: solid;
     -fx-text-fill: #ffffff;
@@ -12,14 +12,14 @@
 }
 .button:hover{
     -fx-text-fill: #ffd600;
-    -fx-background-color: #171717;
+    -fx-background-color: #000000;
     -fx-border-color: #ffd600;
 }
 
 .button-1{
     /*-fx-border-radius: 50;*/
     -fx-background-radius: 50;
-    -fx-background-color: #171717;
+    -fx-background-color: #000000;
     /*-fx-border-width: 3;*/
     /*-fx-border-style: solid;*/
     -fx-text-fill: #ffffff;
