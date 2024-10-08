@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="paneSignUpSecond" prefHeight="465.0" prefWidth="300.0" styleClass="bg" stylesheets="@../CSS/Login.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse72.swiftsts.controller.SignUpSecondFormController">
+    <children>
+          <JFXPasswordField focusColor="#ffd600" labelFloat="true" layoutX="11.0" layoutY="168.0" prefHeight="26.0" prefWidth="280.0" promptText="Password" styleClass="custom-textfield" unFocusColor="WHITE" />
+          <JFXPasswordField focusColor="#ffd600" labelFloat="true" layoutX="11.0" layoutY="218.0" prefHeight="26.0" prefWidth="280.0" promptText="Confirm password" styleClass="custom-textfield" unFocusColor="WHITE" />
+          <JFXTextField focusColor="#ffd600" labelFloat="true" layoutX="11.0" layoutY="268.0" prefHeight="26.0" prefWidth="280.0" promptText="Username" styleClass="custom-textfield" unFocusColor="WHITE" />
+          <JFXTextField focusColor="#ffd600" labelFloat="true" layoutX="11.0" layoutY="318.0" prefHeight="26.0" prefWidth="280.0" promptText="Role" styleClass="custom-textfield" unFocusColor="WHITE" />
+          <JFXButton fx:id="btnSignUp" layoutX="87.0" layoutY="383.0" onAction="#btnSignUpOnAction" prefHeight="37.0" prefWidth="126.0" styleClass="loginbtn" text="Sign Up" />
+    </children>
+
+</AnchorPane>

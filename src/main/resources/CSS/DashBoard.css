@@ -1,0 +1,97 @@
+.button{
+    -fx-border-radius: 50;
+    -fx-background-radius: 50;
+    -fx-background-color: #171717;
+    -fx-border-width: 3;
+    -fx-border-style: solid;
+    -fx-text-fill: #ffffff;
+    -fx-text-alignment: right;
+    -fx-font-family: lufga ;
+    -fx-font-size: 15;
+    -fx-font-weight: 700;
+}
+.button:hover{
+    -fx-text-fill: #ffd600;
+    -fx-background-color: #171717;
+    -fx-border-color: #ffd600;
+}
+
+.button-1{
+    /*-fx-border-radius: 50;*/
+    -fx-background-radius: 50;
+    -fx-background-color: #171717;
+    /*-fx-border-width: 3;*/
+    /*-fx-border-style: solid;*/
+    -fx-text-fill: #ffffff;
+    -fx-text-alignment: right;
+    -fx-font-family: lufga ;
+    -fx-font-size: 15;
+    -fx-font-weight: 700;
+}
+.button-1:hover{
+    -fx-text-fill: #000000;
+    -fx-background-color: #ffd600;
+    /*-fx-border-color: #ffd600;*/
+}
+
+.bg-bodypane{
+    /*-fx-background-color: rgba(0, 0, 0, 0.4);*/
+    -fx-background-color: #D8D8D8;
+    -fx-background-radius: 30;
+    -fx-border-radius: 30;
+}
+
+.bg-whitepane{
+    /*-fx-background-color: rgba(0, 0, 0, 0.4);*/
+    /*-fx-background-color: #ffffff;*/
+    -fx-background-radius: 30;
+    -fx-border-radius: 30;
+}
+
+.label-H2-{
+    -fx-font-size:24;
+    /*-fx-font-style:SemiBold;*/
+    -fx-font-family: lufga;
+    -fx-font-weight:700;
+}
+
+.label-H5-{
+    -fx-font-size:13;
+    /*-fx-font-style:SemiBold;*/
+    -fx-font-family: lufga;
+}
+
+.textfields-{
+    -fx-prompt-text-fill: black; /* Custom color for the placeholder (prompt) */
+    -fx-font-style: lufga ; /* Optional: make placeholder  */
+    -fx-text-fill: black; /* Text color for inputted text */
+    -fx-text-opacity: 0.3; /* Adjust opacity as needed (0.0 to 1.0) */
+    -fx-font-family: lufga;
+}
+
+/*.student-btn {*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    background-color: #1e1e1e; !* Dark background *!*/
+/*    color: white; !* White text color *!*/
+/*    border: none; !* Remove border *!*/
+/*    border-radius: 50px; !* Rounded edges *!*/
+/*    padding: 10px 20px; !* Padding around the button *!*/
+/*    font-size: 16px; !* Font size *!*/
+/*    cursor: pointer; !* Pointer on hover *!*/
+/*    outline: none;*/
+/*}*/
+
+/*.student-btn .icon {*/
+/*    margin-right: 8px; !* Space between icon and text *!*/
+/*    font-size: 18px; !* Adjust icon size *!*/
+/*}*/
+
+/*.student-btn:hover {*/
+/*    background-color: #333333; !* Darker color on hover *!*/
+/*}*/
+
+/*.student-btn .text {*/
+/*    font-weight: bold; !* Make text bold *!*/
+/*}*/
+

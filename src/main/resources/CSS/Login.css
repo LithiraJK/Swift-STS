@@ -1,0 +1,44 @@
+.bg{
+    -fx-background-color: rgba(0, 0, 0, 0.4);
+    /*-fx-background-color: #000000;*/
+    -fx-background-radius: 30;
+    -fx-border-radius: 30;
+}
+.bg-anchorpane{
+    /*-fx-background-color: rgba(0, 0, 0, 0.4);*/
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 30;
+    -fx-border-radius: 30;
+}
+.bgDash {
+    -fx-background-color: rgba(0, 0, 0, 0.4);
+    /*-fx-effect: dropshadow(gaussian, black, 10, 0.5, 0, 0);*/
+    -fx-background-radius: 30;
+    -fx-border-radius: 30;
+}
+
+.custom-textfield {
+    -fx-prompt-text-fill: #ffffff; /* Custom color for the placeholder (prompt) */
+    -fx-font-style: lufga ; /* Optional: make placeholder  */
+    -fx-text-fill: #ffffff; /* Text color for inputted text */
+    -fx-text-opacity: 0.3; /* Adjust opacity as needed (0.0 to 1.0) */
+}
+.loginbtn{
+    -fx-border-radius: 50;
+    -fx-background-radius: 50;
+    -fx-border-color: #FFDB15;
+    -fx-border-width: 3;
+    -fx-border-style: solid;
+    -fx-text-fill: #EEEFF3;
+    -fx-text-alignment: center;
+    -fx-font-family: lufga;
+    -fx-font-size: 15;
+    -fx-font-weight: 700;
+
+}
+
+.loginbtn:hover{
+    -fx-text-fill: #000000;
+    -fx-background-color: #FFDB15;
+    /*-fx-background-color: #B1F041;*/
+}
