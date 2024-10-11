@@ -16,8 +16,11 @@ public class AppInitializer extends Application {
     public void start(Stage stage) throws IOException {
         Parent load = FXMLLoader.load(getClass().getResource("/view/LoginForm.fxml"));
         Scene scene = new Scene(load);
-        stage.setTitle("SwiftSTS");
+        stage.setTitle("Swift STS");
+//        stage.setMaximized(true);
         stage.setScene(scene);
         stage.show();
+
+
     }
 }

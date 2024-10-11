@@ -2,14 +2,42 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import java.lang.String?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 
-<AnchorPane fx:id="paneSignUp" prefHeight="465.0" prefWidth="300.0" styleClass="bg" stylesheets="@../css-file/Login.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse72.swiftsts.controller.SignUpFormController">
+<AnchorPane fx:id="paneSignUp" prefHeight="465.0" prefWidth="300.0" styleClass="bg-login" stylesheets="@../css-file/Login.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse72.swiftsts.controller.SignUpFormController">
    <children>
       <JFXButton fx:id="btnNext" layoutX="11.0" layoutY="370.0" onAction="#btnNextOnAction" prefHeight="37.0" prefWidth="280.0" styleClass="loginbtn" text="Next" />
       <JFXTextField focusColor="#ffd600" labelFloat="true" layoutX="11.0" layoutY="175.0" prefHeight="26.0" prefWidth="280.0" promptText="Username" styleClass="custom-textfield" unFocusColor="WHITE" />
       <JFXTextField focusColor="#ffd600" labelFloat="true" layoutX="11.0" layoutY="227.0" prefHeight="26.0" prefWidth="280.0" promptText="Email" styleClass="custom-textfield" unFocusColor="WHITE" />
       <JFXTextField focusColor="#ffd600" labelFloat="true" layoutX="11.0" layoutY="287.0" prefHeight="26.0" prefWidth="125.0" promptText="Enter OTP" styleClass="custom-textfield" unFocusColor="WHITE" />
       <JFXButton fx:id="btnSendOTP" layoutX="156.0" layoutY="282.0" onAction="#btnSendOTPOnAction" prefHeight="37.0" prefWidth="115.0" styleClass="loginbtn" text="Send OTP" />
+      <Group layoutX="18.0" layoutY="70.0">
+         <children>
+            <Pane prefHeight="37.67" prefWidth="255.04" style="-fx-background-color: #EEEFF3; -fx-background-radius: 50;">
+               <children>
+                  <Pane fx:id="yellowPane" layoutX="131.0" layoutY="4.0" prefHeight="30.0" prefWidth="117.54" style="-fx-background-color: #ffd600; -fx-background-radius: 50;" />
+               </children>
+            </Pane>
+            <Label fx:id="txtSignIn" accessibleRole="BUTTON" layoutX="39.0" layoutY="8.0" onMouseClicked="#txtSignInOnMouseClicked" text="Sign IN">
+               <styleClass>
+                  <String fx:value="signUpAndSignIn" />
+                  <String fx:value="active" />
+               </styleClass>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Label>
+            <Label fx:id="txtSignUp" layoutX="165.0" layoutY="9.0" onMouseClicked="#txtSignUpOnMouseClicked" text="Sign UP">
+               <styleClass>
+                  <String fx:value="signUpAndSignIn" />
+                  <String fx:value="active" />
+               </styleClass></Label>
+         </children>
+      </Group>
    </children>
 </AnchorPane>

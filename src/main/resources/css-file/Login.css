@@ -1,6 +1,14 @@
 .bg{
-    -fx-background-color: rgba(0, 0, 0, 0.4);
+    /*-fx-background-color: rgba(255, 255, 255, 0.2);*/
     /*-fx-background-color: #000000;*/
+    -fx-background-color: rgba(0, 0, 0, 0.2);
+    -fx-background-radius: 30;
+    -fx-border-radius: 30;
+}
+.bg-login{
+    /*-fx-background-color: rgba(255, 255, 255, 0.2);*/
+    /*-fx-background-color: #000000;*/
+    -fx-background-color: rgba(0, 0, 0, 0.4);
     -fx-background-radius: 30;
     -fx-border-radius: 30;
 }
@@ -41,4 +49,17 @@
     -fx-text-fill: #000000;
     -fx-background-color: #FFDB15;
     /*-fx-background-color: #B1F041;*/
+}
+
+.signUpAndSignIn{
+    -fx-text-fill: #000000;
+    -fx-text-alignment: center;
+    -fx-font-family: poppins;
+    -fx-font-style: bold;
+    -fx-font-size: 14;
+
+}
+.active:hover{
+    -fx-text-fill: #000000;
+    -fx-font-weight: 600;
 }

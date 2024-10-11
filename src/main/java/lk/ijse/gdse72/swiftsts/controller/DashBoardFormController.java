@@ -4,15 +4,17 @@ import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class DashBoardFormController {
+public class DashBoardFormController implements Initializable {
 
     @FXML
     private JFXButton btnDashBoard;
@@ -58,12 +60,9 @@ public class DashBoardFormController {
 
     @FXML
     void btnLogOutOnAction(ActionEvent event) throws IOException {
-        Window window = paneDashBoard.getScene().getWindow();
-        window.hide();
+        paneDashBoard.getChildren().clear();
         AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/view/LoginForm.fxml"));
-        Stage stage = new Stage();
-        stage.setScene(new Scene(anchorPane));
-        stage.show();
+        paneDashBoard.getChildren().add(anchorPane);
     }
 
     @FXML
@@ -92,11 +91,23 @@ public class DashBoardFormController {
     }
 
     public void calculatorOnClicked(MouseEvent mouseEvent) throws IOException {
-       // Window window = paneDashBoard.getScene().getWindow();
-        //window.hide();
+
         AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/view/CalculatorForm.fxml"));
         Stage stage = new Stage();
+        stage.setMaximized(true);
+        stage.setTitle("Calculator");
         stage.setScene(new Scene(anchorPane));
         stage.show();
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+       try {
+           paneBody.getChildren().clear();
+           AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/view/OverViewForm.fxml"));
+           paneBody.getChildren().add(anchorPane);
+       }catch (IOException e) {
+           e.printStackTrace();
+       }
     }
 }
