@@ -1,0 +1,23 @@
+.Poppins{
+    -fx-text-fill: #534D59;
+    /* H1 */
+    -fx-font-style: Poppins;
+    -fx-font-family: Inter;
+    -fx-font-size: 14;
+    -fx-font-weight:bold;
+}
+
+.Poppins-14{
+    -fx-text-fill: #534D59;
+    -fx-font-family: Inter;
+    -fx-font-size: 15;
+}
+
+.Kanit-16{
+    -fx-font-family: Kanit;
+    -fx-font-size: 17;
+    -fx-text-fill: #B1F041;
+    -fx-font-style: Normal;
+    -fx-font-weight: 600;
+
+}
