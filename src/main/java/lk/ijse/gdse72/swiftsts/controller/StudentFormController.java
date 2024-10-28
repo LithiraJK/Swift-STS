@@ -86,6 +86,13 @@ public class StudentFormController implements Initializable {
     private AnchorPane paneStudent;
 
     @FXML
+    private JFXButton btnReset;
+
+    @FXML
+    void btnResetOnAction(ActionEvent event) throws SQLException {
+        refreshPage();
+    }
+    @FXML
     void btnAttendenceOnAction(ActionEvent event) throws IOException {
         paneStudent.getChildren().clear();
         AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/view/AttendenceForm.fxml"));
@@ -115,7 +122,7 @@ public class StudentFormController implements Initializable {
         boolean isValidPhoneNo = phoneNo.matches(phonePattern);
         boolean isValidGrade = studentGrade.matches(gradePattern);
 
-        txtStudentName.setStyle(txtStudentName.getStyle() + ";-fx-border-color: #000000;");
+        txtStudentName.setStyle(txtStudentName.getStyle() + "-fx-border-color: #000000;");
         txtParentName.setStyle(txtParentName.getStyle() + ";-fx-border-color: #000000;");
         txtAddress.setStyle(txtAddress.getStyle() + ";-fx-border-color: #000000;");
         txtEmail.setStyle(txtEmail.getStyle() + ";-fx-border-color: #000000;");
@@ -123,7 +130,7 @@ public class StudentFormController implements Initializable {
         txtStudentGrade.setStyle(txtStudentGrade.getStyle() + ";-fx-border-color: #000000;");
 
         if (!isValidName) {
-            txtStudentName.setStyle(txtStudentName.getStyle() + ";-fx-border-color: red;");
+            txtStudentName.setStyle(txtStudentName.getStyle() + "-fx-border-color: red;");
         }
         if (!isValidParentName) {
             txtParentName.setStyle(txtParentName.getStyle() + ";-fx-border-color: red;");

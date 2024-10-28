@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -48,14 +49,28 @@ public class SignInFormController {
 
     @FXML
     void btnSignInOnAction(ActionEvent event) throws IOException {
-        Window window = signInPage.getScene().getWindow();
-        window.hide();
-        AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/view/DashBoardForm.fxml"));
-        Stage stage = new Stage();
-        stage.setMaximized(true);
-        stage.setTitle("swift STS");
-        stage.setScene(new Scene(anchorPane));
-        stage.show();
+        String username = txtusername.getText();
+        String password = txtpassword.getText();
+
+        // Validate credentials (this example assumes a method `validateCredentials` exists)
+        if (validateCredentials(username, password)) {
+            Window window = signInPage.getScene().getWindow();
+            window.hide();
+            AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/view/DashBoardForm.fxml"));
+            Stage stage = new Stage();
+            stage.setMaximized(true);
+            stage.setTitle("swift STS");
+            stage.setScene(new Scene(anchorPane));
+            stage.show();
+        } else {
+            new Alert(Alert.AlertType.ERROR, "Invalid username or password!").show();
+        }
+    }
+
+    // Example method to validate credentials
+    private boolean validateCredentials(String username, String password) {
+        // Replace with actual validation logic, e.g., database query
+        return "admin".equals(username) && "1234".equals(password);
     }
 
     public void txtSignInOnMouseClicked(MouseEvent mouseEvent) throws IOException {

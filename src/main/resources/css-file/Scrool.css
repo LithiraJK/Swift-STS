@@ -9,7 +9,7 @@
     -fx-background-radius: 100;
 }
 .scroll-bar:vertical .thumb{
-    -fx-background-color:#cff1e7 ;
+    -fx-background-color:#000000 ;
     -fx-background-radius: 100;
 }
 .scroll-bar:vertical *.increment-button,
@@ -33,7 +33,7 @@
 .scroll-bar:horizontal *.decrement-arrow .content{}
 .scroll-bar:horizontal *.increment-arrow,
 .scroll-bar:horizontal *.decrement-arrow{
-    -fx-background-color: #cff1e7;
+    -fx-background-color: #000000;
 }
 .scroll-pane .corner{
     -fx-background-color: white;
