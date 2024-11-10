@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+<?import java.lang.String?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="paneOverView" prefHeight="550.0" prefWidth="960.0" styleClass="bg-bodypane" stylesheets="@../css-file/DashBoard.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse72.swiftsts.controller.OverViewFormController">
+<AnchorPane fx:id="paneOverView" prefHeight="555.0" prefWidth="1036.0" styleClass="bg-bodypane" stylesheets="@../css-file/DashBoard.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse72.swiftsts.controller.OverViewFormController">
    <children>
       <AnchorPane layoutX="74.0" layoutY="42.0" prefHeight="179.0" prefWidth="293.0" style="-fx-background-color: white;" styleClass="bg-whitepane" />
-      <AnchorPane layoutX="691.0" layoutY="32.0" prefHeight="485.0" prefWidth="224.0" style="-fx-background-color: black;" styleClass="bg-bodypane" />
+      <AnchorPane layoutX="764.0" layoutY="35.0" prefHeight="485.0" prefWidth="224.0" style="-fx-background-color: black;" styleClass="bg-bodypane" />
       <AnchorPane layoutX="377.0" layoutY="42.0" prefHeight="179.0" prefWidth="293.0" style="-fx-background-color: white;" styleClass="bg-whitepane" />
-      <AnchorPane layoutX="74.0" layoutY="258.0" prefHeight="248.0" prefWidth="591.0" style="-fx-background-color: white;">
+      <AnchorPane layoutX="74.0" layoutY="258.0" prefHeight="248.0" prefWidth="654.0" style="-fx-background-color: white;">
          <styleClass>
             <String fx:value="bg-bodypane" />
             <String fx:value="bg-whitepane" />

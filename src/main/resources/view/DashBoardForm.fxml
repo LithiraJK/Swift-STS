@@ -5,59 +5,65 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="paneDashBoard" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #000000;" stylesheets="@../css-file/DashBoard.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse72.swiftsts.controller.DashBoardFormController">
+<AnchorPane fx:id="paneDashBoard" prefHeight="720.0" prefWidth="1366.0" style="-fx-background-color: #000000;" stylesheets="@../css-file/DashBoard.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse72.swiftsts.controller.DashBoardFormController">
    <children>
-      <ImageView fitHeight="720.0" fitWidth="1280.0" layoutX="-1.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="714.0" fitWidth="1389.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../assets/images/DashBoard Design - 4.jpg" />
+            <Image url="@../assets/images/DashBoard%20Design%20-%205%20(2).jpg" />
          </image>
       </ImageView>
-      <AnchorPane fx:id="paneBody" layoutX="236.0" layoutY="106.0" prefHeight="550.0" prefWidth="969.0" styleClass="bg-bodypane" />
+      <AnchorPane fx:id="paneBody" layoutX="223.0" layoutY="100.0" prefHeight="555.0" prefWidth="1036.0" styleClass="bg-bodypane" />
       <ImageView fx:id="iconCalculator" fitHeight="30.0" fitWidth="30.0" layoutX="1119.0" layoutY="59.0" onMouseClicked="#calculatorOnClicked" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/icons/icons8-calculator-66.png" />
          </image>
       </ImageView>
-      <JFXButton fx:id="btnStudent" layoutX="51.0" layoutY="191.0" onAction="#btnStudentOnAction" prefHeight="37.0" prefWidth="161.0" text="Student" textAlignment="JUSTIFY" />
-      <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="58.0" layoutY="195.0" pickOnBounds="true" preserveRatio="true">
+      <JFXButton fx:id="btnStudent" layoutX="15.0" layoutY="191.0" onAction="#btnStudentOnAction" prefHeight="37.0" prefWidth="161.0" text="Student" textAlignment="JUSTIFY" />
+      <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="22.0" layoutY="195.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/icons/icons8-users-90.png" />
          </image>
       </ImageView>
-      <JFXButton fx:id="btnDriver" layoutX="52.0" layoutY="257.0" onAction="#btnDriverOnAction" prefHeight="37.0" prefWidth="161.0" text="Driver" textAlignment="JUSTIFY" />
-      <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="59.0" layoutY="261.0" pickOnBounds="true" preserveRatio="true">
+      <JFXButton fx:id="btnDriver" layoutX="15.0" layoutY="262.0" onAction="#btnDriverOnAction" prefHeight="37.0" prefWidth="161.0" text="Driver" textAlignment="JUSTIFY" />
+      <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="22.0" layoutY="266.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/icons/icons8-driver-90.png" />
          </image>
       </ImageView>
-      <JFXButton fx:id="btnVehicle" layoutX="52.0" layoutY="358.0" onAction="#btnVehicleOnAction" prefHeight="37.0" prefWidth="161.0" text="Vehicle" textAlignment="JUSTIFY" />
-      <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="59.0" layoutY="362.0" pickOnBounds="true" preserveRatio="true">
+      <JFXButton fx:id="btnVehicle" layoutX="15.0" layoutY="324.0" onAction="#btnVehicleOnAction" prefHeight="37.0" prefWidth="161.0" text="Vehicle" textAlignment="JUSTIFY" />
+      <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="22.0" layoutY="328.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/icons/icons8-bus-90.png" />
          </image>
       </ImageView>
-      <JFXButton fx:id="btnSchedule" layoutX="54.0" layoutY="429.0" onAction="#btnScheduleOnAction" prefHeight="37.0" prefWidth="161.0" text="Schedule" textAlignment="JUSTIFY" />
-      <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="61.0" layoutY="433.0" pickOnBounds="true" preserveRatio="true">
+      <JFXButton fx:id="btnSchedule" layoutX="22.0" layoutY="389.0" onAction="#btnScheduleOnAction" prefHeight="37.0" prefWidth="161.0" text="Schedule" textAlignment="JUSTIFY" />
+      <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="29.0" layoutY="393.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/icons/icons8-timetable-90.png" />
          </image>
       </ImageView>
-      <JFXButton fx:id="btnReports" layoutX="56.0" layoutY="497.0" onAction="#btnReportsOnAction" prefHeight="37.0" prefWidth="161.0" text="Reports" textAlignment="JUSTIFY" />
-      <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="65.0" layoutY="501.0" pickOnBounds="true" preserveRatio="true">
+      <JFXButton fx:id="btnReports" layoutX="22.0" layoutY="448.0" onAction="#btnReportsOnAction" prefHeight="37.0" prefWidth="161.0" text="Payment" textAlignment="JUSTIFY" />
+      <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="31.0" layoutY="452.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/icons/icons8-reports-90.png" />
          </image>
       </ImageView>
-      <JFXButton fx:id="btnLogOut" layoutX="54.0" layoutY="566.0" onAction="#btnLogOutOnAction" prefHeight="37.0" prefWidth="161.0" text="Log Out" textAlignment="JUSTIFY" />
-      <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="64.0" layoutY="568.0" pickOnBounds="true" preserveRatio="true">
+      <JFXButton fx:id="btnLogOut" layoutX="22.0" layoutY="571.0" onAction="#btnLogOutOnAction" prefHeight="37.0" prefWidth="161.0" text="Log Out" textAlignment="JUSTIFY" />
+      <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="32.0" layoutY="573.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/icons/icons8-logout-90.png" />
          </image>
       </ImageView>
-      <JFXButton fx:id="btnDashBoard" layoutX="51.0" layoutY="127.0" onAction="#btnDashBoard" prefHeight="37.0" prefWidth="161.0" text="DashBoard" textAlignment="JUSTIFY" />
-      <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="56.0" layoutY="131.0" pickOnBounds="true" preserveRatio="true">
+      <JFXButton fx:id="btnDashBoard" layoutX="15.0" layoutY="131.0" onAction="#btnDashBoard" prefHeight="37.0" prefWidth="161.0" text="DashBoard" textAlignment="JUSTIFY" />
+      <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="20.0" layoutY="135.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/icons/icons8-home-90.png" />
+         </image>
+      </ImageView>
+      <JFXButton fx:id="btnReports1" layoutX="22.0" layoutY="515.0" onAction="#btnReportsOnAction" prefHeight="37.0" prefWidth="161.0" text="Reports" textAlignment="JUSTIFY" />
+      <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="31.0" layoutY="519.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/icons/icons8-reports-90.png" />
          </image>
       </ImageView>
    </children>

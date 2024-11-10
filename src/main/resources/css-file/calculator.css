@@ -1,0 +1,74 @@
+/* General Styles */
+.root {
+    -fx-font-family: 'Arial', sans-serif;
+}
+
+.calculator-container {
+    -fx-pref-width: 300px;
+    -fx-pref-height: 400px;
+    -fx-background-color: #000000;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 5, 5);
+}
+
+.calculator-container.light {
+    -fx-background-color: #f0f0f0;
+}
+
+.calculator-display {
+    -fx-pref-width: 260px;
+    -fx-pref-height: 75px;
+    -fx-background-color: #2c2f38;
+    -fx-text-fill: white;
+    -fx-font-size: 30px;
+    -fx-padding: 10px 20px;
+    -fx-background-radius: 10px;
+    -fx-margin: 10px;
+}
+
+.calculator-display.light {
+    -fx-background-color: white;
+    -fx-text-fill: #333;
+}
+
+.calculator-buttons {
+    -fx-padding: 10px;
+    -fx-hgap: 10px;
+    -fx-vgap: 10px;
+}
+
+.button {
+    -fx-background-color: #444;
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+    -fx-background-radius: 10px;
+    -fx-pref-width: 60px;
+    -fx-pref-height: 60px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 2, 2);
+}
+
+.button:hover {
+    -fx-background-color: #666;
+}
+
+.operator {
+    -fx-background-color: #FFDB15;
+    -fx-text-fill: black;
+    -fx-font-size: 25px;
+    -fx-font-weight: 500;
+}
+
+.operator:hover {
+    -fx-background-color: #FFDB15;
+    -fx-text-fill: black;
+    -fx-font-size: 28px;
+    -fx-font-weight: 700;
+}
+
+
+.clear {
+    -fx-background-color: #f44336;
+}
+
+.clear:hover {
+    -fx-background-color: #e53935;
+}

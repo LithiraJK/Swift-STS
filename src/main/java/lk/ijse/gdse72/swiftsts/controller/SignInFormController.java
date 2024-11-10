@@ -13,8 +13,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import lk.ijse.gdse72.swiftsts.util.CrudUtil;
 
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class SignInFormController {
 
@@ -46,31 +49,41 @@ public class SignInFormController {
         signInPage.getChildren().add(anchorPane);
     }
 
-
     @FXML
     void btnSignInOnAction(ActionEvent event) throws IOException {
         String username = txtusername.getText();
         String password = txtpassword.getText();
 
-        // Validate credentials (this example assumes a method `validateCredentials` exists)
         if (validateCredentials(username, password)) {
-            Window window = signInPage.getScene().getWindow();
-            window.hide();
-            AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/view/DashBoardForm.fxml"));
-            Stage stage = new Stage();
-            stage.setMaximized(true);
-            stage.setTitle("swift STS");
-            stage.setScene(new Scene(anchorPane));
-            stage.show();
+            loadDashboard("/view/DashBoardForm.fxml");
         } else {
-            new Alert(Alert.AlertType.ERROR, "Invalid username or password!").show();
+            showError("Invalid username or password");
         }
     }
 
-    // Example method to validate credentials
     private boolean validateCredentials(String username, String password) {
-        // Replace with actual validation logic, e.g., database query
-        return "admin".equals(username) && "1234".equals(password);
+        try {
+            ResultSet resultSet = CrudUtil.execute("SELECT * FROM User WHERE username=? AND password=?", username, password);
+            return resultSet.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    private void loadDashboard(String fxmlPath) throws IOException {
+        Window window = signInPage.getScene().getWindow();
+        window.hide();
+        AnchorPane anchorPane = FXMLLoader.load(getClass().getResource(fxmlPath));
+        Stage stage = new Stage();
+        stage.setMaximized(true);
+        stage.setTitle("swift Student Transfort Service");
+        stage.setScene(new Scene(anchorPane));
+        stage.show();
+    }
+
+    private void showError(String message) {
+        new Alert(Alert.AlertType.ERROR, message).show();
     }
 
     public void txtSignInOnMouseClicked(MouseEvent mouseEvent) throws IOException {

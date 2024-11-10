@@ -26,14 +26,8 @@ CREATE TABLE Student (
                          ParentName VARCHAR(50) NOT NULL,
                          Address VARCHAR(100) NOT NULL,
                          Email VARCHAR(100) NOT NULL,
-                         ContactNo VARCHAR(15) NOT NULL,
                          StudentGrade VARCHAR(10) NOT NULL,
-                         DriverId VARCHAR(10) NOT NULL,
-                         AttendanceId VARCHAR(10) NOT NULL,
-                         CONSTRAINT FOREIGN KEY(DriverId) REFERENCES Driver(DriverId)
-                             ON UPDATE CASCADE ON DELETE CASCADE,
-                         CONSTRAINT FOREIGN KEY(AttendanceId) REFERENCES Attendance(AttendanceId)
-                             ON UPDATE CASCADE ON DELETE CASCADE
+                         ContactNo VARCHAR(15) NOT NULL
 );
 
 -- Table: Driver
@@ -143,16 +137,16 @@ INSERT INTO Attendance VALUES
                            ('A010', 'October', 20);
 
 INSERT INTO Student VALUES
-                        ('S001', 'Student1', 'Parent1', '123 Main St', 'student1@example.com', '123-456-7890', '5', 'D001', 'A001'),
-                        ('S002', 'Student2', 'Parent2', '456 Park Ave', 'student2@example.com', '234-567-8901', '6', 'D002', 'A002'),
-                        ('S003', 'Student3', 'Parent3', '789 Oak Dr', 'student3@example.com', '345-678-9012', '5', 'D003', 'A003'),
-                        ('S004', 'Student4', 'Parent4', '321 Pine St', 'student4@example.com', '456-789-0123', '6', 'D004', 'A004'),
-                        ('S005', 'Student5', 'Parent5', '654 Maple Ave', 'student5@example.com', '567-890-1234', '7', 'D005', 'A005'),
-                        ('S006', 'Student6', 'Parent6', '987 Cedar Dr', 'student6@example.com', '678-901-2345', '5', 'D006', 'A006'),
-                        ('S007', 'Student7', 'Parent7', '111 Elm St', 'student7@example.com', '789-012-3456', '6', 'D007', 'A007'),
-                        ('S008', 'Student8', 'Parent8', '222 Birch Rd', 'student8@example.com', '890-123-4567', '7', 'D008', 'A008'),
-                        ('S009', 'Student9', 'Parent9', '333 Fir Ln', 'student9@example.com', '901-234-5678', '5', 'D009', 'A009'),
-                        ('S010', 'Student10', 'Parent10', '444 Spruce Blvd', 'student10@example.com', '012-345-6789', '6', 'D010', 'A010');
+                        ('S001', 'Student1', 'Parent1', '123 Main St', 'student1@example.com','6A', '123-456-7890'),
+                        ('S002', 'Student2', 'Parent2', '456 Park Ave', 'student2@example.com','7B', '234-567-8901'),
+                        ('S003', 'Student3', 'Parent3', '789 Oak Dr', 'student3@example.com','6D', '345-678-9012'),
+                        ('S004', 'Student4', 'Parent4', '321 Pine St', 'student4@example.com','4D', '456-789-0123'),
+                        ('S005', 'Student5', 'Parent5', '654 Maple Ave', 'student5@example.com','9D', '567-890-1234'),
+                        ('S006', 'Student6', 'Parent6', '987 Cedar Dr', 'student6@example.com','7D', '678-901-2345'),
+                        ('S007', 'Student7', 'Parent7', '111 Elm St', 'student7@example.com','2D', '789-012-3456'),
+                        ('S008', 'Student8', 'Parent8', '222 Birch Rd', 'student8@example.com','6A', '890-123-4567'),
+                        ('S009', 'Student9', 'Parent9', '333 Fir Ln', 'student9@example.com','6F', '901-234-5678'),
+                        ('S010', 'Student10', 'Parent10', '444 Spruce Blvd', 'student10@example.com','4D', '012-345-6789');
 
 INSERT INTO Driver VALUES
                        ('D001', 'Driver1', 'L123456', '123-456-7890'),
@@ -252,4 +246,3 @@ INSERT INTO DriverSchedule VALUES
                                ('DS008', 'D008', 'R008', '2024-08-10'),
                                ('DS009', 'D009', 'R009', '2024-09-10'),
                                ('DS010', 'D010', 'R010', '2024-10-10');
-

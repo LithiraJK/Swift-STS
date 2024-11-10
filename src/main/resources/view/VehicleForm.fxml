@@ -3,23 +3,38 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane fx:id="paneVehicle" prefHeight="550.0" prefWidth="960.0" styleClass="bg-bodypane" stylesheets="@../css-file/DashBoard.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse72.swiftsts.controller.VehicleFormController">
+<AnchorPane fx:id="paneVehicle" prefHeight="555.0" prefWidth="1036.0" styleClass="bg-bodypane" stylesheets="@../css-file/DashBoard.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse72.swiftsts.controller.VehicleFormController">
    <children>
-      <Label layoutX="41.0" layoutY="26.0" styleClass="label-H2-" text="Vehicles" />
-      <Pane layoutX="367.0" layoutY="30.0" prefHeight="494.0" prefWidth="574.0" style="-fx-background-color: white;" styleClass="bg-whitepane" />
-      <Label layoutX="27.0" layoutY="103.0" prefHeight="18.0" prefWidth="82.0" text="Vehicle ID" />
-      <JFXTextField focusColor="BLACK" labelFloat="true" layoutX="22.0" layoutY="147.0" prefHeight="26.0" prefWidth="144.0" promptText="Model" styleClass="textfields-" unFocusColor="BLACK" />
-      <JFXTextField focusColor="BLACK" labelFloat="true" layoutX="193.0" layoutY="147.0" prefHeight="26.0" prefWidth="150.0" promptText="Vehicle No" styleClass="textfields-" unFocusColor="BLACK" />
-      <JFXButton layoutX="24.0" layoutY="417.0" prefHeight="37.0" prefWidth="316.0" styleClass="button-1" text="Save" />
-      <JFXTextField focusColor="BLACK" labelFloat="true" layoutX="22.0" layoutY="261.0" prefHeight="26.0" prefWidth="144.0" promptText="Model" styleClass="textfields-" unFocusColor="BLACK" />
-      <JFXTextField focusColor="BLACK" labelFloat="true" layoutX="193.0" layoutY="261.0" prefHeight="26.0" prefWidth="150.0" promptText="Vehicle No" styleClass="textfields-" unFocusColor="BLACK" />
-      <JFXTextField focusColor="BLACK" labelFloat="true" layoutX="22.0" layoutY="206.0" prefHeight="26.0" prefWidth="144.0" promptText="Model" styleClass="textfields-" unFocusColor="BLACK" />
-      <JFXTextField focusColor="BLACK" labelFloat="true" layoutX="193.0" layoutY="206.0" prefHeight="26.0" prefWidth="150.0" promptText="Vehicle No" styleClass="textfields-" unFocusColor="BLACK" />
-      <JFXTextField focusColor="BLACK" labelFloat="true" layoutX="22.0" layoutY="318.0" prefHeight="26.0" prefWidth="144.0" promptText="Model" styleClass="textfields-" unFocusColor="BLACK" />
-      <JFXTextField focusColor="BLACK" labelFloat="true" layoutX="193.0" layoutY="318.0" prefHeight="26.0" prefWidth="150.0" promptText="Vehicle No" styleClass="textfields-" unFocusColor="BLACK" />
-      <JFXTextField focusColor="BLACK" labelFloat="true" layoutX="193.0" layoutY="95.0" prefHeight="26.0" prefWidth="150.0" promptText="Vehicle No" styleClass="textfields-" unFocusColor="BLACK" />
+      <Label layoutX="35.0" layoutY="22.0" styleClass="label-H2-" text="Vehicles" />
+      <Pane layoutX="19.0" layoutY="243.0" prefHeight="292.0" prefWidth="999.0" style="-fx-background-color: white;" styleClass="bg-whitepane">
+         <children>
+            <TableView fx:id="tblVehicle" layoutX="-3.0" layoutY="-1.0" prefHeight="292.0" prefWidth="999.0">
+              <columns>
+                <TableColumn fx:id="colVehicleID" prefWidth="113.0" text="Vehicle ID" />
+                <TableColumn fx:id="colVehicleNo" prefWidth="143.0" text="Vehicle No" />
+                  <TableColumn fx:id="colModelNo" prefWidth="149.0" text="Model" />
+                  <TableColumn fx:id="colRegistrationNo" prefWidth="145.0" text="Registration No" />
+                  <TableColumn fx:id="colVehicleType" prefWidth="142.0" text="Vehicle Type" />
+                  <TableColumn fx:id="colEngineCapacity" prefWidth="150.0" text="Engine Capacity" />
+                  <TableColumn fx:id="colFuelType" prefWidth="152.0" text="Fuel Type" />
+              </columns>
+            </TableView>
+         </children></Pane>
+      <Label fx:id="lblVehicleID" layoutX="146.0" layoutY="89.0" prefHeight="21.0" prefWidth="60.0" styleClass="label-H5-" />
+      <JFXTextField fx:id="txtModel" focusColor="BLACK" labelFloat="true" layoutX="504.0" layoutY="87.0" prefHeight="26.0" prefWidth="201.0" promptText="Model" styleClass="textfields-" unFocusColor="BLACK" />
+      <JFXButton fx:id="btnSave" layoutX="915.0" layoutY="179.0" prefHeight="37.0" prefWidth="92.0" styleClass="button-1" text="Save" />
+      <JFXTextField fx:id="txtRegistrationNo" focusColor="BLACK" labelFloat="true" layoutX="251.0" layoutY="87.0" prefHeight="26.0" prefWidth="179.0" promptText="Registration No" styleClass="textfields-" unFocusColor="BLACK" />
+      <Label layoutX="33.0" layoutY="89.0" prefHeight="18.0" prefWidth="82.0" styleClass="label-H5-" text="Vehicle ID" />
+      <JFXTextField fx:id="txtVehicleType" focusColor="BLACK" labelFloat="true" layoutX="785.0" layoutY="87.0" prefHeight="26.0" prefWidth="201.0" promptText="Vehicle Type" styleClass="textfields-" unFocusColor="BLACK" />
+      <JFXTextField fx:id="txtEngineCapacity" focusColor="BLACK" labelFloat="true" layoutX="251.0" layoutY="134.0" prefHeight="26.0" prefWidth="191.0" promptText="Engine Capacity" styleClass="textfields-" unFocusColor="BLACK" />
+      <JFXTextField fx:id="txtFuelType" focusColor="BLACK" labelFloat="true" layoutX="34.0" layoutY="134.0" prefHeight="26.0" prefWidth="179.0" promptText="Fuel Type" styleClass="textfields-" unFocusColor="BLACK" />
+      <JFXButton fx:id="btnUpdate" layoutX="792.0" layoutY="180.0" prefHeight="37.0" prefWidth="92.0" styleClass="button-1" text="Update" />
+      <JFXButton fx:id="btnDelete" layoutX="678.0" layoutY="180.0" prefHeight="37.0" prefWidth="92.0" styleClass="button-1" text="Delete" />
+      <JFXButton fx:id="btnReset" layoutX="562.0" layoutY="180.0" prefHeight="37.0" prefWidth="92.0" styleClass="button-1" text="Reset" />
    </children>
 </AnchorPane>

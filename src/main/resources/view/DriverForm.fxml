@@ -5,15 +5,14 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane fx:id="paneDriver" prefHeight="550.0" prefWidth="960.0" styleClass="bg-bodypane" stylesheets="@../css-file/DashBoard.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse72.swiftsts.controller.DriverFormController">
+<AnchorPane fx:id="paneDriver" prefHeight="555.0" prefWidth="1036.0" styleClass="bg-bodypane" stylesheets="@../css-file/DashBoard.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse72.swiftsts.controller.DriverFormController">
    <children>
       <Label layoutX="36.0" layoutY="25.0" styleClass="label-H2-" text="Driver" />
-      <AnchorPane layoutX="36.0" layoutY="189.0" prefHeight="333.0" prefWidth="890.0" style="-fx-background-color: white;" styleClass="bg-whitepane" />
+      <AnchorPane layoutX="23.0" layoutY="189.0" prefHeight="348.0" prefWidth="986.0" style="-fx-background-color: white;" styleClass="bg-whitepane" />
       <JFXTextField focusColor="BLACK" labelFloat="true" layoutX="182.0" layoutY="73.0" promptText="Driver Name" styleClass="textfields-" />
       <JFXTextField focusColor="BLACK" labelFloat="true" layoutX="376.0" layoutY="73.0" promptText="Liecence No" styleClass="textfields-" />
       <JFXTextField focusColor="BLACK" labelFloat="true" layoutX="567.0" layoutY="73.0" promptText="Liecence type" styleClass="textfields-" />
       <Label layoutX="37.0" layoutY="84.0" prefHeight="18.0" prefWidth="88.0" styleClass="label-H5-" text="Driver ID" />
-      <JFXButton layoutX="820.0" layoutY="80.0" prefHeight="37.0" prefWidth="81.0" styleClass="button-1" text="Save" />
+      <JFXButton layoutX="888.0" layoutY="81.0" prefHeight="37.0" prefWidth="97.0" styleClass="button-1" text="Save" />
    </children>
 </AnchorPane>

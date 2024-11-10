@@ -1,6 +1,7 @@
 package lk.ijse.gdse72.swiftsts.controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +12,14 @@ import javafx.scene.layout.AnchorPane;
 import java.io.IOException;
 
 public class SignUpFormController {
+    @FXML
+    public JFXTextField txtUsername;
+
+    @FXML
+    public JFXTextField txtEnterOTP;
+
+    @FXML
+    public JFXTextField txtEmail;
 
     @FXML
     private Label txtSignIn;
@@ -39,6 +48,7 @@ public class SignUpFormController {
     void btnSendOTPOnAction(ActionEvent event) {
 
     }
+
 
     public void txtSignInOnMouseClicked(MouseEvent mouseEvent) throws IOException {
         paneSignUp.getChildren().clear();

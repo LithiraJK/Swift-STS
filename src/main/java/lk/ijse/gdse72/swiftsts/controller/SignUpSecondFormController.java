@@ -1,6 +1,8 @@
 package lk.ijse.gdse72.swiftsts.controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,8 +19,20 @@ public class SignUpSecondFormController {
 
     @FXML
     private Label txtSignUp;
+
     @FXML
     private JFXButton btnSignUp;
+    @FXML
+    private JFXPasswordField txtConfirmPassword;
+
+    @FXML
+    private JFXPasswordField txtPassWord;
+
+    @FXML
+    private JFXTextField txtRole;
+
+    @FXML
+    private JFXTextField txtUserName;
 
     @FXML
     private AnchorPane paneSignUpSecond;

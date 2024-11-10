@@ -12,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Paint;
 import lk.ijse.gdse72.swiftsts.dto.StudentDto;
 import lk.ijse.gdse72.swiftsts.dto.tm.StudentTM;
 import lk.ijse.gdse72.swiftsts.model.StudentModel;
@@ -111,7 +112,7 @@ public class StudentFormController implements Initializable {
 
         // Define regex patterns for validation
         String namePattern = "^[A-Za-z ]+$";
-        String emailPattern = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
+        String emailPattern = "^[\\w!#$%&'*+/=?{|}~^-]+(?:\\.[\\w!#$%&'*+/=?{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
         String phonePattern = "^(\\d+)$";
         String gradePattern = "^[a-zA-Z0-9]+$";
 
@@ -122,30 +123,59 @@ public class StudentFormController implements Initializable {
         boolean isValidPhoneNo = phoneNo.matches(phonePattern);
         boolean isValidGrade = studentGrade.matches(gradePattern);
 
-        txtStudentName.setStyle(txtStudentName.getStyle() + "-fx-border-color: #000000;");
-        txtParentName.setStyle(txtParentName.getStyle() + ";-fx-border-color: #000000;");
-        txtAddress.setStyle(txtAddress.getStyle() + ";-fx-border-color: #000000;");
-        txtEmail.setStyle(txtEmail.getStyle() + ";-fx-border-color: #000000;");
-        txtPhoneNo.setStyle(txtPhoneNo.getStyle() + ";-fx-border-color: #000000;");
-        txtStudentGrade.setStyle(txtStudentGrade.getStyle() + ";-fx-border-color: #000000;");
+        txtStudentName.setFocusColor(Paint.valueOf("black"));
+        txtParentName.setFocusColor(Paint.valueOf("black"));
+        txtAddress.setFocusColor(Paint.valueOf("black"));
+        txtEmail.setFocusColor(Paint.valueOf("black"));
+        txtPhoneNo.setFocusColor(Paint.valueOf("black"));
+        txtStudentGrade.setFocusColor(Paint.valueOf("black"));
+
+        txtStudentName.setUnFocusColor(Paint.valueOf("black"));
+        txtParentName.setUnFocusColor(Paint.valueOf("black"));
+        txtAddress.setUnFocusColor(Paint.valueOf("black"));
+        txtEmail.setUnFocusColor(Paint.valueOf("black"));
+        txtPhoneNo.setUnFocusColor(Paint.valueOf("black"));
+        txtStudentGrade.setUnFocusColor(Paint.valueOf("black"));
+
+
+
+
+//        txtStudentName.setStyle(txtStudentName.getStyle() + "-fx-border-color: #000000;");
+//        txtParentName.setStyle(txtParentName.getStyle() + ";-fx-border-color: #000000;");
+//        txtAddress.setStyle(txtAddress.getStyle() + ";-fx-border-color: #000000;");
+//        txtEmail.setStyle(txtEmail.getStyle() + ";-fx-border-color: #000000;");
+//        txtPhoneNo.setStyle(txtPhoneNo.getStyle() + ";-fx-border-color: #000000;");
+//        txtStudentGrade.setStyle(txtStudentGrade.getStyle() + ";-fx-border-color: #000000;");
 
         if (!isValidName) {
-            txtStudentName.setStyle(txtStudentName.getStyle() + "-fx-border-color: red;");
+//            txtStudentName.setStyle(txtStudentName.getStyle() + "-fx-border-color: red;");
+            txtStudentName.setFocusColor(Paint.valueOf("red"));
+            txtStudentName.setUnFocusColor(Paint.valueOf("red"));
         }
         if (!isValidParentName) {
-            txtParentName.setStyle(txtParentName.getStyle() + ";-fx-border-color: red;");
+//            txtParentName.setStyle(txtParentName.getStyle() + ";-fx-border-color: red;");
+            txtParentName.setFocusColor(Paint.valueOf("red"));
+            txtParentName.setUnFocusColor(Paint.valueOf("red"));
         }
         if (!isValidAddress) {
-            txtAddress.setStyle(txtAddress.getStyle() + ";-fx-border-color: red;");
+//            txtAddress.setStyle(txtAddress.getStyle() + ";-fx-border-color: red;");
+            txtAddress.setFocusColor(Paint.valueOf("red"));
+            txtAddress.setUnFocusColor(Paint.valueOf("red"));
         }
         if (!isValidEmail) {
-            txtEmail.setStyle(txtEmail.getStyle() + ";-fx-border-color: red;");
+//            txtEmail.setStyle(txtEmail.getStyle() + ";-fx-border-color: red;");
+            txtEmail.setFocusColor(Paint.valueOf("red"));
+            txtEmail.setUnFocusColor(Paint.valueOf("red"));
         }
         if (!isValidPhoneNo) {
-            txtPhoneNo.setStyle(txtPhoneNo.getStyle() + ";-fx-border-color: red;");
+//            txtPhoneNo.setStyle(txtPhoneNo.getStyle() + ";-fx-border-color: red;");
+            txtPhoneNo.setFocusColor(Paint.valueOf("red"));
+            txtPhoneNo.setUnFocusColor(Paint.valueOf("red"));
         }
         if (!isValidGrade) {
-            txtStudentGrade.setStyle(txtStudentGrade.getStyle() + ";-fx-border-color: red;");
+//            txtStudentGrade.setStyle(txtStudentGrade.getStyle() + ";-fx-border-color: red;");
+            txtStudentGrade.setFocusColor(Paint.valueOf("red"));
+            txtStudentGrade.setUnFocusColor(Paint.valueOf("red"));
         }
 
         if (isValidName && isValidParentName && isValidAddress && isValidEmail && isValidPhoneNo && isValidGrade) {
@@ -165,6 +195,7 @@ public class StudentFormController implements Initializable {
             }
         }
     }
+
     @FXML
     void btnUpdateOnAction(ActionEvent actionEvent) throws SQLException {
         String studentId = lblStudentId.getText();
@@ -189,30 +220,43 @@ public class StudentFormController implements Initializable {
         boolean isValidPhoneNo = phoneNo.matches(phonePattern);
         boolean isValidGrade = studentGrade.matches(gradePattern);
 
-        txtStudentName.setStyle(txtStudentName.getStyle() + ";-fx-border-color: #000000;");
-        txtParentName.setStyle(txtParentName.getStyle() + ";-fx-border-color: #000000;");
-        txtAddress.setStyle(txtAddress.getStyle() + ";-fx-border-color: #000000;");
-        txtEmail.setStyle(txtEmail.getStyle() + ";-fx-border-color: #000000;");
-        txtPhoneNo.setStyle(txtPhoneNo.getStyle() + ";-fx-border-color: #000000;");
-        txtStudentGrade.setStyle(txtStudentGrade.getStyle() + ";-fx-border-color: #000000;");
+        txtStudentName.setFocusColor(Paint.valueOf("black"));
+        txtParentName.setFocusColor(Paint.valueOf("black"));
+        txtAddress.setFocusColor(Paint.valueOf("black"));
+        txtEmail.setFocusColor(Paint.valueOf("black"));
+        txtPhoneNo.setFocusColor(Paint.valueOf("black"));
+        txtStudentGrade.setFocusColor(Paint.valueOf("black"));
+
+//        txtStudentName.setStyle(txtStudentName.getStyle() + ";-fx-border-color: #000000;");
+//        txtParentName.setStyle(txtParentName.getStyle() + ";-fx-border-color: #000000;");
+//        txtAddress.setStyle(txtAddress.getStyle() + ";-fx-border-color: #000000;");
+//        txtEmail.setStyle(txtEmail.getStyle() + ";-fx-border-color: #000000;");
+//        txtPhoneNo.setStyle(txtPhoneNo.getStyle() + ";-fx-border-color: #000000;");
+//        txtStudentGrade.setStyle(txtStudentGrade.getStyle() + ";-fx-border-color: #000000;");
 
         if (!isValidName) {
-            txtStudentName.setStyle(txtStudentName.getStyle() + ";-fx-border-color: red;");
+//            txtStudentName.setStyle(txtStudentName.getStyle() + ";-fx-border-color: red;");
+            txtStudentName.setFocusColor(Paint.valueOf("red"));
         }
         if (!isValidParentName) {
-            txtParentName.setStyle(txtParentName.getStyle() + ";-fx-border-color: red;");
+//            txtParentName.setStyle(txtParentName.getStyle() + ";-fx-border-color: red;");
+            txtParentName.setFocusColor(Paint.valueOf("red"));
         }
         if (!isValidAddress) {
-            txtAddress.setStyle(txtAddress.getStyle() + ";-fx-border-color: red;");
+//            txtAddress.setStyle(txtAddress.getStyle() + ";-fx-border-color: red;");
+            txtAddress.setFocusColor(Paint.valueOf("red"));
         }
         if (!isValidEmail) {
-            txtEmail.setStyle(txtEmail.getStyle() + ";-fx-border-color: red;");
+//            txtEmail.setStyle(txtEmail.getStyle() + ";-fx-border-color: red;");
+            txtEmail.setFocusColor(Paint.valueOf("red"));
         }
         if (!isValidPhoneNo) {
-            txtPhoneNo.setStyle(txtPhoneNo.getStyle() + ";-fx-border-color: red;");
+//            txtPhoneNo.setStyle(txtPhoneNo.getStyle() + ";-fx-border-color: red;");
+            txtPhoneNo.setFocusColor(Paint.valueOf("red"));
         }
         if (!isValidGrade) {
-            txtStudentGrade.setStyle(txtStudentGrade.getStyle() + ";-fx-border-color: red;");
+//            txtStudentGrade.setStyle(txtStudentGrade.getStyle() + ";-fx-border-color: red;");
+            txtStudentGrade.setFocusColor(Paint.valueOf("red"));
         }
 
         if(isValidName && isValidParentName && isValidAddress && isValidEmail && isValidPhoneNo && isValidGrade){
