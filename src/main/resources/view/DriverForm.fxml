@@ -2,17 +2,48 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import java.net.URL?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="paneDriver" prefHeight="555.0" prefWidth="1036.0" styleClass="bg-bodypane" stylesheets="@../css-file/DashBoard.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse72.swiftsts.controller.DriverFormController">
+<AnchorPane fx:id="paneDriver" prefHeight="555.0" prefWidth="1036.0" styleClass="bg-bodypane" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse72.swiftsts.controller.DriverFormController">
    <children>
       <Label layoutX="36.0" layoutY="25.0" styleClass="label-H2-" text="Driver" />
-      <AnchorPane layoutX="23.0" layoutY="189.0" prefHeight="348.0" prefWidth="986.0" style="-fx-background-color: white;" styleClass="bg-whitepane" />
-      <JFXTextField focusColor="BLACK" labelFloat="true" layoutX="182.0" layoutY="73.0" promptText="Driver Name" styleClass="textfields-" />
-      <JFXTextField focusColor="BLACK" labelFloat="true" layoutX="376.0" layoutY="73.0" promptText="Liecence No" styleClass="textfields-" />
-      <JFXTextField focusColor="BLACK" labelFloat="true" layoutX="567.0" layoutY="73.0" promptText="Liecence type" styleClass="textfields-" />
-      <Label layoutX="37.0" layoutY="84.0" prefHeight="18.0" prefWidth="88.0" styleClass="label-H5-" text="Driver ID" />
-      <JFXButton layoutX="888.0" layoutY="81.0" prefHeight="37.0" prefWidth="97.0" styleClass="button-1" text="Save" />
+      <AnchorPane layoutX="23.0" layoutY="189.0" prefHeight="288.0" prefWidth="986.0" style="-fx-background-color: white;" styleClass="bg-whitepane">
+         <children>
+            <TableView fx:id="tblDriver" onMouseClicked="#onClickTable" prefHeight="288.0" prefWidth="986.0">
+              <columns>
+                <TableColumn fx:id="colDriverId" prefWidth="75.0" text="Driver ID" />
+                <TableColumn fx:id="colDriverName" prefWidth="112.0" text="Driver Name" />
+                  <TableColumn fx:id="colLicenseNo" prefWidth="127.0" text="License No" />
+                  <TableColumn fx:id="colNIC" prefWidth="128.0" text="NIC" />
+                  <TableColumn fx:id="colContactNo" prefWidth="125.0" text="Contact No" />
+                  <TableColumn fx:id="colAddress" prefWidth="194.0" text="Address" />
+                  <TableColumn fx:id="colEmail" prefWidth="224.0" text="Email" />
+              </columns>
+            </TableView>
+         </children>
+         <stylesheets>
+            <URL value="@../css-file/tbl.css" />
+            <URL value="@../css-file/Scrool.css" />
+         </stylesheets></AnchorPane>
+      <JFXTextField fx:id="txtDriverName" focusColor="BLACK" labelFloat="true" layoutX="223.0" layoutY="73.0" promptText="Driver Name" styleClass="textfields-" />
+      <JFXTextField fx:id="txtLicenseNo" focusColor="BLACK" labelFloat="true" layoutX="423.0" layoutY="73.0" promptText="Liecence No" styleClass="textfields-" />
+      <Label layoutX="37.0" layoutY="84.0" prefHeight="18.0" prefWidth="88.0" styleClass="label-H5-" text="Driver ID : " />
+      <JFXButton fx:id="btnSave" layoutX="782.0" layoutY="130.0" onAction="#btnSaveOnAction" prefHeight="37.0" prefWidth="219.0" styleClass="button-1" text="Save" />
+      <Label fx:id="lblDriverId" layoutX="125.0" layoutY="84.0" prefHeight="21.0" prefWidth="68.0" styleClass="label-H5-" text="D001" />
+      <JFXTextField fx:id="txtContactNo" focusColor="BLACK" labelFloat="true" layoutX="812.0" layoutY="73.0" prefHeight="26.0" prefWidth="160.0" promptText="Contact No" styleClass="textfields-" />
+      <JFXTextField fx:id="txtAddress" focusColor="BLACK" labelFloat="true" layoutX="38.0" layoutY="135.0" prefHeight="26.0" prefWidth="332.0" promptText="Address" styleClass="textfields-" />
+      <JFXTextField fx:id="txtEmail" focusColor="BLACK" labelFloat="true" layoutX="423.0" layoutY="135.0" prefHeight="26.0" prefWidth="324.0" promptText="Email" styleClass="textfields-" />
+      <JFXButton fx:id="btnDelete" layoutX="905.0" layoutY="490.0" onAction="#btnDeleteOnAction" prefHeight="37.0" prefWidth="97.0" styleClass="button-1" text="Delete" />
+      <JFXButton fx:id="btnUpdate" layoutX="786.0" layoutY="490.0" onAction="#btnUpdateOnAction" prefHeight="37.0" prefWidth="97.0" styleClass="button-1" text="Update" />
+      <JFXButton fx:id="btnReset" layoutX="663.0" layoutY="490.0" onAction="#btnResetOnAction" prefHeight="37.0" prefWidth="97.0" styleClass="button-1" text="Reset" />
+      <JFXTextField fx:id="txtNIC" focusColor="BLACK" labelFloat="true" layoutX="604.0" layoutY="73.0" prefHeight="26.0" prefWidth="178.0" promptText="NIC" styleClass="textfields-" />
    </children>
+   <stylesheets>
+      <URL value="@../css-file/DashBoard.css" />
+      <URL value="@../css-file/Scrool.css" />
+   </stylesheets>
 </AnchorPane>

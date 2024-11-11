@@ -33,11 +33,11 @@
 }
 
 .table-row-cell:selected {
-    -fx-background-color: yellow;
+    -fx-background-color: rgba(118, 117, 117, 0.66);
 }
 
 .table-cell:selected {
-    -fx-background-color: yellow;
+    -fx-background-color: rgba(118, 117, 117, 0.66);
 }
 
 
@@ -73,7 +73,7 @@
 
 .table-row-cell:selected {
     /*-fx-background-color: rgba(118, 117, 117, 0.66);*/
-    -fx-background-color: #FEEC37;
+    -fx-background-color: black;
 }
 /*
 .table-view > .virtual-flow > .scroll-bar:vertical,

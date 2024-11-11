@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import java.net.URL?>
 <?import javafx.scene.control.Label?>
@@ -20,23 +21,24 @@
             <Font size="18.0" />
          </font></Label>
       <JFXTextField fx:id="txtParentName" focusColor="BLACK" labelFloat="true" layoutX="413.0" layoutY="76.0" prefHeight="26.0" prefWidth="176.0" promptText="Parent Name" styleClass="textfields-" unFocusColor="BLACK" />
-      <JFXTextField fx:id="txtAddress" focusColor="BLACK" labelFloat="true" layoutX="27.0" layoutY="127.0" prefHeight="26.0" prefWidth="558.0" promptText="Address" styleClass="textfields-" unFocusColor="BLACK" />
+      <JFXTextField fx:id="txtAddress" focusColor="BLACK" labelFloat="true" layoutX="27.0" layoutY="127.0" prefHeight="26.0" prefWidth="558.0" promptText="Location" styleClass="textfields-" unFocusColor="BLACK" />
       <JFXTextField fx:id="txtEmail" focusColor="BLACK" labelFloat="true" layoutX="27.0" layoutY="174.0" prefHeight="26.0" prefWidth="558.0" promptText="Email" styleClass="textfields-" unFocusColor="BLACK" />
       <JFXTextField fx:id="txtStudentGrade" focusColor="BLACK" labelFloat="true" layoutX="27.0" layoutY="220.0" promptText="Student Grade" styleClass="textfields-" unFocusColor="BLACK" />
-      <JFXTextField fx:id="txtPhoneNo" focusColor="BLACK" labelFloat="true" layoutX="351.0" layoutY="218.0" prefHeight="26.0" prefWidth="186.0" promptText="Phone No" styleClass="textfields-" unFocusColor="BLACK" />
+      <JFXTextField fx:id="txtPhoneNo" focusColor="BLACK" labelFloat="true" layoutX="202.0" layoutY="220.0" prefHeight="26.0" prefWidth="186.0" promptText="Phone No" styleClass="textfields-" unFocusColor="BLACK" />
       <JFXButton fx:id="btnSave" layoutX="708.0" layoutY="212.0" onAction="#btnSaveOnAction" prefHeight="26.0" prefWidth="88.0" styleClass="button-1" text="Save" />
       <JFXButton fx:id="btnAttendence" layoutX="488.0" layoutY="14.0" onAction="#btnAttendenceOnAction" prefHeight="37.0" prefWidth="118.0" styleClass="button-1" text="Attendence" />
-      <Pane layoutX="20.0" layoutY="267.0" prefHeight="262.0" prefWidth="1000.0" style="-fx-background-color: white;" styleClass="bg-bodypane">
+      <Pane layoutX="20.0" layoutY="267.0" prefHeight="260.0" prefWidth="1000.0" style="-fx-background-color: white;" styleClass="bg-bodypane">
          <children>
-            <TableView fx:id="tblStudent" layoutY="4.0" onMouseClicked="#onClickTable" prefHeight="262.0" prefWidth="1006.0" styleClass="bg-whitepane">
+            <TableView fx:id="tblStudent" layoutY="4.0" onMouseClicked="#onClickTable" prefHeight="250.0" prefWidth="1000.0">
               <columns>
                   <TableColumn fx:id="colStudentId" prefWidth="95.0" text="Student ID" />
                   <TableColumn fx:id="colStudentName" prefWidth="130.0" text="Student Name" />
                   <TableColumn fx:id="colParentName" prefWidth="123.0" text="Parent Name" />
-                  <TableColumn fx:id="colAddress" minWidth="0.0" prefWidth="172.0" text="Address" />
+                  <TableColumn fx:id="colAddress" minWidth="0.0" prefWidth="172.0" text="Location" />
                   <TableColumn fx:id="colEmail" minWidth="0.0" prefWidth="186.0" text="Email" />
                   <TableColumn fx:id="colGrade" prefWidth="104.0" text="Grade" />
-                  <TableColumn fx:id="colPhoneNo" prefWidth="188.0" text="Phone No." />
+                  <TableColumn fx:id="colPhoneNo" prefWidth="122.0" text="Phone No." />
+                  <TableColumn fx:id="colUserID" prefWidth="73.0" text="UserID" />
               </columns>
             </TableView>
          </children>
@@ -53,5 +55,6 @@
             <Font size="18.0" />
          </font>
       </Label>
+      <JFXComboBox fx:id="cbUserID" layoutX="419.0" layoutY="220.0" prefHeight="26.0" prefWidth="118.0" promptText="User ID" />
    </children>
 </AnchorPane>

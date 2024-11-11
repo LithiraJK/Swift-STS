@@ -77,7 +77,7 @@ public class SignInFormController {
         AnchorPane anchorPane = FXMLLoader.load(getClass().getResource(fxmlPath));
         Stage stage = new Stage();
         stage.setMaximized(true);
-        stage.setTitle("swift Student Transfort Service");
+        stage.setTitle("Swift Student Transfort Service");
         stage.setScene(new Scene(anchorPane));
         stage.show();
     }

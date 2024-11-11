@@ -14,6 +14,7 @@ module lk.ijse.gdse72.swiftsts {
     requires java.mail;
     requires com.google.api.client.extensions.jetty.auth;
 
+    opens lk.ijse.gdse72.swiftsts.dto to javafx.base;
     opens lk.ijse.gdse72.swiftsts.dto.tm to javafx.base;
     opens lk.ijse.gdse72.swiftsts.controller to javafx.fxml;
     exports lk.ijse.gdse72.swiftsts;
