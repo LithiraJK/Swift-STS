@@ -15,7 +15,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class DashBoardFormController implements Initializable {
-
+    @FXML
+    public JFXButton btnAttendence;
     @FXML
     private JFXButton btnDashBoard;
 
@@ -39,6 +40,8 @@ public class DashBoardFormController implements Initializable {
 
     @FXML
     private AnchorPane paneBody;
+    @FXML
+    private JFXButton btnPayment;
 
     @FXML
     private AnchorPane paneDashBoard;
@@ -76,6 +79,17 @@ public class DashBoardFormController implements Initializable {
     }
 
     @FXML
+    void btnPaymentOnAction(ActionEvent event) {
+        paneBody.getChildren().clear();
+        try {
+            AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/view/PaymentForm.fxml"));
+            paneBody.getChildren().add(anchorPane);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     void btnStudentOnAction(ActionEvent event) throws IOException {
         paneBody.getChildren().clear();
         AnchorPane pane = FXMLLoader.load(getClass().getResource("/view/StudentForm.fxml"));
@@ -109,5 +123,11 @@ public class DashBoardFormController implements Initializable {
        }catch (IOException e) {
            e.printStackTrace();
        }
+    }
+    @FXML
+    public void btnAttendenceOnAction(ActionEvent actionEvent) throws IOException {
+        paneBody.getChildren().clear();
+        AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/view/AttendanceForm.fxml"));
+        paneBody.getChildren().add(anchorPane);
     }
 }

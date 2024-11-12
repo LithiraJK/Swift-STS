@@ -26,7 +26,8 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class StudentFormController implements Initializable {
-
+    @FXML
+    public JFXButton btnRegister;
     @FXML
     private JFXButton btnUpdate;
 
@@ -104,7 +105,7 @@ public class StudentFormController implements Initializable {
     @FXML
     void btnAttendenceOnAction(ActionEvent event) throws IOException {
         paneStudent.getChildren().clear();
-        AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/view/AttendenceForm.fxml"));
+        AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/view/AttendanceForm.fxml"));
         paneStudent.getChildren().add(anchorPane);
     }
 
@@ -349,5 +350,8 @@ public class StudentFormController implements Initializable {
         txtPhoneNo.setFocusColor(Paint.valueOf("black"));
         txtStudentGrade.setFocusColor(Paint.valueOf("black"));
         tblStudent.setItems(studentTMS);
+    }
+    @FXML
+    public void btnRegisterOnAction(ActionEvent actionEvent) {
     }
 }

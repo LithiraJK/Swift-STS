@@ -5,7 +5,6 @@
     -fx-border-width: 3;
     -fx-border-style: solid;
     -fx-text-fill: #ffffff;
-    -fx-text-alignment: right;
     -fx-font-family: lufga ;
     -fx-font-size: 15;
     -fx-font-weight: 700;
@@ -23,7 +22,6 @@
     /*-fx-border-width: 3;*/
     /*-fx-border-style: solid;*/
     -fx-text-fill: #ffffff;
-    -fx-text-alignment: right;
     -fx-font-family: lufga ;
     -fx-font-size: 15;
     -fx-font-weight: 700;
@@ -94,4 +92,19 @@
 /*.student-btn .text {*/
 /*    font-weight: bold; !* Make text bold *!*/
 /*}*/
+
+/* Transparent ScrollPane */
+.scroll-pane {
+    -fx-background: transparent; /* Set ScrollPane background to transparent */
+    -fx-background-insets: 0; /* Remove any insets */
+}
+
+/* Optional: Style Scrollbars (if needed) */
+.scroll-pane .thumb {
+    -fx-background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent scrollbar thumb */
+}
+
+.scroll-pane .track {
+    -fx-background-color: transparent; /* Transparent track */
+}
 

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane fx:id="paneRegister" prefHeight="555.0" prefWidth="1036.0" styleClass="bg-bodypane" stylesheets="@../css-file/DashBoard.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse72.swiftsts.controller.StudentRegisterFormController">
+   <children>
+      <AnchorPane layoutX="308.0" layoutY="32.0" prefHeight="492.0" prefWidth="420.0" style="-fx-background-color: white;" styleClass="bg-whitepane">
+         <children>
+            <JFXTextField labelFloat="true" layoutX="27.0" layoutY="41.0" promptText="vsdv" />
+            <JFXTextField labelFloat="true" layoutX="218.0" layoutY="41.0" promptText="bbvx" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

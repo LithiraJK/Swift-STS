@@ -4,9 +4,12 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import java.net.URL?>
+<?import javafx.scene.Group?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
@@ -26,7 +29,6 @@
       <JFXTextField fx:id="txtStudentGrade" focusColor="BLACK" labelFloat="true" layoutX="27.0" layoutY="220.0" promptText="Student Grade" styleClass="textfields-" unFocusColor="BLACK" />
       <JFXTextField fx:id="txtPhoneNo" focusColor="BLACK" labelFloat="true" layoutX="202.0" layoutY="220.0" prefHeight="26.0" prefWidth="186.0" promptText="Phone No" styleClass="textfields-" unFocusColor="BLACK" />
       <JFXButton fx:id="btnSave" layoutX="708.0" layoutY="212.0" onAction="#btnSaveOnAction" prefHeight="26.0" prefWidth="88.0" styleClass="button-1" text="Save" />
-      <JFXButton fx:id="btnAttendence" layoutX="488.0" layoutY="14.0" onAction="#btnAttendenceOnAction" prefHeight="37.0" prefWidth="118.0" styleClass="button-1" text="Attendence" />
       <Pane layoutX="20.0" layoutY="267.0" prefHeight="260.0" prefWidth="1000.0" style="-fx-background-color: white;" styleClass="bg-bodypane">
          <children>
             <TableView fx:id="tblStudent" layoutY="4.0" onMouseClicked="#onClickTable" prefHeight="250.0" prefWidth="1000.0">
@@ -56,5 +58,15 @@
          </font>
       </Label>
       <JFXComboBox fx:id="cbUserID" layoutX="419.0" layoutY="220.0" prefHeight="26.0" prefWidth="118.0" promptText="User ID" />
+      <Group layoutX="471.0" layoutY="29.0">
+         <children>
+            <JFXButton fx:id="btnRegister" onAction="#btnRegisterOnAction" prefHeight="37.0" prefWidth="146.0" text="Register" />
+            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="10.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/icons/icons8-add-male-user-group-90.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Group>
    </children>
 </AnchorPane>

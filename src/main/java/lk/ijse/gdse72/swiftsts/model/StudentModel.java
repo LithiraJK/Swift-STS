@@ -94,4 +94,13 @@ public class StudentModel{
 
         return userIds;
     }
+
+
+    public String getStudentNameById(String studentId) throws SQLException {
+        ResultSet rst = CrudUtil.execute("SELECT StudentName FROM Student WHERE StudentId=?", studentId);
+        if (rst.next()) {
+            return rst.getString(1);
+        }
+        return null;
+    }
 }

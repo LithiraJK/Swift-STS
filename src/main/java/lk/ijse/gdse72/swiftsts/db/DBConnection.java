@@ -28,7 +28,6 @@ public class DBConnection {
         return dbConnection;
     }
 
-    // Lombok usage
 //    public Connection getConnection(){
 //        return connection;
 //    }

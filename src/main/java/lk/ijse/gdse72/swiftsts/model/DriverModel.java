@@ -67,7 +67,29 @@ public class DriverModel {
         return "D001";
     }
 
+
+
+    public static ArrayList<String> getAllDriverIds() throws SQLException {
+        ResultSet rst = CrudUtil.execute("SELECT DriverId FROM Driver");
+
+        ArrayList<String> driverIds = new ArrayList<>();
+
+        while (rst.next()) {
+            driverIds.add(rst.getString(1));
+        }
+
+        return driverIds;
+    }
+
     public boolean deleteDriver(String driverId) throws SQLException {
         return CrudUtil.execute("DELETE FROM Driver WHERE DriverId=?", driverId);
+    }
+
+    public static String getDriverNameById(String driverId) throws SQLException {
+        ResultSet rst = CrudUtil.execute("SELECT Name FROM Driver WHERE DriverId=?", driverId);
+        if (rst.next()) {
+            return rst.getString(1);
+        }
+        return null;
     }
 }

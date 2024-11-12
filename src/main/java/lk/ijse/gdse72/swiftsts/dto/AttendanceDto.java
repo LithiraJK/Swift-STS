@@ -7,8 +7,8 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class AttendenceDto {
-    private String attendenceId;
+public class AttendanceDto {
+    private String attendanceId;
     private String studentId;
     private String driverId;
     private int year;
