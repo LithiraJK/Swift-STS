@@ -60,7 +60,7 @@
       <JFXComboBox fx:id="cbUserID" layoutX="419.0" layoutY="220.0" prefHeight="26.0" prefWidth="118.0" promptText="User ID" />
       <Group layoutX="471.0" layoutY="29.0">
          <children>
-            <JFXButton fx:id="btnRegister" onAction="#btnRegisterOnAction" prefHeight="37.0" prefWidth="146.0" text="Register" />
+            <JFXButton fx:id="btnRegister" onAction="#btnRegisterOnAction" prefHeight="37.0" prefWidth="146.0" styleClass="button-1" text="Register" />
             <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="10.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/icons/icons8-add-male-user-group-90.png" />

@@ -13,12 +13,12 @@
 
 <AnchorPane fx:id="signInPage" prefHeight="465.0" prefWidth="300.0" styleClass="bg-signup" stylesheets="@../css-file/Login.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse72.swiftsts.controller.SignInFormController">
    <children>
-      <JFXTextField fx:id="txtusername" focusColor="#ffdb15" labelFloat="true" layoutX="11.0" layoutY="181.0" prefHeight="26.0" prefWidth="280.0" promptText="username" styleClass="custom-textfield" unFocusColor="WHITE">
+      <JFXTextField fx:id="txtusername" focusColor="#ffdb15" labelFloat="true" layoutX="26.0" layoutY="171.0" prefHeight="26.0" prefWidth="247.0" promptText="username" styleClass="custom-textfield" unFocusColor="WHITE">
          <font>
             <Font name="NimbusSans-Regular" size="13.0" />
          </font>
       </JFXTextField>
-      <JFXPasswordField fx:id="txtpassword" focusColor="#ffdb15" labelFloat="true" layoutX="11.0" layoutY="233.0" prefHeight="26.0" prefWidth="280.0" promptText="password" styleClass="custom-textfield" unFocusColor="WHITE" />
+      <JFXPasswordField fx:id="txtpassword" focusColor="#ffdb15" labelFloat="true" layoutX="26.0" layoutY="240.0" prefHeight="26.0" prefWidth="247.0" promptText="password" styleClass="custom-textfield" unFocusColor="WHITE" />
       <JFXButton fx:id="btnSignIn" buttonType="RAISED" layoutX="96.0" layoutY="327.0" onAction="#btnSignInOnAction" prefHeight="32.0" prefWidth="100.0" styleClass="loginbtn" text="Sign In" textFill="#ffdb15">
          <cursor>
             <Cursor fx:constant="DEFAULT" />
@@ -46,5 +46,15 @@
                </styleClass></Label>
          </children>
       </Group>
+      <Label fx:id="lblInvalidPassword" layoutX="26.0" layoutY="272.0" prefHeight="18.0" prefWidth="184.0" textFill="RED">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblInvalidUserName" layoutX="26.0" layoutY="204.0" prefHeight="18.0" prefWidth="184.0" textFill="RED">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

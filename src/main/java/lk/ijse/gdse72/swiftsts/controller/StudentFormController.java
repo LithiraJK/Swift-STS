@@ -35,9 +35,6 @@ public class StudentFormController implements Initializable {
     private JFXButton btnDelete;
 
     @FXML
-    private JFXButton btnAttendence;
-
-    @FXML
     private JFXButton btnSave;
 
     @FXML
@@ -100,13 +97,6 @@ public class StudentFormController implements Initializable {
     @FXML
     void btnResetOnAction(ActionEvent event) throws SQLException {
         refreshPage();
-    }
-
-    @FXML
-    void btnAttendenceOnAction(ActionEvent event) throws IOException {
-        paneStudent.getChildren().clear();
-        AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/view/AttendanceForm.fxml"));
-        paneStudent.getChildren().add(anchorPane);
     }
 
     @FXML
@@ -299,6 +289,8 @@ public class StudentFormController implements Initializable {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+        addValidationListeners();
     }
 
     private void loadUserIds() throws SQLException {
@@ -351,7 +343,89 @@ public class StudentFormController implements Initializable {
         txtStudentGrade.setFocusColor(Paint.valueOf("black"));
         tblStudent.setItems(studentTMS);
     }
+
     @FXML
-    public void btnRegisterOnAction(ActionEvent actionEvent) {
+    public void btnRegisterOnAction(ActionEvent actionEvent) throws IOException {
+        // Load the StudentRegisterForm.fxml as the popup content
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/StudentRegisterForm.fxml"));
+        AnchorPane anchorPane = loader.load();
+
+        // Create a popup overlay (if not already part of the FXML file)
+        AnchorPane overlayPane = new AnchorPane();
+        overlayPane.setStyle("-fx-background-color: rgba(255,255,255, 0.5);");
+        overlayPane.setPrefSize(paneStudent.getWidth(), paneStudent.getHeight());
+
+        // Center the anchorPane in the overlayPane (this will be your popup form)
+        anchorPane.setLayoutX((overlayPane.getPrefWidth() - anchorPane.getPrefWidth()) / 2);
+        anchorPane.setLayoutY((overlayPane.getPrefHeight() - anchorPane.getPrefHeight()) / 2);
+
+        // Add the form to the overlay
+        overlayPane.getChildren().add(anchorPane);
+
+        // Add the overlayPane to paneStudent and make it visible
+        paneStudent.getChildren().add(overlayPane);
+
+        // Get the controller for StudentRegisterForm
+        StudentRegisterFormController controller = loader.getController();
+
+        // Pass the overlayPane reference to allow the controller to close it
+        controller.setOverlayPane(overlayPane, paneStudent);
+    }
+
+    private void addValidationListeners() {
+        // Define regex patterns
+        String namePattern = "^[A-Za-z ]+$";
+        String emailPattern = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
+        String phonePattern = "^(\\d+)$";
+        String gradePattern = "^[a-zA-Z0-9]+$";
+
+        // Add listener for each field
+        txtStudentName.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches(namePattern)) {
+                txtStudentName.setFocusColor(Paint.valueOf("red"));
+            } else {
+                txtStudentName.setFocusColor(Paint.valueOf("black"));
+            }
+        });
+
+        txtParentName.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches(namePattern)) {
+                txtParentName.setFocusColor(Paint.valueOf("red"));
+            } else {
+                txtParentName.setFocusColor(Paint.valueOf("black"));
+            }
+        });
+
+        txtAddress.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches(namePattern)) {
+                txtAddress.setFocusColor(Paint.valueOf("red"));
+            } else {
+                txtAddress.setFocusColor(Paint.valueOf("black"));
+            }
+        });
+
+        txtEmail.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches(emailPattern)) {
+                txtEmail.setFocusColor(Paint.valueOf("red"));
+            } else {
+                txtEmail.setFocusColor(Paint.valueOf("black"));
+            }
+        });
+
+        txtPhoneNo.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches(phonePattern)) {
+                txtPhoneNo.setFocusColor(Paint.valueOf("red"));
+            } else {
+                txtPhoneNo.setFocusColor(Paint.valueOf("black"));
+            }
+        });
+
+        txtStudentGrade.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches(gradePattern)) {
+                txtStudentGrade.setFocusColor(Paint.valueOf("red"));
+            } else {
+                txtStudentGrade.setFocusColor(Paint.valueOf("black"));
+            }
+        });
     }
 }

@@ -6,6 +6,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
@@ -18,7 +19,7 @@
          </image>
       </ImageView>
       <AnchorPane fx:id="paneBody" layoutX="223.0" layoutY="100.0" prefHeight="555.0" prefWidth="1036.0" styleClass="bg-bodypane" />
-      <ImageView fx:id="iconCalculator" fitHeight="30.0" fitWidth="30.0" layoutX="912.0" layoutY="56.0" onMouseClicked="#calculatorOnClicked" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="iconCalculator" fitHeight="30.0" fitWidth="30.0" layoutX="884.0" layoutY="56.0" onMouseClicked="#calculatorOnClicked" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/icons/icons8-calculator-66.png" />
          </image>
@@ -87,7 +88,7 @@
             </Group>
             <Group>
                <children>
-                  <JFXButton fx:id="btnReports" onAction="#btnReportsOnAction" prefHeight="37.0" prefWidth="161.0" text="Payment" textAlignment="JUSTIFY" />
+                  <JFXButton fx:id="btnPayment" onAction="#btnPaymentOnAction" prefHeight="37.0" prefWidth="161.0" text="Payment" textAlignment="JUSTIFY" />
                   <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="9.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../assets/icons/icons8-reports-90.png" />
@@ -97,7 +98,7 @@
             </Group>
             <Group>
                <children>
-                  <JFXButton fx:id="btnReports1" onAction="#btnReportsOnAction" prefHeight="37.0" prefWidth="161.0" text="Reports" textAlignment="JUSTIFY" />
+                  <JFXButton fx:id="btnRoute" onAction="#btnRouteOnAction" prefHeight="37.0" prefWidth="161.0" text="Route" textAlignment="JUSTIFY" />
                   <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="9.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../assets/icons/icons8-reports-90.png" />
@@ -117,16 +118,20 @@
             </Group>
          </children>
       </VBox>
-      <Label fx:id="lblLocalDate" layoutX="1077.0" layoutY="56.0" prefHeight="30.0" prefWidth="174.0" text="Wed Nov 11 2024">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="lblLocalTime" layoutX="969.0" layoutY="56.0" prefHeight="30.0" prefWidth="96.0" text="11 : 11 AM">
-         <font>
-            <Font name="System Bold" size="16.0" />
-         </font>
-      </Label>
-      <Line endX="-6.0" endY="24.0" layoutX="1070.0" layoutY="62.0" startX="-6.0" startY="-8.0" />
+      <HBox layoutX="943.0" layoutY="53.5" spacing="15.0">
+         <children>
+            <Label fx:id="lblLocalTime" prefHeight="30.0" prefWidth="112.0" text="11 : 11 : 11 AM">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Line endX="-6.0" endY="24.0" startX="-6.0" startY="-8.0" />
+            <Label fx:id="lblLocalDate" prefHeight="30.0" prefWidth="161.0" text="Wed Nov 11 2024">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

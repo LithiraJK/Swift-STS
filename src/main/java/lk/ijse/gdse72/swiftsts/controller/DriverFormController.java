@@ -231,6 +231,8 @@ public class DriverFormController implements Initializable {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+        addValidationListeners();
     }
 
     @FXML
@@ -273,5 +275,55 @@ public class DriverFormController implements Initializable {
         ArrayList<DriverDto> driverDtos = driverModel.getAllDrivers();
         ObservableList<DriverDto> driverTMS = FXCollections.observableArrayList(driverDtos);
         tblDriver.setItems(driverTMS);
+    }
+
+    private void addValidationListeners() {
+        // Define regex patterns
+        String namePattern = "^[A-Za-z ]+$";
+        String nicPattern = "^[0-9]{9}[vVxX]||[0-9]{12}$";
+        String emailPattern = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
+        String phonePattern = "^(\\d+)$";
+        String licensePattern = "^[A-Za-z0-9]+$";
+
+        // Add listener for each field
+        txtDriverName.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches(namePattern)) {
+                txtDriverName.setFocusColor(Paint.valueOf("red"));
+            } else {
+                txtDriverName.setFocusColor(Paint.valueOf("black"));
+            }
+        });
+
+        txtNIC.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches(nicPattern)) {
+                txtNIC.setFocusColor(Paint.valueOf("red"));
+            } else {
+                txtNIC.setFocusColor(Paint.valueOf("black"));
+            }
+        });
+
+        txtEmail.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches(emailPattern)) {
+                txtEmail.setFocusColor(Paint.valueOf("red"));
+            } else {
+                txtEmail.setFocusColor(Paint.valueOf("black"));
+            }
+        });
+
+        txtContactNo.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches(phonePattern)) {
+                txtContactNo.setFocusColor(Paint.valueOf("red"));
+            } else {
+                txtContactNo.setFocusColor(Paint.valueOf("black"));
+            }
+        });
+
+        txtLicenseNo.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches(licensePattern)) {
+                txtLicenseNo.setFocusColor(Paint.valueOf("red"));
+            } else {
+                txtLicenseNo.setFocusColor(Paint.valueOf("black"));
+            }
+        });
     }
 }

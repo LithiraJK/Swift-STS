@@ -11,6 +11,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import lk.ijse.gdse72.swiftsts.util.CrudUtil;
@@ -20,7 +21,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class SignInFormController {
-
+    @FXML
+    public Label lblInvalidUserName;
+    @FXML
+    public Label lblInvalidPassword;
     @FXML
     private JFXButton btnSignIn;
 
@@ -54,11 +58,33 @@ public class SignInFormController {
         String username = txtusername.getText();
         String password = txtpassword.getText();
 
-        if (validateCredentials(username, password)) {
-            loadDashboard("/view/DashBoardForm.fxml");
+        if (isUsernameValid(username)) {
+            lblInvalidUserName.setVisible(false);
+            if (validateCredentials(username, password)) {
+                lblInvalidPassword.setVisible(false);
+                loadDashboard("/view/DashBoardForm.fxml");
+            } else {
+//                showError("Invalid password");
+                lblInvalidPassword.setVisible(true);
+                txtpassword.setFocusColor(Paint.valueOf("red"));
+                lblInvalidPassword.setText("Invalid Password. Try Again !");
+            }
         } else {
-            showError("Invalid username or password");
+//            showError("Invalid username");
+            lblInvalidUserName.setVisible(true);
+            txtusername.setFocusColor(Paint.valueOf("red"));
+            lblInvalidUserName.setText("Invalid Username. Try Again !");
         }
+    }
+
+    private boolean isUsernameValid(String username) {
+        try {
+            ResultSet resultSet = CrudUtil.execute("SELECT * FROM User WHERE username=?", username);
+            return resultSet.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     private boolean validateCredentials(String username, String password) {

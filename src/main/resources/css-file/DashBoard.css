@@ -17,7 +17,8 @@
 
 .button-1{
     /*-fx-border-radius: 50;*/
-    -fx-background-radius: 50;
+    -fx-border-radius: 15;
+    -fx-background-radius: 15;
     -fx-background-color: #000000;
     /*-fx-border-width: 3;*/
     /*-fx-border-style: solid;*/
@@ -108,3 +109,11 @@
     -fx-background-color: transparent; /* Transparent track */
 }
 
+.popup {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0, 0);
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-padding: 20px;
+
+}

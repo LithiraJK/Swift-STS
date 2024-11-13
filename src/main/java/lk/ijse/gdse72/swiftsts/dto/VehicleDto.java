@@ -1,10 +1,12 @@
-package lk.ijse.gdse72.swiftsts.dto.tm;
+package lk.ijse.gdse72.swiftsts.dto;
+
 import lombok.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class VehicleTM {
+@ToString
+public class VehicleDto {
     private String vehicleId ;
     private String registrationNo ;
     private String vehicleType ;
