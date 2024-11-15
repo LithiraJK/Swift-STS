@@ -116,7 +116,7 @@ public class DashBoardFormController implements Initializable {
     @FXML
     void btnStudentOnAction(ActionEvent event) throws IOException {
         paneBody.getChildren().clear();
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("/view/StudentForm.fxml"));
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("/view/StudentEnroll.fxml"));
         paneBody.getChildren().add(pane);
     }
 

@@ -26,8 +26,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class StudentFormController implements Initializable {
-    @FXML
-    public JFXButton btnRegister;
+
     @FXML
     private JFXButton btnUpdate;
 
@@ -344,33 +343,6 @@ public class StudentFormController implements Initializable {
         tblStudent.setItems(studentTMS);
     }
 
-    @FXML
-    public void btnRegisterOnAction(ActionEvent actionEvent) throws IOException {
-        // Load the StudentRegisterForm.fxml as the popup content
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/StudentRegisterForm.fxml"));
-        AnchorPane anchorPane = loader.load();
-
-        // Create a popup overlay (if not already part of the FXML file)
-        AnchorPane overlayPane = new AnchorPane();
-        overlayPane.setStyle("-fx-background-color: rgba(255,255,255, 0.5);");
-        overlayPane.setPrefSize(paneStudent.getWidth(), paneStudent.getHeight());
-
-        // Center the anchorPane in the overlayPane (this will be your popup form)
-        anchorPane.setLayoutX((overlayPane.getPrefWidth() - anchorPane.getPrefWidth()) / 2);
-        anchorPane.setLayoutY((overlayPane.getPrefHeight() - anchorPane.getPrefHeight()) / 2);
-
-        // Add the form to the overlay
-        overlayPane.getChildren().add(anchorPane);
-
-        // Add the overlayPane to paneStudent and make it visible
-        paneStudent.getChildren().add(overlayPane);
-
-        // Get the controller for StudentRegisterForm
-        StudentRegisterFormController controller = loader.getController();
-
-        // Pass the overlayPane reference to allow the controller to close it
-        controller.setOverlayPane(overlayPane, paneStudent);
-    }
 
     private void addValidationListeners() {
         // Define regex patterns

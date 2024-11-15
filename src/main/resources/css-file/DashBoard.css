@@ -33,6 +33,36 @@
     /*-fx-border-color: #ffd600;*/
 }
 
+.label-text {
+    -fx-text-fill: #000000; /* Default text color */
+    -fx-font-size: 16px;   /* Default font size */
+    -fx-font-weight: 600;  /* Default font weight */
+}
+
+.label-text:hover {
+    -fx-text-fill: #000000; /* Change color on hover (example: orange) */
+    -fx-font-weight: 700;  /* Make the text bolder on hover */
+    -fx-font-size: 16px;   /* Increase font size on hover */
+}
+.button-white{
+    -fx-border-radius: 30;
+    -fx-background-radius: 30;
+    -fx-background-color: transparent;
+    -fx-border-width: 2;
+    /*-fx-border-style: solid;*/
+    -fx-text-fill: #000000;
+    -fx-font-family: lufga ;
+    -fx-font-size: 15;
+    -fx-font-weight: 630;
+    -fx-alignment: CENTER-RIGHT;
+}
+
+.button-white:hover{
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #000000;
+    -fx-border-color: #000000;
+}
+
 .bg-bodypane{
     /*-fx-background-color: rgba(0, 0, 0, 0.4);*/
     -fx-background-color: #D8D8D8;

@@ -5,7 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 
-public class StudentRegisterFormController {
+public class NewStudentFormController {
     @FXML
     public AnchorPane paneRegister;
     @FXML
