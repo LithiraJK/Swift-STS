@@ -34,14 +34,14 @@
          </children>
       </Group>
       <JFXTextField fx:id="txtDistance" layoutX="626.0" layoutY="114.0" promptText="Distance" />
-      <JFXComboBox fx:id="txtDestination" layoutX="241.0" layoutY="115.0" prefHeight="26.0" prefWidth="156.0" promptText="Destination" />
+      <JFXComboBox fx:id="cmbDestination" layoutX="241.0" layoutY="115.0" prefHeight="26.0" prefWidth="156.0" promptText="Destination" />
       <JFXToggleButton fx:id="trbtnCalculateDistance" layoutX="413.0" layoutY="98.0" text="Calculate Distance" toggleColor="#ffdb15" toggleLineColor="#ffe169" />
       <JFXTextField fx:id="txtDayPrice" layoutX="830.0" layoutY="114.0" promptText="Distance" text="Day Price" />
       <Group layoutX="22.0" layoutY="163.0">
          <children>
             <JFXComboBox fx:id="cmbRoute" layoutX="5.0" layoutY="9.0" prefHeight="26.0" prefWidth="156.0" promptText="Select Route" />
             <JFXButton fx:id="btnNewRoute" layoutX="218.0" layoutY="3.0" onAction="#btnNewRouteOnAction" prefHeight="35.0" prefWidth="136.0" styleClass="button-white" text="New Route" textAlignment="RIGHT" />
-            <JFXComboBox fx:id="txtVehicle" layoutX="406.0" layoutY="4.0" prefHeight="26.0" prefWidth="156.0" promptText="Select Vehicle" />
+            <JFXComboBox fx:id="cmbVehicle" layoutX="406.0" layoutY="4.0" prefHeight="26.0" prefWidth="156.0" promptText="Select Vehicle" />
             <JFXButton fx:id="btnNewVehicle" layoutX="600.0" onAction="#btnNewVehicleOnAction" prefHeight="35.0" prefWidth="144.0" styleClass="button-white" text="New Vehicle" />
             <Label layoutX="811.0" layoutY="7.0" styleClass="label-H5-" text="Available Seats : " />
             <Label fx:id="lblAvailableSeat" layoutX="936.0" layoutY="8.0" prefHeight="21.0" prefWidth="22.0" styleClass="label-H5-" text="30" />

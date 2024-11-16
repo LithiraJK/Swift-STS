@@ -1,10 +1,13 @@
 package lk.ijse.gdse72.swiftsts.model;
 
+import lk.ijse.gdse72.swiftsts.db.DBConnection;
 import lk.ijse.gdse72.swiftsts.dto.StudentDto;
 import lk.ijse.gdse72.swiftsts.util.CrudUtil;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class StudentModel{
@@ -103,4 +106,5 @@ public class StudentModel{
         }
         return null;
     }
+
 }

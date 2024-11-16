@@ -7,18 +7,28 @@ import com.jfoenix.controls.JFXToggleButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.gdse72.swiftsts.model.StudentEnrollModel;
 
 import java.io.IOException;
+import java.net.URL;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.ResourceBundle;
 
-public class StudentEnrollController {
+public class StudentEnrollController implements Initializable {
 
     @FXML
     public Label lblManageStudentOnClick;
+    @FXML
+    public JFXComboBox<String> cmbDestination;
+    @FXML
+    public JFXComboBox<String> cmbVehicle;
 
     @FXML
     private JFXButton btnNewRoute;
@@ -33,7 +43,7 @@ public class StudentEnrollController {
     private JFXButton btnSave;
 
     @FXML
-    private JFXComboBox<?> cmbRoute;
+    private JFXComboBox<String> cmbRoute;
 
     @FXML
     private TableColumn<?, ?> colDayPrice;
@@ -87,113 +97,81 @@ public class StudentEnrollController {
     private JFXTextField txtDayPrice;
 
     @FXML
-    private JFXComboBox<?> txtDestination;
-
-    @FXML
     private JFXTextField txtDistance;
 
     @FXML
-    private JFXComboBox<?> txtStudentId;
-
-    @FXML
-    private JFXComboBox<?> txtVehicle;
+    private JFXComboBox<String> txtStudentId;
 
     @FXML
     private AnchorPane paneRegistration;
+
+    StudentEnrollModel studentEnrollModel = new StudentEnrollModel();
 
     @FXML
     void btnNewRouteOnAction(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/NewRouteForm.fxml"));
         AnchorPane anchorPane = loader.load();
 
-        // Create a popup overlay (if not already part of the FXML file)
         AnchorPane overlayPane = new AnchorPane();
         overlayPane.setStyle("-fx-background-color: rgba(255,255,255, 0.5);");
         overlayPane.setPrefSize(paneRegistration.getWidth(), paneRegistration.getHeight());
 
-        // Center the anchorPane in the overlayPane (this will be your popup form)
         anchorPane.setLayoutX((overlayPane.getPrefWidth() - anchorPane.getPrefWidth()) / 2);
         anchorPane.setLayoutY((overlayPane.getPrefHeight() - anchorPane.getPrefHeight()) / 2);
 
-        // Add the form to the overlay
         overlayPane.getChildren().add(anchorPane);
-
-        // Add the overlayPane to paneStudent and make it visible
         paneRegistration.getChildren().add(overlayPane);
 
-        // Get the controller for StudentRegisterForm
         NewRouteFormController controller = loader.getController();
-
-        // Pass the overlayPane reference to allow the controller to close it
         controller.setOverlayPane(overlayPane, paneRegistration);
-
     }
 
     @FXML
     void btnNewStudentOnAction(ActionEvent event) throws IOException {
-        // Load the NewStudentForm.fxml as the popup content
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/NewStudentForm.fxml"));
         AnchorPane anchorPane = loader.load();
 
-        // Create a popup overlay (if not already part of the FXML file)
         AnchorPane overlayPane = new AnchorPane();
         overlayPane.setStyle("-fx-background-color: rgba(255,255,255, 0.5);");
         overlayPane.setPrefSize(paneRegistration.getWidth(), paneRegistration.getHeight());
 
-        // Center the anchorPane in the overlayPane (this will be your popup form)
         anchorPane.setLayoutX((overlayPane.getPrefWidth() - anchorPane.getPrefWidth()) / 2);
         anchorPane.setLayoutY((overlayPane.getPrefHeight() - anchorPane.getPrefHeight()) / 2);
 
-        // Add the form to the overlay
         overlayPane.getChildren().add(anchorPane);
-
-        // Add the overlayPane to paneStudent and make it visible
         paneRegistration.getChildren().add(overlayPane);
 
-        // Get the controller for StudentRegisterForm
         NewStudentFormController controller = loader.getController();
-
-        // Pass the overlayPane reference to allow the controller to close it
         controller.setOverlayPane(overlayPane, paneRegistration);
     }
 
     @FXML
     void btnNewVehicleOnAction(ActionEvent event) throws IOException {
-        // Load the NewStudentForm.fxml as the popup content
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/NewVehicleForm.fxml"));
         AnchorPane anchorPane = loader.load();
 
-        // Create a popup overlay (if not already part of the FXML file)
         AnchorPane overlayPane = new AnchorPane();
         overlayPane.setStyle("-fx-background-color: rgba(255,255,255, 0.5);");
         overlayPane.setPrefSize(paneRegistration.getWidth(), paneRegistration.getHeight());
 
-        // Center the anchorPane in the overlayPane (this will be your popup form)
         anchorPane.setLayoutX((overlayPane.getPrefWidth() - anchorPane.getPrefWidth()) / 2);
         anchorPane.setLayoutY((overlayPane.getPrefHeight() - anchorPane.getPrefHeight()) / 2);
 
-        // Add the form to the overlay
         overlayPane.getChildren().add(anchorPane);
-
-        // Add the overlayPane to paneStudent and make it visible
         paneRegistration.getChildren().add(overlayPane);
 
-        // Get the controller for StudentRegisterForm
         NewVehicleFormController controller = loader.getController();
-
-        // Pass the overlayPane reference to allow the controller to close it
         controller.setOverlayPane(overlayPane, paneRegistration);
     }
 
     @FXML
     void btnSaveOnAction(ActionEvent event) {
-
-
+        // Save action implementation
     }
 
     @FXML
     void onClickTable(MouseEvent event) {
-
+        // Table click action implementation
     }
 
     @FXML
@@ -201,5 +179,67 @@ public class StudentEnrollController {
         paneRegistration.getChildren().clear();
         AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/view/StudentForm.fxml"));
         paneRegistration.getChildren().add(anchorPane);
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        try {
+            loadStudentIds();
+            loadRoutes();
+            loadDestinations();
+            loadVehicleIds();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            String nextRegistrationId = studentEnrollModel.getNextRegistrationId();
+            lblRegistrationId.setText(nextRegistrationId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        txtStudentId.setOnAction(event -> {
+            String selectedStudentId = txtStudentId.getSelectionModel().getSelectedItem();
+            if (selectedStudentId != null) {
+                try {
+                    lableStudentName.setText(StudentEnrollModel.getStudentNameById(selectedStudentId));
+                    lblPickupLocation.setText(StudentEnrollModel.getPickupLocationById(selectedStudentId));
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        cmbVehicle.setOnAction(event -> {
+            String selectedVehicleId = cmbVehicle.getSelectionModel().getSelectedItem();
+            if (selectedVehicleId != null) {
+                try {
+                    int availableSeats = StudentEnrollModel.getAvailableSeatCountByVehicleId(selectedVehicleId);
+                    lblAvailableSeat.setText(String.valueOf(availableSeats));
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    private void loadStudentIds() throws SQLException {
+        List<String> studentIds = StudentEnrollModel.getAllStudentIds();
+        txtStudentId.getItems().addAll(studentIds);
+    }
+
+    private void loadVehicleIds() throws SQLException {
+        List<String> vehicleIds = StudentEnrollModel.getAllVehicleIds();
+        cmbVehicle.getItems().addAll(vehicleIds);
+    }
+
+    private void loadRoutes() throws SQLException {
+        List<String> routes = StudentEnrollModel.getAllRoutes();
+        cmbRoute.getItems().addAll(routes);
+    }
+
+    private void loadDestinations() throws SQLException {
+        List<String> destinations = StudentEnrollModel.getAllDestinations();
+        cmbDestination.getItems().addAll(destinations);
     }
 }
