@@ -46,16 +46,16 @@ public class RouteModel {
                 routeDto.getRouteName(),
                 routeDto.getStartPoint(),
                 routeDto.getDestination(),
-                routeDto.getDayFee()
+                routeDto.getRouteFee()
         );
     }
 
     public boolean updateRoute(RouteDto routeDto) throws SQLException {
-        return CrudUtil.execute("UPDATE Route SET routeName=?, startPoint=?, destination=?, dayFee=? WHERE routeId=?",
+        return CrudUtil.execute("UPDATE Route SET routeName=?, startPoint=?, destination=?, routeFee=? WHERE routeId=?",
                 routeDto.getRouteName(),
                 routeDto.getStartPoint(),
                 routeDto.getDestination(),
-                routeDto.getDayFee(),
+                routeDto.getRouteFee(),
                 routeDto.getRouteId()
         );
     }

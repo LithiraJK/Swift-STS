@@ -1,246 +1,243 @@
+-- Drop and Create the Database
 DROP DATABASE IF EXISTS SwiftSTS;
 CREATE DATABASE SwiftSTS;
 USE SwiftSTS;
 
-create table User
+-- Create Tables
+CREATE TABLE User
 (
-    UserId   varchar(10)  not null
-        primary key,
-    UserName varchar(50)  not null,
-    Password varchar(50)  not null,
-    RoleType varchar(20)  not null,
-    Email    varchar(100) not null,
-    Name     varchar(30)  not null
+    UserId   VARCHAR(10)  NOT NULL PRIMARY KEY,
+    UserName VARCHAR(50)  NOT NULL,
+    Password VARCHAR(50)  NOT NULL,
+    RoleType VARCHAR(20)  NOT NULL,
+    Email    VARCHAR(100) NOT NULL,
+    Name     VARCHAR(30)  NOT NULL
 );
 
-create table Expense
+CREATE TABLE Expense
 (
-    ExpenseId        varchar(10)    not null
-        primary key,
-    ExpensesCategory varchar(50)    not null,
-    Date             date           not null,
-    Amount           decimal(10, 2) not null,
-    UserId           varchar(10)    not null,
-    foreign key (UserId) references User (UserId)
-        on update cascade on delete cascade
+    ExpenseId        VARCHAR(10)    NOT NULL PRIMARY KEY,
+    ExpensesCategory VARCHAR(50)    NOT NULL,
+    Date             DATE           NOT NULL,
+    Amount           DECIMAL(10, 2) NOT NULL,
+    UserId           VARCHAR(10)    NOT NULL,
+    FOREIGN KEY (UserId) REFERENCES User (UserId)
+        ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-create table Student
+CREATE TABLE Student
 (
-    StudentId    varchar(10)  not null
-        primary key,
-    StudentName  varchar(50)  not null,
-    ParentName   varchar(50)  not null,
-    Address      varchar(100) not null,
-    Email        varchar(100) not null,
-    StudentGrade varchar(10)  not null,
-    ContactNo    varchar(15)  not null,
-    UserId      varchar(10)  not null ,
-    foreign key (UserId) references User (UserId)
-        on update cascade on delete cascade
-
+    StudentId    VARCHAR(10)  NOT NULL PRIMARY KEY,
+    StudentName  VARCHAR(50)  NOT NULL,
+    ParentName   VARCHAR(50)  NOT NULL,
+    PickupLocation VARCHAR(100) NOT NULL,
+    Email        VARCHAR(100) NOT NULL,
+    StudentGrade VARCHAR(10)  NOT NULL,
+    ContactNo    VARCHAR(15)  NOT NULL,
+    UserId       VARCHAR(10)  NOT NULL,
+    FOREIGN KEY (UserId) REFERENCES User (UserId)
+        ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-create table Driver
+CREATE TABLE Driver
 (
-    DriverId  varchar(10)  not null
-        primary key,
-    Name      varchar(50)  not null,
-    LicenseNo varchar(50)  not null,
-    NIC       varchar(20)  not null,
-    ContactNo varchar(15)  not null,
-    Address   varchar(50)  not null,
-    Email     varchar(50) not null
+    DriverId  VARCHAR(10)  NOT NULL PRIMARY KEY,
+    Name      VARCHAR(50)  NOT NULL,
+    LicenseNo VARCHAR(50)  NOT NULL,
+    NIC       VARCHAR(20)  NOT NULL,
+    ContactNo VARCHAR(15)  NOT NULL,
+    Address   VARCHAR(50)  NOT NULL,
+    Email     VARCHAR(50)  NOT NULL
 );
 
-create table Attendance
+CREATE TABLE Attendance
 (
-    AttendanceId varchar(10) not null
-        primary key,
-    Month        varchar(15) not null,
-    DayCount     int         not null,
-    Year         int         not null,
-    StudentId    varchar(10) not null,
-    DriverId     varchar(10)  not null,
-    foreign key (DriverId) references Driver (DriverId)
-        on update cascade on delete cascade,
-    foreign key (StudentId) references Student (StudentId)
-        on update cascade on delete cascade
-);
-create table Route
-(
-    RouteId     varchar(10)    not null
-        primary key,
-    StartPoint  varchar(100)   not null,
-    Destination varchar(100)   not null,
-    day_fee     decimal(10, 2) not null
+    AttendanceId VARCHAR(10) NOT NULL PRIMARY KEY,
+    Month        VARCHAR(15) NOT NULL,
+    DayCount     INT         NOT NULL,
+    Year         INT         NOT NULL,
+    StudentId    VARCHAR(10) NOT NULL,
+    DriverId     VARCHAR(10) NOT NULL,
+    FOREIGN KEY (StudentId) REFERENCES Student (StudentId)
+        ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (DriverId) REFERENCES Driver (DriverId)
+        ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-create table Payment
+CREATE TABLE Route
 (
-    PaymentId     varchar(10)    not null
-        primary key,
-    Date          date           not null,
-    Amount        decimal(10, 2) not null,
-    CreditBalance decimal(10, 2) null,
-    MonthlyFee    decimal(10, 2) null,
-    Balance       decimal(10, 2) null,
-    Status        varchar(20)    not null,
-    StudentId     varchar(10)    not null,
-    foreign key (StudentId) references Student (StudentId)
-        on update cascade on delete cascade
+    RouteId     VARCHAR(10)    NOT NULL PRIMARY KEY,
+    RouteName   varchar(50)    not null,
+    StartPoint  VARCHAR(100)   NOT NULL,
+    Destination VARCHAR(100)   NOT NULL,
+    RouteFee    DECIMAL(10, 2) NOT NULL
 );
 
-create table ServicePlans
+CREATE TABLE Vehicle
 (
-    ServicePlanId varchar(10)    not null
-        primary key,
-    DayPrice      decimal(10, 2) not null,
-    Date          date           not null,
-    RouteId       varchar(10)    not null,
-    StudentId     varchar(10)    not null,
-    Distance      decimal        not null,
-    PaymentId     varchar(10)    not null,
-    foreign key (RouteId) references Route (RouteId)
-        on update cascade on delete cascade,
-    foreign key (StudentId) references Student (StudentId)
-        on update cascade on delete cascade,
-    foreign key (PaymentId) references Payment (PaymentId)
-        on update cascade on delete cascade
+    VehicleId          VARCHAR(10)   NOT NULL PRIMARY KEY,
+    RegistrationNo     VARCHAR(50)   NOT NULL,
+    VehicleType        VARCHAR(20)   NOT NULL,
+    EngineCapacity     DECIMAL(4, 1) NOT NULL,
+    FuelType           VARCHAR(20)   NOT NULL,
+    Model              VARCHAR(20)   NULL,
+    SeatCount          INT           NOT NULL,
+    AvailableSeatCount INT           NOT NULL
 );
 
-create table DriverSchedule
+CREATE TABLE Payment
 (
-    DriverScheduleId varchar(10) not null
-        primary key,
-    DriverId         varchar(10) not null,
-    RouteId          varchar(10) not null,
-    Date             date        not null,
-    foreign key (DriverId) references Driver (DriverId)
-        on update cascade on delete cascade,
-    foreign key (RouteId) references Route (RouteId)
-        on update cascade on delete cascade
+    PaymentId     VARCHAR(10)    NOT NULL PRIMARY KEY,
+    Date          DATE           NOT NULL,
+    Amount        DECIMAL(10, 2) NOT NULL,
+    CreditBalance DECIMAL(10, 2) NULL,
+    MonthlyFee    DECIMAL(10, 2) NULL,
+    Balance       DECIMAL(10, 2) NULL,
+    Status        VARCHAR(20)    NOT NULL,
+    StudentId     VARCHAR(10)    NOT NULL,
+    FOREIGN KEY (StudentId) REFERENCES Student (StudentId)
+        ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-
-create table Vehicle
+CREATE TABLE StudentRegistrationDetails
 (
-    VehicleId      varchar(10)   not null
-        primary key,
-    RegistrationNo varchar(50)   not null,
-    VehicleType    varchar(20)   not null,
-    EngineCapacity decimal(4, 1) not null,
-    FuelType       varchar(20)  not null,
-    Model          varchar(20)   null,
-    VehicleNo      varchar(20)   null
+    StudentRegistrationId VARCHAR(10)    NOT NULL PRIMARY KEY,
+    StudentId             VARCHAR(10)    NOT NULL,
+    Distance              DECIMAL(10, 2) NOT NULL,
+    DayPrice              DECIMAL(10, 2) NOT NULL,
+    Date                  DATE           NOT NULL,
+    RouteId               VARCHAR(10)    NOT NULL,
+    FOREIGN KEY (StudentId) REFERENCES Student (StudentId)
+        ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (RouteId) REFERENCES Route (RouteId)
+        ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-create table VehicleSchedule
+CREATE TABLE DriverSchedule
 (
-    VehicleScheduleId varchar(10) not null
-        primary key,
-    VehicleId         varchar(10) not null,
-    RouteId           varchar(10) not null,
-    Date              date        not null,
-    ArrivalTime       time        not null,
-    DepartureTime     time        not null,
-    foreign key (VehicleId) references Vehicle (VehicleId)
-        on update cascade on delete cascade,
-    foreign key (RouteId) references Route (RouteId)
-        on update cascade on delete cascade
+    DriverScheduleId VARCHAR(10) NOT NULL PRIMARY KEY,
+    DriverId         VARCHAR(10) NOT NULL,
+    RouteId          VARCHAR(10) NOT NULL,
+    Date             DATE        NOT NULL,
+    FOREIGN KEY (DriverId) REFERENCES Driver (DriverId)
+        ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (RouteId) REFERENCES Route (RouteId)
+        ON UPDATE CASCADE ON DELETE CASCADE
 );
 
+CREATE TABLE VehicleSchedule
+(
+    VehicleScheduleId VARCHAR(10) NOT NULL PRIMARY KEY,
+    VehicleId         VARCHAR(10) NOT NULL,
+    RouteId           VARCHAR(10) NOT NULL,
+    Date              DATE        NOT NULL,
+    ArrivalTime       TIME        NOT NULL,
+    DepartureTime     TIME        NOT NULL,
+    FOREIGN KEY (VehicleId) REFERENCES Vehicle (VehicleId)
+        ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (RouteId) REFERENCES Route (RouteId)
+        ON UPDATE CASCADE ON DELETE CASCADE
+);
 
+Use SwiftSTS;
 
-========================================================================
-
-
-USE SwiftSTS;
-
+-- Insert Data
 -- User Table
-INSERT INTO User (UserId, UserName, Password, RoleType, Email, Name) VALUES
-                                                                         ('U001', 'admin', 'admin', '123', 'admin@swiftsts.lk', 'Admin User'),
-                                                                         ('U002', 'driver1', 'driver123', 'Driver', 'driver1@swiftsts.lk', 'Ruwan Perera'),
-                                                                         ('U003', 'driver2', 'driver123', 'Driver', 'driver2@swiftsts.lk', 'Kamal Silva'),
-                                                                         ('U004', 'parent1', 'parent123', 'Parent', 'parent1@swiftsts.lk', 'Nimal Jayasuriya'),
-                                                                         ('U005', 'parent2', 'parent123', 'Parent', 'parent2@swiftsts.lk', 'Sunil Fernando');
-
--- Expense Table
-INSERT INTO Expense (ExpenseId, ExpensesCategory, Date, Amount, UserId) VALUES
-                                                                            ('EX001', 'Fuel', '2024-11-01', 2000.00, 'U002'),
-                                                                            ('EX002', 'Maintenance', '2024-11-05', 1500.00, 'U002'),
-                                                                            ('EX003', 'Toll Fees', '2024-11-03', 500.00, 'U003'),
-                                                                            ('EX004', 'Salary', '2024-11-10', 25000.00, 'U003'),
-                                                                            ('EX005', 'Insurance', '2024-11-08', 1200.00, 'U001');
+INSERT INTO User (UserId, UserName, Password, RoleType, Email, Name)
+VALUES
+    ('U001', 'admin', '123', 'Admin', 'admin@galle.sch.lk', 'Galle Admin'),
+    ('U002', 'driver1', 'driver123', 'Driver', 'driver1@galle.sch.lk', 'Kamal Perera'),
+    ('U003', 'driver2', 'driver123', 'Driver', 'driver2@galle.sch.lk', 'Sanduni Silva'),
+    ('U004', 'driver3', 'driver456', 'Driver', 'driver3@galle.sch.lk', 'Ruwan Fernando'),
+    ('U005', 'driver4', 'driver456', 'Driver', 'driver4@galle.sch.lk', 'Nuwan Jayasekara');
 
 -- Student Table
-INSERT INTO Student (StudentId, StudentName, ParentName, Address, Email, StudentGrade, ContactNo, UserId) VALUES
-                                                                                                              ('S001', 'Saman Rajapaksha', 'Nimal Rajapaksha', 'Kandy', 'saman@school.lk', 'Grade 10', '0771234567', 'U004'),
-                                                                                                              ('S002', 'Kavindi Kumari', 'Sunil Kumari', 'Colombo', 'kavindi@school.lk', 'Grade 9', '0772234567', 'U005'),
-                                                                                                              ('S003', 'Mahesh Silva', 'Chandana Silva', 'Galle', 'mahesh@school.lk', 'Grade 8', '0773234567', 'U004'),
-                                                                                                              ('S004', 'Piumi Fernando', 'Janaka Fernando', 'Kurunegala', 'piumi@school.lk', 'Grade 7', '0774234567', 'U005'),
-                                                                                                              ('S005', 'Thilina Perera', 'Nayana Perera', 'Jaffna', 'thilina@school.lk', 'Grade 11', '0775234567', 'U004');
+INSERT INTO Student (StudentId, StudentName, ParentName, PickupLocation, Email, StudentGrade, ContactNo, UserId)
+VALUES
+    ('S001', 'Amal Perera', 'Sanduni Silva', 'Karapitiya', 'amal@galle.sch.lk', 'Grade 5', '0711234567', 'U003'),
+    ('S002', 'Kavindi Silva', 'Sanduni Silva', 'Pinnaduwa', 'kavindi@galle.sch.lk', 'Grade 8', '0719876543', 'U003'),
+    ('S003', 'Nimesh Perera', 'Nuwan Jayasekara', 'Hikkaduwa', 'nimesh@galle.sch.lk', 'Grade 10', '0711122334', 'U005'),
+    ('S004', 'Tharindu Fernando', 'Nuwan Jayasekara', 'Gintota', 'tharindu@galle.sch.lk', 'Grade 7', '0775566778', 'U005'),
+    ('S005', 'Sasini Kumari', 'Nuwan Jayasekara', 'Unawatuna', 'sasini@galle.sch.lk', 'Grade 3', '0756677889', 'U005');
 
 -- Driver Table
-INSERT INTO Driver (DriverId, Name, LicenseNo, NIC, ContactNo, Address, Email) VALUES
-                                                                                   ('D001', 'Ruwan Perera', 'B123456', '882345678V', '0776001234', 'Kandy', 'ruwan@swiftsts.lk'),
-                                                                                   ('D002', 'Kamal Silva', 'B234567', '891234567V', '0776005678', 'Galle', 'kamal@swiftsts.lk'),
-                                                                                   ('D003', 'Sunil Jayasooriya', 'B345678', '900987654V', '0776007890', 'Colombo', 'sunil@swiftsts.lk'),
-                                                                                   ('D004', 'Chamara Wickramasinghe', 'B456789', '912345678V', '0776003456', 'Matara', 'chamara@swiftsts.lk'),
-                                                                                   ('D005', 'Asela Gunasekara', 'B567890', '921234567V', '0776001235', 'Kegalle', 'asela@swiftsts.lk');
-
--- Attendance Table
-INSERT INTO Attendance (AttendanceId, Month, DayCount, Year, StudentId, DriverId) VALUES
-                                                                                      ('AT001', 'November', 18, 2024, 'S001', 'D001'),
-                                                                                      ('AT002', 'November', 20, 2024, 'S002', 'D002'),
-                                                                                      ('AT003', 'November', 22, 2024, 'S003', 'D003'),
-                                                                                      ('AT004', 'November', 15, 2024, 'S004', 'D004'),
-                                                                                      ('AT005', 'November', 19, 2024, 'S005', 'D005');
+INSERT INTO Driver (DriverId, Name, LicenseNo, NIC, ContactNo, Address, Email)
+VALUES
+    ('D001', 'Kamal Perera', 'B12345678', '882345678V', '0712456789', 'Wackwella Road, Galle', 'driver1@galle.sch.lk'),
+    ('D002', 'Ruwan Fernando', 'C87654321', '912345678X', '0719876543', 'Dadalla, Galle', 'driver2@galle.sch.lk'),
+    ('D003', 'Sunil Liyanage', 'B98765432', '852145698V', '0723456789', 'Karapitiya, Galle', 'driver3@galle.sch.lk'),
+    ('D004', 'Sarath Kumara', 'C65498712', '902134567V', '0703456788', 'Pinnaduwa, Galle', 'driver4@galle.sch.lk'),
+    ('D005', 'Chamara Silva', 'B45213456', '872145698V', '0712459876', 'Unawatuna, Galle', 'driver5@galle.sch.lk');
 
 -- Route Table
-INSERT INTO Route (RouteId, StartPoint, Destination, day_fee) VALUES
-                                                                  ('R001', 'Kandy', 'Colombo', 500.00),
-                                                                  ('R002', 'Galle', 'Colombo', 450.00),
-                                                                  ('R003', 'Kurunegala', 'Colombo', 400.00),
-                                                                  ('R004', 'Matara', 'Colombo', 550.00),
-                                                                  ('R005', 'Jaffna', 'Colombo', 600.00);
+INSERT INTO Route (RouteId, StartPoint, Destination, RouteFee)
+VALUES
+    ('R001', 'Dodangoda Road','Karapitiya', 'Richmond College', 2500.00),
+    ('R002','Dodangoda Road','Pinnaduwa', 'Southlands College', 3000.00),
+    ('R003','Dodangoda Road', 'Hikkaduwa', 'Mahinda College', 3500.00),
+    ('R004', 'Dodangoda Road','Gintota', 'St. Aloysius College', 2000.00),
+    ('R005','Dodangoda Road','Unawatuna', 'Sacred Heart Convent', 2200.00);
+
+-- Attendance Table
+INSERT INTO Attendance (AttendanceId, Month, DayCount, Year, StudentId, DriverId)
+VALUES
+    ('A001', 'January', 22, 2024, 'S001', 'D001'),
+    ('A002', 'January', 20, 2024, 'S002', 'D002'),
+    ('A003', 'January', 18, 2024, 'S003', 'D003'),
+    ('A004', 'January', 23, 2024, 'S004', 'D004'),
+    ('A005', 'January', 21, 2024, 'S005', 'D005');
+
+-- Expense Table
+INSERT INTO Expense (ExpenseId, ExpensesCategory, Date, Amount, UserId)
+VALUES
+    ('E001', 'Diesel', '2024-01-05', 15000.00, 'U001'),
+    ('E002', 'Vehicle Maintenance', '2024-01-12', 12000.00, 'U001'),
+    ('E003', 'Driver Salary', '2024-01-20', 50000.00, 'U001'),
+    ('E004', 'Insurance', '2024-01-25', 8000.00, 'U001'),
+    ('E005', 'Miscellaneous', '2024-01-28', 5000.00, 'U001');
 
 -- Payment Table
-INSERT INTO Payment (PaymentId, Date, Amount, CreditBalance, MonthlyFee, Balance, Status, StudentId) VALUES
-                                                                                                         ('P001', '2024-11-01', 1000.00, 100.00, 1100.00, 0.00, 'Paid', 'S001'),
-                                                                                                         ('P002', '2024-11-02', 900.00, 0.00, 900.00, 0.00, 'Paid', 'S002'),
-                                                                                                         ('P003', '2024-11-03', 1200.00, 300.00, 1500.00, 0.00, 'Partial', 'S003'),
-                                                                                                         ('P004', '2024-11-04', 1300.00, 0.00, 1300.00, 0.00, 'Paid', 'S004'),
-                                                                                                         ('P005', '2024-11-05', 800.00, 200.00, 1000.00, 0.00, 'Partial', 'S005');
+INSERT INTO Payment (PaymentId, Date, Amount, CreditBalance, MonthlyFee, Balance, Status, StudentId)
+VALUES
+    ('P001', '2024-01-30', 2500.00, 0.00, 2500.00, 0.00, 'Paid', 'S001'),
+    ('P002', '2024-01-30', 3000.00, 0.00, 3000.00, 0.00, 'Paid', 'S002'),
+    ('P003', '2024-01-30', 3500.00, 0.00, 3500.00, 0.00, 'Paid', 'S003'),
+    ('P004', '2024-01-30', 2000.00, 0.00, 2000.00, 0.00, 'Paid', 'S004'),
+    ('P005', '2024-01-30', 2200.00, 0.00, 2200.00, 0.00, 'Paid', 'S005');
 
--- ServicePlans Table
-INSERT INTO ServicePlans (ServicePlanId, DayPrice, Date, RouteId, StudentId, Distance, PaymentId) VALUES
-                                                                                                      ('SP001', 500.00, '2024-11-01', 'R001', 'S001', 120.0, 'P001'),
-                                                                                                      ('SP002', 450.00, '2024-11-01', 'R002', 'S002', 100.0, 'P002'),
-                                                                                                      ('SP003', 400.00, '2024-11-01', 'R003', 'S003', 150.0, 'P003'),
-                                                                                                      ('SP004', 550.00, '2024-11-01', 'R004', 'S004', 200.0, 'P004'),
-                                                                                                      ('SP005', 600.00, '2024-11-01', 'R005', 'S005', 250.0, 'P005');
+-- StudentRegistrationDetails Table
+INSERT INTO StudentRegistrationDetails (StudentRegistrationId, StudentId, Distance, DayPrice, Date, RouteId)
+VALUES
+    ('SR001', 'S001', 5.0, 100.00, '2024-01-01', 'R001'),
+    ('SR002', 'S002', 8.0, 120.00, '2024-01-01', 'R002'),
+    ('SR003', 'S003', 10.0, 150.00, '2024-01-01', 'R003'),
+    ('SR004', 'S004', 3.0, 90.00, '2024-01-01', 'R004'),
+    ('SR005', 'S005', 4.0, 95.00, '2024-01-01', 'R005');
 
 -- DriverSchedule Table
-INSERT INTO DriverSchedule (DriverScheduleId, DriverId, RouteId, Date) VALUES
-                                                                           ('DS001', 'D001', 'R001', '2024-11-01'),
-                                                                           ('DS002', 'D002', 'R002', '2024-11-02'),
-                                                                           ('DS003', 'D003', 'R003', '2024-11-03'),
-                                                                           ('DS004', 'D004', 'R004', '2024-11-04'),
-                                                                           ('DS005', 'D005', 'R005', '2024-11-05');
+INSERT INTO DriverSchedule (DriverScheduleId, DriverId, RouteId, Date)
+VALUES
+    ('DS001', 'D001', 'R001', '2024-01-02'),
+    ('DS002', 'D002', 'R002', '2024-01-02'),
+    ('DS003', 'D003', 'R003', '2024-01-02'),
+    ('DS004', 'D004', 'R004', '2024-01-02'),
+    ('DS005', 'D005', 'R005', '2024-01-02');
 
 -- Vehicle Table
-INSERT INTO Vehicle (VehicleId, RegistrationNo, VehicleType, EngineCapacity, FuelType, Model, VehicleNo) VALUES
-                                                                                                             ('V001', 'ABC1234', 'Van', 2.5, 'Diesel', 'Toyota', 'ABC1234'),
-                                                                                                             ('V002', 'DEF5678', 'Bus', 4.0, 'Petrol', 'Nissan', 'DEF5678'),
-                                                                                                             ('V003', 'GHI9101', 'Car', 1.8, 'Diesel', 'Honda', 'GHI9101'),
-                                                                                                             ('V004', 'JKL2345', 'Three-Wheeler', 0.8, 'Petrol', 'Bajaj', 'JKL2345'),
-                                                                                                             ('V005', 'MNO6789', 'Lorry', 5.0, 'Diesel', 'Tata', 'MNO6789');
+INSERT INTO Vehicle (VehicleId, RegistrationNo, VehicleType, EngineCapacity, FuelType, Model, SeatCount, AvailableSeatCount)
+VALUES
+    ('V001', 'SP-1234', 'Van', 2.0, 'Diesel', 'Toyota HiAce', 15, 10),
+    ('V002', 'SP-5678', 'Bus', 4.0, 'Diesel', 'Nissan Civilian', 30, 25),
+    ('V003', 'SP-9101', 'Van', 2.5, 'Petrol', 'Hyundai H1', 12, 8),
+    ('V004', 'SP-1121', 'Car', 1.8, 'Petrol', 'Suzuki Alto', 4, 3),
+    ('V005', 'SP-3141', 'Van', 2.2, 'Diesel', 'Kia Carnival', 7, 5);
 
 -- VehicleSchedule Table
-INSERT INTO VehicleSchedule (VehicleScheduleId, VehicleId, RouteId, Date, ArrivalTime, DepartureTime) VALUES
-                                                                                                          ('VS001', 'V001', 'R001', '2024-11-01', '08:00:00', '17:00:00'),
-                                                                                                          ('VS002', 'V002', 'R002', '2024-11-02', '08:30:00', '17:30:00'),
-                                                                                                          ('VS003', 'V003', 'R003', '2024-11-03', '09:00:00', '18:00:00'),
-                                                                                                          ('VS004', 'V004', 'R004', '2024-11-04', '08:15:00', '17:15:00'),
-                                                                                                          ('VS005', 'V005', 'R005', '2024-11-05', '09:30:00', '18:30:00');
+INSERT INTO VehicleSchedule (VehicleScheduleId, VehicleId, RouteId, Date, ArrivalTime, DepartureTime)
+VALUES
+    ('VS001', 'V001', 'R001', '2024-01-02', '07:30:00', '08:30:00'),
+    ('VS002', 'V002', 'R002', '2024-01-02', '07:40:00', '08:40:00'),
+    ('VS003', 'V003', 'R003', '2024-01-02', '07:50:00', '08:50:00'),
+    ('VS004', 'V004', 'R004', '2024-01-02', '07:45:00', '08:45:00'),
+    ('VS005', 'V005', 'R005', '2024-01-02', '07:55:00', '08:55:00');
+

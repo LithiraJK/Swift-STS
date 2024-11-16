@@ -10,5 +10,5 @@ public class RouteTM {
     private String routeName;
     private String startPoint;
     private String destination;
-    private double dayFee;
+    private double routeFee;
 }

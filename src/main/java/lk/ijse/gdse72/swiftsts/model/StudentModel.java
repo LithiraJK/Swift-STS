@@ -68,7 +68,7 @@ public class StudentModel{
     }
 
     public boolean updateStudent(StudentDto studentDto) throws SQLException {
-        return CrudUtil.execute("UPDATE Student SET StudentName=?, ParentName=?, Address=?, Email=?, StudentGrade=?, ContactNo=?, UserId=? WHERE StudentId=?",
+        return CrudUtil.execute("UPDATE Student SET StudentName=?, ParentName=?, PickupLocation=?, Email=?, StudentGrade=?, ContactNo=?, UserId=? WHERE StudentId=?",
                 studentDto.getStudentName(),
                 studentDto.getParentName(),
                 studentDto.getAddress(),

@@ -37,7 +37,7 @@ public class RouteFormController implements Initializable {
     private JFXButton btnUpdate;
 
     @FXML
-    private TableColumn<RouteTM, String> colDayFee;
+    private TableColumn<RouteTM, Double> colRouteFee;
 
     @FXML
     private TableColumn<RouteTM, String> colDestination;
@@ -61,7 +61,7 @@ public class RouteFormController implements Initializable {
     private TableView<RouteTM> tblRoute;
 
     @FXML
-    private JFXTextField txtDayFee;
+    private JFXTextField txtRouteFee;
 
     @FXML
     private JFXTextField txtDestination;
@@ -106,7 +106,7 @@ public class RouteFormController implements Initializable {
         String routeName = txtRouteName.getText();
         String startPoint = txtStartPoint.getText();
         String destination = txtDestination.getText();
-        double dayFee = Double.parseDouble(txtDayFee.getText());
+        double routeFee = Double.parseDouble(txtRouteFee.getText());
 
         // Define regex patterns for validation
         String routeNamePattern = "^[A-Za-z ]+$";
@@ -117,12 +117,12 @@ public class RouteFormController implements Initializable {
         boolean isValidRouteName = routeName.matches(routeNamePattern);
         boolean isValidStartPoint = startPoint.matches(startPointPattern);
         boolean isValidDestination = destination.matches(destinationPattern);
-        boolean isValidDayFee = String.valueOf(dayFee).matches(dayFeePattern);
+        boolean isValidDayFee = String.valueOf(routeFee).matches(dayFeePattern);
 
         txtRouteName.setFocusColor(Paint.valueOf("black"));
         txtStartPoint.setFocusColor(Paint.valueOf("black"));
         txtDestination.setFocusColor(Paint.valueOf("black"));
-        txtDayFee.setFocusColor(Paint.valueOf("black"));
+        txtRouteFee.setFocusColor(Paint.valueOf("black"));
 
         if (!isValidRouteName) {
             txtRouteName.setFocusColor(Paint.valueOf("red"));
@@ -134,11 +134,11 @@ public class RouteFormController implements Initializable {
             txtDestination.setFocusColor(Paint.valueOf("red"));
         }
         if (!isValidDayFee) {
-            txtDayFee.setFocusColor(Paint.valueOf("red"));
+            txtRouteFee.setFocusColor(Paint.valueOf("red"));
         }
 
         if (isValidRouteName && isValidStartPoint && isValidDestination && isValidDayFee) {
-            RouteDto routeDto = new RouteDto(routeId, routeName, startPoint, destination, dayFee);
+            RouteDto routeDto = new RouteDto(routeId, routeName, startPoint, destination, routeFee);
 
             try {
                 boolean isSaved = routeModel.saveRoute(routeDto);
@@ -161,7 +161,7 @@ public class RouteFormController implements Initializable {
         String routeName = txtRouteName.getText();
         String startPoint = txtStartPoint.getText();
         String destination = txtDestination.getText();
-        double dayFee = Double.parseDouble(txtDayFee.getText());
+        double routeFee = Double.parseDouble(txtRouteFee.getText());
 
         // Define regex patterns for validation
         String routeNamePattern = "^[A-Za-z ]+$";
@@ -172,12 +172,12 @@ public class RouteFormController implements Initializable {
         boolean isValidRouteName = routeName.matches(routeNamePattern);
         boolean isValidStartPoint = startPoint.matches(startPointPattern);
         boolean isValidDestination = destination.matches(destinationPattern);
-        boolean isValidDayFee = String.valueOf(dayFee).matches(dayFeePattern);
+        boolean isValidDayFee = String.valueOf(routeFee).matches(dayFeePattern);
 
         txtRouteName.setFocusColor(Paint.valueOf("black"));
         txtStartPoint.setFocusColor(Paint.valueOf("black"));
         txtDestination.setFocusColor(Paint.valueOf("black"));
-        txtDayFee.setFocusColor(Paint.valueOf("black"));
+        txtRouteFee.setFocusColor(Paint.valueOf("black"));
 
         if (!isValidRouteName) {
             txtRouteName.setFocusColor(Paint.valueOf("red"));
@@ -189,11 +189,11 @@ public class RouteFormController implements Initializable {
             txtDestination.setFocusColor(Paint.valueOf("red"));
         }
         if (!isValidDayFee) {
-            txtDayFee.setFocusColor(Paint.valueOf("red"));
+            txtRouteFee.setFocusColor(Paint.valueOf("red"));
         }
 
         if (isValidRouteName && isValidStartPoint && isValidDestination && isValidDayFee) {
-            RouteDto routeDto = new RouteDto(routeId, routeName, startPoint, destination, dayFee);
+            RouteDto routeDto = new RouteDto(routeId, routeName, startPoint, destination, routeFee);
             boolean isUpdated = routeModel.updateRoute(routeDto);
 
             if (isUpdated) {
@@ -213,7 +213,7 @@ public class RouteFormController implements Initializable {
             txtRouteName.setText(selectedItem.getRouteName());
             txtStartPoint.setText(selectedItem.getStartPoint());
             txtDestination.setText(selectedItem.getDestination());
-            txtDayFee.setText(String.valueOf(selectedItem.getDayFee()));
+            txtRouteFee.setText(String.valueOf(selectedItem.getRouteFee()));
 
             btnSave.setDisable(true);
             btnDelete.setDisable(false);
@@ -227,7 +227,7 @@ public class RouteFormController implements Initializable {
         colRouteName.setCellValueFactory(new PropertyValueFactory<>("routeName"));
         colStartPoint.setCellValueFactory(new PropertyValueFactory<>("startPoint"));
         colDestination.setCellValueFactory(new PropertyValueFactory<>("destination"));
-        colDayFee.setCellValueFactory(new PropertyValueFactory<>("dayFee"));
+        colRouteFee.setCellValueFactory(new PropertyValueFactory<>("routeFee"));
 
         try {
             refreshPage();
@@ -247,12 +247,12 @@ public class RouteFormController implements Initializable {
         txtRouteName.setText("");
         txtStartPoint.setText("");
         txtDestination.setText("");
-        txtDayFee.setText("");
+        txtRouteFee.setText("");
 
         txtRouteName.setFocusColor(Paint.valueOf("black"));
         txtStartPoint.setFocusColor(Paint.valueOf("black"));
         txtDestination.setFocusColor(Paint.valueOf("black"));
-        txtDayFee.setFocusColor(Paint.valueOf("black"));
+        txtRouteFee.setFocusColor(Paint.valueOf("black"));
 
         btnSave.setDisable(false);
         btnDelete.setDisable(true);
@@ -269,7 +269,7 @@ public class RouteFormController implements Initializable {
                     routeDto.getRouteName(),
                     routeDto.getStartPoint(),
                     routeDto.getDestination(),
-                    routeDto.getDayFee()
+                    routeDto.getRouteFee()
             );
             routeTMS.add(routeTM);
         }
@@ -281,7 +281,7 @@ public class RouteFormController implements Initializable {
         String routeNamePattern = "^[A-Za-z ]+$";
         String startPointPattern = "^[A-Za-z ]+$";
         String destinationPattern = "^[A-Za-z ]+$";
-        String dayFeePattern = "^[0-9]+(\\.[0-9]{1,2})?$";
+        String routeFeePattern = "^[0-9]+(\\.[0-9]{1,2})?$";
 
         // Add listener for each field
         txtRouteName.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -308,11 +308,11 @@ public class RouteFormController implements Initializable {
             }
         });
 
-        txtDayFee.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches(dayFeePattern)) {
-                txtDayFee.setFocusColor(Paint.valueOf("red"));
+        txtRouteFee.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches(routeFeePattern)) {
+                txtRouteFee.setFocusColor(Paint.valueOf("red"));
             } else {
-                txtDayFee.setFocusColor(Paint.valueOf("black"));
+                txtRouteFee.setFocusColor(Paint.valueOf("black"));
             }
         });
     }

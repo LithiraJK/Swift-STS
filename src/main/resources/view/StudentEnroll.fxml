@@ -61,12 +61,12 @@
          <children>
             <TableView fx:id="tblStudentRegistration" layoutY="2.0" onMouseClicked="#onClickTable" prefHeight="260.0" prefWidth="986.0">
                <columns>
-                  <TableColumn fx:id="colEnrollId" prefWidth="75.0" text="Enroll ID" />
+                  <TableColumn fx:id="colRegId" prefWidth="120.0" text="Registration ID" />
                   <TableColumn fx:id="colStudentId" prefWidth="89.0" text="Student ID" />
-                  <TableColumn fx:id="colPickupLocation" prefWidth="169.0" text="Pickup Location" />
-                  <TableColumn fx:id="colDestination" prefWidth="159.0" text="Destination" />
-                  <TableColumn fx:id="colDistance" prefWidth="82.0" text="Distance" />
-                  <TableColumn fx:id="colDayPrice" prefWidth="96.0" text="Day Price" />
+                  <TableColumn fx:id="colPickupLocation" prefWidth="150.0" text="Pickup Location" />
+                  <TableColumn fx:id="colDestination" prefWidth="155.0" text="Destination" />
+                  <TableColumn fx:id="colDistance" prefWidth="76.0" text="Distance" />
+                  <TableColumn fx:id="colDayPrice" text="Day Price" />
                   <TableColumn fx:id="colRouteId" prefWidth="89.0" text="Route ID" />
                   <TableColumn fx:id="colVehicleID" prefWidth="90.0" text="Vehicle ID" />
                   <TableColumn fx:id="colRegistrationDate" prefWidth="136.0" text="Registration Date" />
