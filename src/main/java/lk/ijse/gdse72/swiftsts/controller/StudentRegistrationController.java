@@ -3,6 +3,8 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,16 +13,21 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.gdse72.swiftsts.dto.StudentRegistrationDto;
+import lk.ijse.gdse72.swiftsts.dto.tm.StudentRegistrationDetailsTM;
 import lk.ijse.gdse72.swiftsts.model.StudentRegistrationModel;
 import lk.ijse.gdse72.swiftsts.util.CrudUtil;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -35,6 +42,7 @@ public class StudentRegistrationController implements Initializable {
     public JFXButton btnReset;
     @FXML
     public ImageView viewTable;
+
 
     @FXML
     private JFXButton btnNewRoute;
@@ -52,31 +60,34 @@ public class StudentRegistrationController implements Initializable {
     private JFXComboBox<String> cmbRoute;
 
     @FXML
-    private TableColumn<?, ?> colDayPrice;
+    private TableColumn<StudentRegistrationDetailsTM, Double> colDayPrice;
 
     @FXML
-    private TableColumn<?, ?> colDestination;
+    private TableColumn<StudentRegistrationDetailsTM, String> colDestination;
 
     @FXML
-    private TableColumn<?, ?> colDistance;
+    private TableColumn<StudentRegistrationDetailsTM, Double> colDistance;
 
     @FXML
-    private TableColumn<?, ?> colEnrollId;
+    private TableColumn<StudentRegistrationDetailsTM, String> colRegId;
 
     @FXML
-    private TableColumn<?, ?> colPickupLocation;
+    private TableColumn<StudentRegistrationDetailsTM, String> colPickupLocation;
 
     @FXML
-    private TableColumn<?, ?> colRegistrationDate;
+    private TableColumn<StudentRegistrationDetailsTM, Date> colRegistrationDate;
 
     @FXML
-    private TableColumn<?, ?> colRouteId;
+    private TableColumn<StudentRegistrationDetailsTM, String> colRouteId;
 
     @FXML
-    public TableColumn<?, ?> colStudentName;
+    public TableColumn<StudentRegistrationDetailsTM, String> colStudentName;
 
     @FXML
-    private TableColumn<?, ?> colVehicleID;
+    private TableColumn<StudentRegistrationDetailsTM, String> colVehicleID;
+
+    @FXML
+    private TableView<StudentRegistrationDetailsTM> tblStudentRegistration;
 
     @FXML
     private Label lableStudentName;
@@ -92,9 +103,6 @@ public class StudentRegistrationController implements Initializable {
 
     @FXML
     private Label lblRegistrationId;
-
-    @FXML
-    private TableView<?> tblStudentRegistration;
 
     @FXML
     private JFXToggleButton trbtnCalculateDistance;
@@ -220,11 +228,23 @@ public class StudentRegistrationController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        colRegId.setCellValueFactory(new PropertyValueFactory<>("registrationId"));
+        colStudentName.setCellValueFactory(new PropertyValueFactory<>("studentName"));
+        colRouteId.setCellValueFactory(new PropertyValueFactory<>("routeId"));
+        colVehicleID.setCellValueFactory(new PropertyValueFactory<>("vehicleId"));
+        colRegistrationDate.setCellValueFactory(new PropertyValueFactory<>("registrationDate"));
+        colDayPrice.setCellValueFactory(new PropertyValueFactory<>("dayPrice"));
+        colDistance.setCellValueFactory(new PropertyValueFactory<>("distance"));
+        colPickupLocation.setCellValueFactory(new PropertyValueFactory<>("pickupLocation"));
+        colDestination.setCellValueFactory(new PropertyValueFactory<>("destination"));
+
+
         try {
             loadStudentIds();
             loadRoutes();
             loadDestinations();
             loadVehicleIds();
+            loadStudentRegistrationDetails();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -262,6 +282,11 @@ public class StudentRegistrationController implements Initializable {
                 }
             }
         });
+    }
+
+    private void loadStudentRegistrationDetails() throws SQLException {
+        ObservableList<StudentRegistrationDetailsTM> studentRegistrationDetails = StudentRegistrationModel.getAllStudentRegistrationDetails();
+        tblStudentRegistration.setItems(studentRegistrationDetails);
     }
 
     private void loadStudentIds() throws SQLException {

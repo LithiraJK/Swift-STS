@@ -89,4 +89,5 @@ public class StudentRegistrationsController implements Initializable {
         ObservableList<StudentRegistrationDto> studentRegistrationList = FXCollections.observableArrayList(studentRegistrations);
         tblStudentRegistration.setItems(studentRegistrationList);
     }
+
 }

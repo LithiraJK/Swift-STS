@@ -1,14 +1,62 @@
 package lk.ijse.gdse72.swiftsts.model;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import lk.ijse.gdse72.swiftsts.db.DBConnection;
 import lk.ijse.gdse72.swiftsts.dto.StudentRegistrationDto;
+import lk.ijse.gdse72.swiftsts.dto.tm.StudentRegistrationDetailsTM;
 import lk.ijse.gdse72.swiftsts.util.CrudUtil;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class StudentRegistrationModel {
+
+    public static ObservableList<StudentRegistrationDetailsTM> getAllStudentRegistrationDetails() throws SQLException {
+        ObservableList<StudentRegistrationDetailsTM> list = FXCollections.observableArrayList();
+        String query = "SELECT " +
+                "sr.StudentRegistrationId AS 'Registration ID', " +
+                "s.StudentId AS 'Student ID', " +
+                "s.StudentName AS 'Student Name', " +
+                "s.PickupLocation AS 'Pickup Location', " +
+                "r.Destination AS 'Destination', " +
+                "sr.Distance AS 'Distance', " +
+                "sr.DayPrice AS 'Day Price', " +
+                "sr.RouteId AS 'Route ID', " +
+                "sr.VehicleId AS 'Vehicle ID', " +
+                "sr.Date AS 'Registration Date' " +
+                "FROM StudentRegistration sr " +
+                "JOIN Student s ON sr.StudentId = s.StudentId " +
+                "JOIN Route r ON sr.RouteId = r.RouteId " +
+                "JOIN Vehicle v ON sr.VehicleId = v.VehicleId";
+
+        Connection connection = DBConnection.getInstance().getConnection();
+
+        try (PreparedStatement pst = connection.prepareStatement(query);
+             ResultSet rs = pst.executeQuery()) {
+
+            while (rs.next()) {
+                list.add(new StudentRegistrationDetailsTM(
+                        rs.getString("Registration ID"),
+                        rs.getString("Student ID"),
+                        rs.getString("Student Name"),
+                        rs.getString("Pickup Location"),
+                        rs.getString("Destination"),
+                        rs.getDouble("Distance"),
+                        rs.getDouble("Day Price"),
+                        rs.getString("Route ID"),
+                        rs.getString("Vehicle ID"),
+                        rs.getDate("Registration Date")
+                ));
+            }
+        }
+        return list;
+    }
+
     public ArrayList<StudentRegistrationDto> getAllStudentRegistrations() throws SQLException {
         ResultSet rst = CrudUtil.execute("SELECT * FROM StudentRegistration");
         ArrayList<StudentRegistrationDto> studentRegistrationList = new ArrayList<>();
