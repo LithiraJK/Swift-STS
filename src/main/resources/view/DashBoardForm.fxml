@@ -38,7 +38,7 @@
             </Group>
             <Group>
                <children>
-                  <JFXButton fx:id="btnStudent" onAction="#btnStudentOnAction" prefHeight="37.0" prefWidth="161.0" text="Student" textAlignment="JUSTIFY" />
+                  <JFXButton fx:id="btnStudent" onAction="#btnStudentOnAction" prefHeight="37.0" prefWidth="161.0" text="Register" textAlignment="JUSTIFY" />
                   <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="7.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../assets/icons/icons8-users-90.png" />
@@ -101,7 +101,7 @@
                   <JFXButton fx:id="btnRoute" onAction="#btnRouteOnAction" prefHeight="37.0" prefWidth="161.0" text="Route" textAlignment="JUSTIFY" />
                   <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="9.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../assets/icons/icons8-reports-90.png" />
+                        <Image url="@../assets/icons/icons8-route-90.png" />
                      </image>
                   </ImageView>
                </children>

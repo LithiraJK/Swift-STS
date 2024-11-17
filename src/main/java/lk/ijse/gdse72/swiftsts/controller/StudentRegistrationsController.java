@@ -58,7 +58,7 @@ public class StudentRegistrationsController implements Initializable {
     @FXML
     void btnBackOnClick(MouseEvent event) throws IOException {
         paneRegistrationDetails.getChildren().clear();
-        AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/view/StudentEnroll.fxml"));
+        AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/view/StudentRegistration.fxml"));
         paneRegistrationDetails.getChildren().add(anchorPane);
     }
 

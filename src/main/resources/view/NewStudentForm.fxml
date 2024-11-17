@@ -13,7 +13,7 @@
          <children>
             <JFXButton fx:id="btnSave" layoutX="259.0" layoutY="373.0" onAction="#btnSaveOnAction" prefHeight="37.0" prefWidth="125.0" styleClass="button-1" text="Save" />
             <Label layoutX="113.0" layoutY="14.0" styleClass="label-H2-" text="Add New Student" />
-            <JFXButton fx:id="btnSave1" layoutX="29.0" layoutY="372.0" onAction="#btnSaveOnAction" prefHeight="37.0" prefWidth="125.0" styleClass="button-1" text="Discard" />
+            <JFXButton fx:id="btnDiscard" layoutX="29.0" layoutY="372.0" onAction="#btnDiscardOnAction" prefHeight="37.0" prefWidth="125.0" styleClass="button-1" text="Discard" />
             <JFXComboBox fx:id="cbUserID" focusColor="BLACK" labelFloat="true" layoutX="271.0" layoutY="130.0" prefHeight="26.0" prefWidth="118.0" promptText="User ID" />
             <JFXTextField fx:id="txtParentName" focusColor="BLACK" labelFloat="true" layoutX="32.0" layoutY="131.0" prefHeight="26.0" prefWidth="176.0" promptText="Parent Name" styleClass="textfields-" unFocusColor="BLACK" />
             <JFXTextField fx:id="txtStudentName" focusColor="BLACK" labelFloat="true" layoutX="216.0" layoutY="73.0" prefHeight="26.0" prefWidth="176.0" promptText="Student Name" styleClass="textfields-" unFocusColor="BLACK" />
