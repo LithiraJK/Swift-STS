@@ -4,6 +4,7 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXToggleButton?>
+<?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Label?>
@@ -14,14 +15,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Line?>
 
-<AnchorPane fx:id="paneRegistration" prefHeight="555.0" prefWidth="1036.0" styleClass="bg-bodypane" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse72.swiftsts.controller.StudentEnrollController">
+<AnchorPane fx:id="paneRegistration" prefHeight="555.0" prefWidth="1036.0" styleClass="bg-bodypane" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse72.swiftsts.controller.StudentRegistrationController">
    <children>
       <Label layoutX="27.0" layoutY="14.0" styleClass="label-H2-" text="Student Registration" />
       <Label layoutX="762.0" layoutY="20.0" styleClass="label-H5-" text="Registration Date :" />
       <Label fx:id="lblDate" layoutX="904.0" layoutY="21.0" styleClass="label-H5-" text="2024 - 11 - 11" />
       <Label layoutX="22.0" layoutY="65.0" styleClass="label-H5-" text="Registration ID :" />
       <Label fx:id="lblRegistrationId" layoutX="146.0" layoutY="65.0" prefHeight="21.0" prefWidth="53.0" styleClass="label-H5-" text="SR001" />
-      <JFXComboBox fx:id="txtStudentId" layoutX="243.0" layoutY="63.0" promptText=" Select Student ID" />
+      <JFXComboBox fx:id="txtStudentId" layoutX="243.0" layoutY="63.0" promptText=" Select Student ID" styleClass="combo-box" />
       <Label fx:id="lableStudentName" layoutX="439.0" layoutY="65.0" prefHeight="21.0" prefWidth="131.0" styleClass="label-H5-" text="Student Name" />
       <Group layoutX="614.0" layoutY="59.0">
          <children>
@@ -33,24 +34,24 @@
             </ImageView>
          </children>
       </Group>
-      <JFXTextField fx:id="txtDistance" layoutX="626.0" layoutY="114.0" promptText="Distance" />
-      <JFXComboBox fx:id="cmbDestination" layoutX="241.0" layoutY="115.0" prefHeight="26.0" prefWidth="156.0" promptText="Destination" />
+      <JFXTextField fx:id="txtDistance" layoutX="626.0" layoutY="114.0" promptText="Distance" styleClass="textfields-" />
+      <JFXComboBox fx:id="cmbDestination" layoutX="241.0" layoutY="115.0" prefHeight="26.0" prefWidth="156.0" promptText="Destination" styleClass="combo-box" />
       <JFXToggleButton fx:id="trbtnCalculateDistance" layoutX="413.0" layoutY="98.0" text="Calculate Distance" toggleColor="#ffdb15" toggleLineColor="#ffe169" />
-      <JFXTextField fx:id="txtDayPrice" layoutX="830.0" layoutY="114.0" promptText="Distance" text="Day Price" />
+      <JFXTextField fx:id="txtDayPrice" focusColor="#9a8b17" layoutX="830.0" layoutY="114.0" promptText="Day Price" styleClass="textfields-" />
       <Group layoutX="22.0" layoutY="163.0">
          <children>
-            <JFXComboBox fx:id="cmbRoute" layoutX="5.0" layoutY="9.0" prefHeight="26.0" prefWidth="156.0" promptText="Select Route" />
-            <JFXButton fx:id="btnNewRoute" layoutX="218.0" layoutY="3.0" onAction="#btnNewRouteOnAction" prefHeight="35.0" prefWidth="136.0" styleClass="button-white" text="New Route" textAlignment="RIGHT" />
-            <JFXComboBox fx:id="cmbVehicle" layoutX="406.0" layoutY="4.0" prefHeight="26.0" prefWidth="156.0" promptText="Select Vehicle" />
-            <JFXButton fx:id="btnNewVehicle" layoutX="600.0" onAction="#btnNewVehicleOnAction" prefHeight="35.0" prefWidth="144.0" styleClass="button-white" text="New Vehicle" />
+            <JFXComboBox fx:id="cmbRoute" layoutX="5.0" layoutY="9.0" prefHeight="26.0" prefWidth="200.0" promptText="Select Route" styleClass="combo-box" />
+            <JFXButton fx:id="btnNewRoute" layoutX="220.0" layoutY="3.0" onAction="#btnNewRouteOnAction" prefHeight="35.0" prefWidth="136.0" styleClass="button-white" text="New Route" textAlignment="RIGHT" />
+            <JFXComboBox fx:id="cmbVehicle" layoutX="406.0" layoutY="4.0" prefHeight="26.0" prefWidth="180.0" promptText="Select Vehicle" styleClass="combo-box" />
+            <JFXButton fx:id="btnNewVehicle" layoutX="612.0" onAction="#btnNewVehicleOnAction" prefHeight="35.0" prefWidth="144.0" styleClass="button-white" text="New Vehicle" />
             <Label layoutX="811.0" layoutY="7.0" styleClass="label-H5-" text="Available Seats : " />
-            <Label fx:id="lblAvailableSeat" layoutX="936.0" layoutY="8.0" prefHeight="21.0" prefWidth="22.0" styleClass="label-H5-" text="30" />
-            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="227.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+            <Label fx:id="lblAvailableSeat" layoutX="936.0" layoutY="8.0" prefHeight="21.0" prefWidth="22.0" styleClass="label-H5-" text="00" />
+            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="229.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/icons/icons8-add-properties-90.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="610.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="622.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/icons/icons8-add-car-96.png" />
                </image>
@@ -61,16 +62,20 @@
          <children>
             <TableView fx:id="tblStudentRegistration" layoutY="2.0" onMouseClicked="#onClickTable" prefHeight="260.0" prefWidth="986.0">
                <columns>
-                  <TableColumn fx:id="colRegId" prefWidth="120.0" text="Registration ID" />
-                  <TableColumn fx:id="colStudentId" prefWidth="89.0" text="Student ID" />
-                  <TableColumn fx:id="colPickupLocation" prefWidth="150.0" text="Pickup Location" />
-                  <TableColumn fx:id="colDestination" prefWidth="155.0" text="Destination" />
-                  <TableColumn fx:id="colDistance" prefWidth="76.0" text="Distance" />
-                  <TableColumn fx:id="colDayPrice" text="Day Price" />
-                  <TableColumn fx:id="colRouteId" prefWidth="89.0" text="Route ID" />
-                  <TableColumn fx:id="colVehicleID" prefWidth="90.0" text="Vehicle ID" />
-                  <TableColumn fx:id="colRegistrationDate" prefWidth="136.0" text="Registration Date" />
+                  <TableColumn fx:id="colRegId" prefWidth="121.0" text="Registration ID" />
+                  <TableColumn fx:id="colStudentName" minWidth="0.0" prefWidth="116.0" text="Student Name" />
+                  <TableColumn fx:id="colPickupLocation" prefWidth="131.0" text="Pickup Location" />
+                  <TableColumn fx:id="colDestination" prefWidth="143.0" text="Destination" />
+                  <TableColumn fx:id="colDistance" prefWidth="79.0" text="Distance" />
+                  <TableColumn fx:id="colDayPrice" prefWidth="95.0" text="Day Price" />
+                  <TableColumn fx:id="colRouteId" prefWidth="82.0" text="Route ID" />
+                  <TableColumn fx:id="colVehicleID" prefWidth="85.0" text="Vehicle ID" />
+                  <TableColumn fx:id="colRegistrationDate" prefWidth="133.0" text="Registration Date" />
                </columns>
+               <styleClass>
+                  <String fx:value="scroll-bar" />
+                  <String fx:value="table-view" />
+               </styleClass>
             </TableView>
          </children>
          <stylesheets>
@@ -79,9 +84,15 @@
          </stylesheets>
       </AnchorPane>
       <Line endX="492.0" layoutX="507.0" layoutY="216.0" startX="-484.0" />
-      <JFXButton fx:id="btnSave" layoutX="838.0" layoutY="224.0" onAction="#btnSaveOnAction" prefHeight="37.0" prefWidth="136.0" styleClass="button-1" text="Save" />
+      <JFXButton fx:id="btnRegister" layoutX="730.0" layoutY="226.0" onAction="#btnRegisterOnAction" prefHeight="37.0" prefWidth="225.0" styleClass="button-1" text="Register" />
       <Label fx:id="lblManageStudentOnClick" layoutX="870.0" layoutY="62.0" onMouseClicked="#lblManageStudentOnClick" styleClass="label-text" text="Manage Student" />
       <Label fx:id="lblPickupLocation" layoutX="27.0" layoutY="121.0" prefHeight="21.0" prefWidth="131.0" styleClass="label-H5-" text="Pickup Location" />
+      <JFXButton fx:id="btnReset" layoutX="26.0" layoutY="227.0" onAction="#btnResetOnAction" prefHeight="37.0" prefWidth="125.0" styleClass="button-1" text="Reset" />
+      <ImageView fx:id="viewTable" fitHeight="38.0" fitWidth="42.0" layoutX="968.0" layoutY="226.0" onMouseClicked="#viewTableOnClicked" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/icons/icons8-view-all-96.png" />
+         </image>
+      </ImageView>
    </children>
    <stylesheets>
       <URL value="@../css-file/DashBoard.css" />

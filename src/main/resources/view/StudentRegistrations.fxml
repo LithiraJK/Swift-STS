@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="paneRegistrationDetails" prefHeight="555.0" prefWidth="1036.0" style="-fx-background-color: transparent;" styleClass="bg-bodypane" stylesheets="@../css-file/DashBoard.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse72.swiftsts.controller.StudentRegistrationsController">
+   <children>
+      <AnchorPane layoutX="68.0" layoutY="53.0" prefHeight="450.0" prefWidth="827.0" styleClass="popup">
+         <children>
+            <AnchorPane layoutX="19.0" layoutY="64.0" prefHeight="344.0" prefWidth="842.0" style="-fx-background-color: white;" styleClass="bg-whitepane">
+               <children>
+                  <TableView fx:id="tblStudentRegistration" layoutY="-1.0" onMouseClicked="#tblStudentRegistrationOnClick" prefHeight="347.0" prefWidth="842.0">
+                     <columns>
+                        <TableColumn fx:id="colStudentRegistrationId" prefWidth="169.0" text="StudentRegistrationId" />
+                        <TableColumn fx:id="colStudentId" prefWidth="98.0" text="StudentId" />
+                        <TableColumn fx:id="colDistance" prefWidth="98.0" text="Distance" />
+                        <TableColumn fx:id="colDayPrice" minWidth="0.0" prefWidth="95.0" text="DayPrice" />
+                        <TableColumn fx:id="colDate" minWidth="0.0" prefWidth="165.0" text="Date" />
+                        <TableColumn fx:id="colRouteId" minWidth="0.0" prefWidth="110.0" text="Route ID" />
+                        <TableColumn fx:id="colVehicleId" minWidth="0.0" prefWidth="110.0" text="Vehicle ID" />
+                     </columns>
+                  </TableView>
+               </children>
+               <stylesheets>
+                  <URL value="@../css-file/tbl.css" />
+                  <URL value="@../css-file/Scrool.css" />
+               </stylesheets>
+            </AnchorPane>
+            <Label layoutX="22.0" layoutY="12.0" styleClass="label-H2-" text="Student Registration Details" />
+            <ImageView fx:id="btnBack" fitHeight="38.0" fitWidth="42.0" layoutX="817.0" layoutY="10.0" onMouseClicked="#btnBackOnClick" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/icons/icons8-back-button-64.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

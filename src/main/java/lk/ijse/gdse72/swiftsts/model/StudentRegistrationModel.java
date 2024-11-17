@@ -1,5 +1,6 @@
 package lk.ijse.gdse72.swiftsts.model;
 
+import lk.ijse.gdse72.swiftsts.dto.StudentRegistrationDto;
 import lk.ijse.gdse72.swiftsts.util.CrudUtil;
 
 import java.sql.ResultSet;
@@ -7,7 +8,36 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StudentEnrollModel {
+public class StudentRegistrationModel {
+    public ArrayList<StudentRegistrationDto> getAllStudentRegistrations() throws SQLException {
+        ResultSet rst = CrudUtil.execute("SELECT * FROM StudentRegistration");
+        ArrayList<StudentRegistrationDto> studentRegistrationList = new ArrayList<>();
+
+        while (rst.next()) {
+            StudentRegistrationDto dto = new StudentRegistrationDto(
+                    rst.getString("StudentRegistrationId"),
+                    rst.getString("StudentId"),
+                    rst.getDouble("DayPrice"),
+                    rst.getDouble("Distance"),
+                    rst.getString("RouteId"),
+                    rst.getString("VehicleId"),
+                    rst.getDate("Date")
+
+            );
+            studentRegistrationList.add(dto);
+        }
+
+        return studentRegistrationList;
+    }
+
+    public static boolean insertStudentRegistration(String studentRegId, String studentId, double distance, double dayPrice, String registrationDate, String routeId, String vehicleId) throws SQLException {
+        return CrudUtil.execute("INSERT INTO StudentRegistration (StudentRegistrationId, StudentId, Distance, DayPrice, Date, RouteId, VehicleId) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                studentRegId, studentId, distance, dayPrice, registrationDate, routeId, vehicleId);
+    }
+
+    public static boolean updateVehicleSeatCount(String vehicleId, int decrementBy) throws SQLException {
+        return CrudUtil.execute("UPDATE Vehicle SET AvailableSeatCount = AvailableSeatCount - ? WHERE VehicleId = ?", decrementBy, vehicleId);
+    }
 
     public static List<String> getAllStudentIds() throws SQLException {
         List<String> studentIds = new ArrayList<>();
@@ -20,9 +50,9 @@ public class StudentEnrollModel {
 
     public static List<String> getAllRoutes() throws SQLException {
         List<String> routes = new ArrayList<>();
-        ResultSet resultSet = CrudUtil.execute("SELECT RouteName FROM Route");
+        ResultSet resultSet = CrudUtil.execute("SELECT RouteId FROM Route");
         while (resultSet.next()) {
-            routes.add(resultSet.getString("RouteName"));
+            routes.add(resultSet.getString("RouteId"));
         }
         return routes;
     }
@@ -70,7 +100,7 @@ public class StudentEnrollModel {
     }
 
     public String getNextRegistrationId() throws SQLException {
-        ResultSet resultSet = CrudUtil.execute("SELECT StudentRegistrationId FROM StudentRegistrationDetails ORDER BY StudentRegistrationId DESC LIMIT 1");
+        ResultSet resultSet = CrudUtil.execute("SELECT StudentRegistrationId FROM StudentRegistration ORDER BY StudentRegistrationId DESC LIMIT 1");
 
         if (resultSet.next()) {
             String lastId = resultSet.getString(1);
@@ -81,4 +111,6 @@ public class StudentEnrollModel {
         }
         return "SR001";
     }
+
+
 }

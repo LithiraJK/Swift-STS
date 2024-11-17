@@ -91,11 +91,23 @@
 }
 
 .textfields-{
-    -fx-prompt-text-fill: black; /* Custom color for the placeholder (prompt) */
+    -fx-prompt-text-fill: #4d4d4d; /* Custom color for the placeholder (prompt) */
     -fx-font-style: lufga ; /* Optional: make placeholder  */
     -fx-text-fill: black; /* Text color for inputted text */
     -fx-text-opacity: 0.3; /* Adjust opacity as needed (0.0 to 1.0) */
-    -fx-font-family: lufga;
+    -jfx-unfocus-color: black;
+    -jfx-focus-color: black;
+    -jfx-label-float: true;
+}
+
+.combo-box{
+    -fx-prompt-text-fill: #4d4d4d; /* Custom color for the placeholder (prompt) */
+    -fx-font-style: lufga ; /* Optional: make placeholder  */
+    -fx-text-fill: black; /* Text color for inputted text */
+    -fx-text-opacity: 0.3; /* Adjust opacity as needed (0.0 to 1.0) */
+    -jfx-unfocus-color: black;
+    -jfx-focus-color: black;
+    -jfx-label-float: true;
 }
 
 /*.student-btn {*/

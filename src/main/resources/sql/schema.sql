@@ -99,7 +99,7 @@ CREATE TABLE Payment
         ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-CREATE TABLE StudentRegistrationDetails
+CREATE TABLE StudentRegistration
 (
     StudentRegistrationId VARCHAR(10)    NOT NULL PRIMARY KEY,
     StudentId             VARCHAR(10)    NOT NULL,
@@ -107,10 +107,14 @@ CREATE TABLE StudentRegistrationDetails
     DayPrice              DECIMAL(10, 2) NOT NULL,
     Date                  DATE           NOT NULL,
     RouteId               VARCHAR(10)    NOT NULL,
+    VehicleId             VARCHAR(10)    NOT NULL,
     FOREIGN KEY (StudentId) REFERENCES Student (StudentId)
         ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY (RouteId) REFERENCES Route (RouteId)
+        ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (VehicleId) REFERENCES Vehicle (VehicleId)
         ON UPDATE CASCADE ON DELETE CASCADE
+
 );
 
 CREATE TABLE DriverSchedule
@@ -170,7 +174,7 @@ VALUES
     ('D005', 'Chamara Silva', 'B45213456', '872145698V', '0712459876', 'Unawatuna, Galle', 'driver5@galle.sch.lk');
 
 -- Route Table
-INSERT INTO Route (RouteId, StartPoint, Destination, RouteFee)
+INSERT INTO Route (RouteId,RouteName, StartPoint, Destination, RouteFee)
 VALUES
     ('R001', 'Dodangoda Road','Karapitiya', 'Richmond College', 2500.00),
     ('R002','Dodangoda Road','Pinnaduwa', 'Southlands College', 3000.00),
@@ -205,14 +209,25 @@ VALUES
     ('P004', '2024-01-30', 2000.00, 0.00, 2000.00, 0.00, 'Paid', 'S004'),
     ('P005', '2024-01-30', 2200.00, 0.00, 2200.00, 0.00, 'Paid', 'S005');
 
--- StudentRegistrationDetails Table
-INSERT INTO StudentRegistrationDetails (StudentRegistrationId, StudentId, Distance, DayPrice, Date, RouteId)
+-- Vehicle Table
+INSERT INTO Vehicle (VehicleId, RegistrationNo, VehicleType, EngineCapacity, FuelType, Model, SeatCount, AvailableSeatCount)
 VALUES
-    ('SR001', 'S001', 5.0, 100.00, '2024-01-01', 'R001'),
-    ('SR002', 'S002', 8.0, 120.00, '2024-01-01', 'R002'),
-    ('SR003', 'S003', 10.0, 150.00, '2024-01-01', 'R003'),
-    ('SR004', 'S004', 3.0, 90.00, '2024-01-01', 'R004'),
-    ('SR005', 'S005', 4.0, 95.00, '2024-01-01', 'R005');
+    ('V001', 'SP-1234', 'Van', 2.0, 'Diesel', 'Toyota HiAce', 15, 10),
+    ('V002', 'SP-5678', 'Bus', 4.0, 'Diesel', 'Nissan Civilian', 30, 25),
+    ('V003', 'SP-9101', 'Van', 2.5, 'Petrol', 'Hyundai H1', 12, 8),
+    ('V004', 'SP-1121', 'Car', 1.8, 'Petrol', 'Suzuki Alto', 4, 3),
+    ('V005', 'SP-3141', 'Van', 2.2, 'Diesel', 'Kia Carnival', 7, 5);
+
+
+-- StudentRegistrationDetails Table
+INSERT INTO StudentRegistration (StudentRegistrationId, StudentId, Distance, DayPrice, Date, RouteId, VehicleId)
+VALUES
+    ('SR001', 'S001', 5.5, 100.00, '2024-01-01', 'R001', 'V001'),
+    ('SR002', 'S002', 7.0, 120.00, '2024-01-02', 'R002', 'V002'),
+    ('SR003', 'S003', 10.0, 150.00, '2024-01-03', 'R003', 'V003'),
+    ('SR004', 'S004', 8.0, 110.00, '2024-01-04', 'R004', 'V004'),
+    ('SR005', 'S005', 6.0, 90.00, '2024-01-05', 'R005', 'V005');
+
 
 -- DriverSchedule Table
 INSERT INTO DriverSchedule (DriverScheduleId, DriverId, RouteId, Date)
@@ -223,21 +238,12 @@ VALUES
     ('DS004', 'D004', 'R004', '2024-01-02'),
     ('DS005', 'D005', 'R005', '2024-01-02');
 
--- Vehicle Table
-INSERT INTO Vehicle (VehicleId, RegistrationNo, VehicleType, EngineCapacity, FuelType, Model, SeatCount, AvailableSeatCount)
-VALUES
-    ('V001', 'SP-1234', 'Van', 2.0, 'Diesel', 'Toyota HiAce', 15, 10),
-    ('V002', 'SP-5678', 'Bus', 4.0, 'Diesel', 'Nissan Civilian', 30, 25),
-    ('V003', 'SP-9101', 'Van', 2.5, 'Petrol', 'Hyundai H1', 12, 8),
-    ('V004', 'SP-1121', 'Car', 1.8, 'Petrol', 'Suzuki Alto', 4, 3),
-    ('V005', 'SP-3141', 'Van', 2.2, 'Diesel', 'Kia Carnival', 7, 5);
 
--- VehicleSchedule Table
 INSERT INTO VehicleSchedule (VehicleScheduleId, VehicleId, RouteId, Date, ArrivalTime, DepartureTime)
 VALUES
-    ('VS001', 'V001', 'R001', '2024-01-02', '07:30:00', '08:30:00'),
-    ('VS002', 'V002', 'R002', '2024-01-02', '07:40:00', '08:40:00'),
-    ('VS003', 'V003', 'R003', '2024-01-02', '07:50:00', '08:50:00'),
-    ('VS004', 'V004', 'R004', '2024-01-02', '07:45:00', '08:45:00'),
-    ('VS005', 'V005', 'R005', '2024-01-02', '07:55:00', '08:55:00');
+    ('VS001', 'V001', 'R001', '2024-01-01', '07:30:00', '08:00:00'),
+    ('VS002', 'V002', 'R002', '2024-01-02', '07:40:00', '08:10:00'),
+    ('VS003', 'V003', 'R003', '2024-01-03', '07:50:00', '08:20:00'),
+    ('VS004', 'V004', 'R004', '2024-01-04', '08:00:00', '08:30:00'),
+    ('VS005', 'V005', 'R005', '2024-01-05', '08:10:00', '08:40:00');
 
