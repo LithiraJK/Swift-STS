@@ -8,7 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 public class AttendanceTM {
     private String attendanceId;
-    private String studentName;
+    private String studentId;
     private String driverId;
     private int year;
     private String month;

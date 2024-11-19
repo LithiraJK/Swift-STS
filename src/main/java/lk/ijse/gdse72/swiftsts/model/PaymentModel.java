@@ -2,6 +2,7 @@ package lk.ijse.gdse72.swiftsts.model;
 
 import lk.ijse.gdse72.swiftsts.dto.PaymentDto;
 import lk.ijse.gdse72.swiftsts.util.CrudUtil;
+import lk.ijse.gdse72.swiftsts.db.DBConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,17 +15,17 @@ public class PaymentModel {
 
     private Connection connection;
 
-    public PaymentModel(Connection connection) {
-        this.connection = connection;
+    public PaymentModel() throws SQLException {
+        this.connection = DBConnection.getInstance().getConnection();
     }
 
     public List<PaymentDto> getPaymentData() {
         List<PaymentDto> paymentData = new ArrayList<>();
 
         String query = """
-            SELECT p.PaymentId, s.StudentId, s.StudentName, p.MonthlyFee, p.Amount, 
-                   p.Balance, p.Status, p.Date 
-            FROM Payment p 
+            SELECT p.PaymentId, s.StudentId, s.StudentName, p.MonthlyFee, p.Amount,
+                   p.Balance, p.Status, p.Date
+            FROM Payment p
             INNER JOIN Student s ON p.StudentId = s.StudentId
             """;
 
@@ -54,7 +55,7 @@ public class PaymentModel {
         return dayCount * feePerDay;
     }
 
-    public static boolean updatePayment(Connection connection, PaymentDto paymentDto) throws SQLException {
+    public static boolean updatePayment(PaymentDto paymentDto) throws SQLException {
         String query = "UPDATE Payment SET MonthlyFee = ?, Amount = ?, Balance = ?, Status = ?, Date = ? WHERE StudentId = ?";
         return CrudUtil.execute(query,
                 paymentDto.getMonthlyFee(),

@@ -69,7 +69,7 @@ public class AttendanceModel {
         return CrudUtil.execute("DELETE FROM Attendance WHERE AttendanceId=?", attendenceId);
     }
 
-    public int getMonthlyDayCount(Connection connection, String studentId, String year, String month) throws SQLException {
+    public int getAttendanceDayCount(String studentId, String year, String month) throws SQLException {
         String query = "SELECT DayCount FROM Attendance WHERE StudentId = ? AND Year = ? AND Month = ?";
         ResultSet resultSet = CrudUtil.execute(query, studentId, year, month);
 
@@ -80,4 +80,13 @@ public class AttendanceModel {
         return dayCount;
     }
 
+    public String getStudentIdByAttendanceId(String attendanceId) throws SQLException {
+        String query = "SELECT StudentId FROM Attendance WHERE AttendanceId = ?";
+        ResultSet resultSet = CrudUtil.execute(query, attendanceId);
+
+        if (resultSet.next()) {
+            return resultSet.getString("StudentId");
+        }
+        return null;
+    }
 }

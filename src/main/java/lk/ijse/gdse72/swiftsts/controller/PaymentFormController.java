@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -94,12 +95,20 @@ public class PaymentFormController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            paymentModel = new PaymentModel(DBConnection.getInstance().getConnection());
+            paymentModel = new PaymentModel();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         lblPaymentDate.setText(LocalDate.now().toString());
         loadPaymentData();
+
+        // Initialize the Calculate Payment button as disabled
+        btnCalculatePayment.setDisable(true);
+
+        // Add listener to enable the Calculate Payment button when a record is selected
+        tblPayments.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            btnCalculatePayment.setDisable(newValue == null);
+        });
     }
 
     private void loadPaymentData() {
@@ -125,11 +134,7 @@ public class PaymentFormController implements Initializable {
 
     @FXML
     void btnCalculatePayment(ActionEvent event) {
-        Connection connection = null;
         try {
-            connection = DBConnection.getInstance().getConnection();
-            connection.setAutoCommit(false);
-
             String studentId = cbStudentId.getValue();
             int dayCount = Integer.parseInt(txtPayAmount.getText());
             double monthlyFee = paymentModel.calculateMonthlyFee(studentId, dayCount);
@@ -145,33 +150,17 @@ public class PaymentFormController implements Initializable {
                     LocalDate.now().toString()
             );
 
-            boolean isPaymentUpdated = paymentModel.updatePayment(connection, paymentDto);
+            boolean isPaymentUpdated = PaymentModel.updatePayment(paymentDto);
 
             if (!isPaymentUpdated) {
-                connection.rollback();
+                new Alert(Alert.AlertType.ERROR, "Failed to update payment.").show();
                 return;
             }
 
-            connection.commit();
             loadPaymentData();
         } catch (SQLException e) {
-            if (connection != null) {
-                try {
-                    connection.rollback();
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                }
-            }
             e.printStackTrace();
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.setAutoCommit(true);
-                    connection.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
+            new Alert(Alert.AlertType.ERROR, "An error occurred while updating the payment: " + e.getMessage()).show();
         }
     }
 
