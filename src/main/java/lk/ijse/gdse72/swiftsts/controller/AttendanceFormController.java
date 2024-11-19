@@ -249,8 +249,20 @@ public class AttendanceFormController implements Initializable {
     }
 
     @FXML
-    public void btnResetOnAction(ActionEvent actionEvent) {
-        // Implement reset logic if needed
+    void btnResetOnAction(ActionEvent event) throws SQLException {
+        refreshPage();
+    }
+    private void refreshPage() throws SQLException {
+        refreshTable();
+        String nextAttendanceId = attendanceModel.getNextAttendanceId();
+        lblAttendenceId.setText(nextAttendanceId);
+        cbStudentId.getSelectionModel().clearSelection();
+        cbDriverId.getSelectionModel().clearSelection();
+        cbYear.getSelectionModel().clearSelection();
+        cbMonth.getSelectionModel().clearSelection();
+        txtDayCount.clear();
+        lblStudentName.setText("Student Name");
+
     }
 
     @FXML

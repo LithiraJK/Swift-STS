@@ -212,8 +212,30 @@ public class StudentRegistrationController implements Initializable {
     }
 
     @FXML
-    void btnResetOnAction(ActionEvent event) {
-        // Reset action implementation
+    void btnResetOnAction(ActionEvent event) throws SQLException {
+        refreshPage();
+    }
+    private void refreshPage() throws SQLException {
+        refreshTable();
+        txtStudentId.getSelectionModel().clearSelection();
+        cmbRoute.getSelectionModel().clearSelection();
+        cmbVehicle.getSelectionModel().clearSelection();
+        cmbDestination.getSelectionModel().clearSelection();
+        txtDayPrice.clear();
+        txtDistance.clear();
+        lblRegistrationId.setText(studentRegistrationModel.getNextRegistrationId());
+        lableStudentName.setText("Student Name");
+        lblPickupLocation.setText("Pickup Location");
+        lblAvailableSeat.setText("00");
+    }
+
+    private void refreshTable() {
+        tblStudentRegistration.getItems().clear();
+        try {
+            loadStudentRegistrationDetails();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
