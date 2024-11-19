@@ -186,7 +186,7 @@ VALUES
 INSERT INTO Attendance (AttendanceId, Month, DayCount, Year, StudentId, DriverId)
 VALUES
     ('A001', 'January', 22, 2024, 'S001', 'D001'),
-    ('A002', 'January', 20, 2024, 'S002', 'D002'),
+    ('A006', 'January', 20, 2024, 'S002', 'D002'),
     ('A003', 'January', 18, 2024, 'S003', 'D003'),
     ('A004', 'January', 23, 2024, 'S004', 'D004'),
     ('A005', 'January', 21, 2024, 'S005', 'D005');

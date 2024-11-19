@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import java.net.URL?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -11,7 +12,7 @@
 
 <AnchorPane fx:id="panePayment" prefHeight="555.0" prefWidth="1036.0" styleClass="bg-bodypane" stylesheets="@../css-file/DashBoard.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse72.swiftsts.controller.PaymentFormController">
    <children>
-      <AnchorPane layoutX="29.0" layoutY="197.0" prefHeight="259.0" prefWidth="986.0" style="-fx-background-color: white;" styleClass="bg-whitepane">
+      <AnchorPane layoutX="29.0" layoutY="196.0" prefHeight="277.0" prefWidth="986.0" style="-fx-background-color: white;" styleClass="bg-whitepane">
          <children>
             <TableView fx:id="tblPayments" layoutY="-6.0" onMouseClicked="#tblPaymentsOnClicked" prefHeight="282.0" prefWidth="986.0">
                <columns>
@@ -25,6 +26,10 @@
                </columns>
             </TableView>
          </children>
+         <stylesheets>
+            <URL value="@../css-file/tbl.css" />
+            <URL value="@../css-file/Scrool.css" />
+         </stylesheets>
       </AnchorPane>
 
       <!-- Payment History Label -->

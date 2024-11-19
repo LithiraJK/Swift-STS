@@ -16,7 +16,7 @@ import java.util.List;
 
 public class StudentRegistrationModel {
 
-    public static ObservableList<StudentRegistrationDetailsTM> getAllStudentRegistrationDetails() throws SQLException {
+    public static ObservableList<StudentRegistrationDetailsTM> getAllStudentRegistrationDetails() {
         ObservableList<StudentRegistrationDetailsTM> list = FXCollections.observableArrayList();
         String query = "SELECT " +
                 "sr.StudentRegistrationId AS 'Registration ID', " +
@@ -34,10 +34,14 @@ public class StudentRegistrationModel {
                 "JOIN Route r ON sr.RouteId = r.RouteId " +
                 "JOIN Vehicle v ON sr.VehicleId = v.VehicleId";
 
-        Connection connection = DBConnection.getInstance().getConnection();
+        Connection connection = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
 
-        try (PreparedStatement pst = connection.prepareStatement(query);
-             ResultSet rs = pst.executeQuery()) {
+        try {
+            connection = DBConnection.getInstance().getConnection();
+            pst = connection.prepareStatement(query);
+            rs = pst.executeQuery();
 
             while (rs.next()) {
                 list.add(new StudentRegistrationDetailsTM(
@@ -53,10 +57,26 @@ public class StudentRegistrationModel {
                         rs.getDate("Registration Date")
                 ));
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (pst != null) {
+                try {
+                    pst.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return list;
     }
-
     public ArrayList<StudentRegistrationDto> getAllStudentRegistrations() throws SQLException {
         ResultSet rst = CrudUtil.execute("SELECT * FROM StudentRegistration");
         ArrayList<StudentRegistrationDto> studentRegistrationList = new ArrayList<>();

@@ -5,11 +5,11 @@
     -fx-background-color: #fff;
 }
 .scroll-bar:horizontal .thumb{
-    -fx-background-color:#fff ;
+    -fx-background-color:#000000 ;
     -fx-background-radius: 100;
 }
 .scroll-bar:vertical .thumb{
-    -fx-background-color:#000000 ;
+    -fx-background-color:#000000;
     -fx-background-radius: 100;
 }
 .scroll-bar:vertical *.increment-button,

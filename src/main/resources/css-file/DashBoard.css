@@ -1,18 +1,50 @@
-.button{
-    -fx-border-radius: 50;
-    -fx-background-radius: 50;
-    -fx-background-color: #000000;
-    -fx-border-width: 3;
-    -fx-border-style: solid;
-    -fx-text-fill: #ffffff;
+/*.button{*/
+/*    -fx-border-radius: 50;*/
+/*    -fx-background-radius: 50;*/
+/*    -fx-background-color: #000000;*/
+/*    -fx-border-width: 3;*/
+/*    -fx-border-style: solid;*/
+/*    -fx-text-fill: #ffffff;*/
+/*    -fx-font-family: lufga ;*/
+/*    -fx-font-size: 15;*/
+/*    -fx-font-weight: 700;*/
+/*}*/
+/*.button:hover{*/
+/*    -fx-text-fill: #ffd600;*/
+/*    -fx-background-color: #000000;*/
+/*    -fx-border-color: #ffd600;*/
+/*}*/
+
+.buttonDash {
+    -fx-border-radius: 50; /* Rounded edges */
+    -fx-background-radius: 50; /* Match border radius */
+    -fx-background-color: #000000; /* Black background */
+    -fx-border-width: 3; /* Border thickness */
+    -fx-font-weight: 700;
+    -fx-text-fill: #ffffff; /* White text */
     -fx-font-family: lufga ;
     -fx-font-size: 15;
-    -fx-font-weight: 700;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 5, 0.5, 0, 0); /* Subtle shadow */
+    -fx-cursor: hand; /* Pointer cursor */
+    -fx-transition: all 0.3s ease-in-out; /* Smooth animations */
+
 }
-.button:hover{
-    -fx-text-fill: #ffd600;
-    -fx-background-color: #000000;
-    -fx-border-color: #ffd600;
+
+.buttonDash:hover {
+    -fx-text-fill: #ffd600; /* Yellow text color on hover */
+    -fx-background-color: #000000; /* Keep black background */
+    /*-fx-border-color: #ffd600; !* Yellow border on hover *!*/
+    -fx-scale-x: 1.05; /* Slight zoom */
+    -fx-scale-y: 1.05;
+    -fx-effect: dropshadow(gaussian, rgba(255, 214, 0, 0.8), 10, 0.7, 0, 0); /* Glow effect */
+}
+
+.buttonDash:pressed {
+    -fx-background-color: #ffd600; /* Yellow background on click */
+    -fx-text-fill: #000000; /* Black text on click */
+    -fx-effect: none; /* Remove shadow for pressed state */
+    -fx-scale-x: 1; /* Reset scale */
+    -fx-scale-y: 1;
 }
 
 .button-1{
@@ -30,7 +62,6 @@
 .button-1:hover{
     -fx-text-fill: #000000;
     -fx-background-color: #ffd600;
-    /*-fx-border-color: #ffd600;*/
 }
 
 .label-text {
@@ -44,8 +75,9 @@
     -fx-font-weight: 700;  /* Make the text bolder on hover */
     -fx-font-size: 16px;   /* Increase font size on hover */
 }
-.button-white{
+.buttonWhite{
     -fx-border-radius: 30;
+    -fx-border-color: black;
     -fx-background-radius: 30;
     -fx-background-color: transparent;
     -fx-border-width: 2;
@@ -57,7 +89,7 @@
     -fx-alignment: CENTER-RIGHT;
 }
 
-.button-white:hover{
+.buttonWhite:hover{
     -fx-text-fill: #ffffff;
     -fx-background-color: #000000;
     -fx-border-color: #000000;
@@ -65,7 +97,7 @@
 
 .bg-bodypane{
     /*-fx-background-color: rgba(0, 0, 0, 0.4);*/
-    -fx-background-color: #D8D8D8;
+    -fx-background-color: #dfe4ea;
     -fx-background-radius: 30;
     -fx-border-radius: 30;
 }
@@ -91,7 +123,7 @@
 }
 
 .textfields-{
-    -fx-prompt-text-fill: #4d4d4d; /* Custom color for the placeholder (prompt) */
+    -fx-prompt-text-fill: #636e72; /* Custom color for the placeholder (prompt) */
     -fx-font-style: lufga ; /* Optional: make placeholder  */
     -fx-text-fill: black; /* Text color for inputted text */
     -fx-text-opacity: 0.3; /* Adjust opacity as needed (0.0 to 1.0) */
@@ -101,13 +133,33 @@
 }
 
 .combo-box{
-    -fx-prompt-text-fill: #4d4d4d; /* Custom color for the placeholder (prompt) */
+    -fx-prompt-text-fill: #636e72; /* Custom color for the placeholder (prompt) */
     -fx-font-style: lufga ; /* Optional: make placeholder  */
     -fx-text-fill: black; /* Text color for inputted text */
     -fx-text-opacity: 0.3; /* Adjust opacity as needed (0.0 to 1.0) */
     -jfx-unfocus-color: black;
     -jfx-focus-color: black;
     -jfx-label-float: true;
+}
+
+.combo-box .list-cell:hover {
+    -fx-background-color: #ffdf00; /* Yellow hover color */
+    -fx-text-fill: black; /* Text color */
+}
+
+.combo-box .list-cell:filled:selected {
+    -fx-background-color: transparent;
+    -fx-text-fill: black; /* Text color for selected item */
+}
+
+.combo-box-popup {
+    -fx-background-color: #f9f9f9; /* Light background for dropdown */
+    -fx-border-color: #ffdf00; /* Yellow border */
+}
+
+.combo-box .arrow-button:hover {
+    -fx-background-color: #ffdf00; /* Yellow background for the arrow button */
+    -fx-text-fill: black; /* Arrow color */
 }
 
 /*.student-btn {*/

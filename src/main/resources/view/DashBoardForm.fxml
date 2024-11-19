@@ -7,7 +7,6 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
@@ -24,100 +23,96 @@
             <Image url="@../assets/icons/icons8-calculator-66.png" />
          </image>
       </ImageView>
-      <VBox layoutX="15.0" layoutY="108.0" spacing="24.0">
+      <Group layoutX="20.0" layoutY="113.0">
          <children>
-            <Group>
-               <children>
-                  <JFXButton fx:id="btnDashBoard" onAction="#btnDashBoard" prefHeight="37.0" prefWidth="161.0" text="DashBoard" textAlignment="JUSTIFY" />
-                  <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="5.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../assets/icons/icons8-home-90.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </Group>
-            <Group>
-               <children>
-                  <JFXButton fx:id="btnStudent" onAction="#btnStudentOnAction" prefHeight="37.0" prefWidth="161.0" text="Register" textAlignment="JUSTIFY" />
-                  <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="7.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../assets/icons/icons8-users-90.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </Group>
-            <Group layoutX="10.0" layoutY="10.0">
-               <children>
-                  <JFXButton fx:id="btnAttendence" onAction="#btnAttendenceOnAction" prefHeight="37.0" prefWidth="161.0" text="Attendance" textAlignment="JUSTIFY" />
-                  <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="5.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../assets/icons/icons8-attendance-90.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </Group>
-            <Group>
-               <children>
-                  <JFXButton fx:id="btnDriver" onAction="#btnDriverOnAction" prefHeight="37.0" prefWidth="161.0" text="Driver" textAlignment="JUSTIFY" />
-                  <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="7.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../assets/icons/icons8-driver-90.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </Group>
-            <Group>
-               <children>
-                  <JFXButton fx:id="btnVehicle" onAction="#btnVehicleOnAction" prefHeight="37.0" prefWidth="161.0" text="Vehicle" textAlignment="JUSTIFY" />
-                  <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="7.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../assets/icons/icons8-bus-90.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </Group>
-            <Group>
-               <children>
-                  <JFXButton fx:id="btnSchedule" onAction="#btnScheduleOnAction" prefHeight="37.0" prefWidth="161.0" text="Schedule" textAlignment="JUSTIFY" />
-                  <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="7.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../assets/icons/icons8-timetable-90.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </Group>
-            <Group>
-               <children>
-                  <JFXButton fx:id="btnPayment" onAction="#btnPaymentOnAction" prefHeight="37.0" prefWidth="161.0" text="Payment" textAlignment="JUSTIFY" />
-                  <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="9.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../assets/icons/icons8-reports-90.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </Group>
-            <Group>
-               <children>
-                  <JFXButton fx:id="btnRoute" onAction="#btnRouteOnAction" prefHeight="37.0" prefWidth="161.0" text="Route" textAlignment="JUSTIFY" />
-                  <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="9.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../assets/icons/icons8-route-90.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </Group>
-            <Group>
-               <children>
-                  <JFXButton fx:id="btnLogOut" onAction="#btnLogOutOnAction" prefHeight="37.0" prefWidth="161.0" text="Log Out" textAlignment="JUSTIFY" />
-                  <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../assets/icons/icons8-logout-90.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </Group>
+            <JFXButton fx:id="btnDashBoard" onAction="#btnDashBoard" prefHeight="37.0" prefWidth="161.0" styleClass="buttonDash" text="DashBoard" textAlignment="JUSTIFY" />
+            <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="5.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/icons/icons8-home-90.png" />
+               </image>
+            </ImageView>
          </children>
-      </VBox>
+      </Group>
+      <Group layoutX="20.0" layoutY="170.0">
+         <children>
+            <JFXButton fx:id="btnStudent" onAction="#btnStudentOnAction" prefHeight="37.0" prefWidth="161.0" styleClass="buttonDash" text="Register" textAlignment="JUSTIFY" />
+            <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="7.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/icons/icons8-users-90.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Group>
+      <Group layoutX="20.0" layoutY="227.0">
+         <children>
+            <JFXButton fx:id="btnAttendence" onAction="#btnAttendenceOnAction" prefHeight="37.0" prefWidth="161.0" styleClass="buttonDash" text="Attendance" textAlignment="JUSTIFY" />
+            <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="5.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/icons/icons8-attendance-90.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Group>
+      <Group layoutX="20.0" layoutY="284.0">
+         <children>
+            <JFXButton fx:id="btnDriver" onAction="#btnDriverOnAction" prefHeight="37.0" prefWidth="161.0" styleClass="buttonDash" text="Driver" textAlignment="JUSTIFY" />
+            <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="7.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/icons/icons8-driver-90.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Group>
+      <Group layoutX="20.0" layoutY="341.0">
+         <children>
+            <JFXButton fx:id="btnVehicle" onAction="#btnVehicleOnAction" prefHeight="37.0" prefWidth="161.0" styleClass="buttonDash" text="Vehicle" textAlignment="JUSTIFY" />
+            <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="7.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/icons/icons8-bus-90.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Group>
+      <Group layoutX="20.0" layoutY="398.0">
+         <children>
+            <JFXButton fx:id="btnSchedule" onAction="#btnScheduleOnAction" prefHeight="37.0" prefWidth="161.0" styleClass="buttonDash" text="Schedule" textAlignment="JUSTIFY" />
+            <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="7.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/icons/icons8-timetable-90.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Group>
+      <Group layoutX="20.0" layoutY="455.0">
+         <children>
+            <JFXButton fx:id="btnPayment" onAction="#btnPaymentOnAction" prefHeight="37.0" prefWidth="161.0" styleClass="buttonDash" text="Payment" textAlignment="JUSTIFY" />
+            <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="9.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/icons/icons8-reports-90.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Group>
+      <Group layoutX="20.0" layoutY="512.0">
+         <children>
+            <JFXButton fx:id="btnRoute" onAction="#btnRouteOnAction" prefHeight="37.0" prefWidth="161.0" styleClass="buttonDash" text="Route" textAlignment="JUSTIFY" />
+            <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="9.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/icons/icons8-route-90.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Group>
+      <Group layoutX="20.0" layoutY="569.0">
+         <children>
+            <JFXButton fx:id="btnLogOut" onAction="#btnLogOutOnAction" prefHeight="37.0" prefWidth="161.0" styleClass="buttonDash" text="Log Out" textAlignment="JUSTIFY" />
+            <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/icons/icons8-logout-90.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Group>
       <HBox layoutX="943.0" layoutY="53.5" spacing="15.0">
          <children>
             <Label fx:id="lblLocalTime" prefHeight="30.0" prefWidth="112.0" text="11 : 11 : 11 AM">

@@ -168,9 +168,6 @@ public class StudentRegistrationController implements Initializable {
         overlayPane.setStyle("-fx-background-color: rgba(255,255,255, 0.5);");
         overlayPane.setPrefSize(paneRegistration.getWidth(), paneRegistration.getHeight());
 
-        anchorPane.setLayoutX((overlayPane.getPrefWidth() - anchorPane.getPrefWidth()) / 2);
-        anchorPane.setLayoutY((overlayPane.getPrefHeight() - anchorPane.getPrefHeight()) / 2);
-
         overlayPane.getChildren().add(anchorPane);
         paneRegistration.getChildren().add(overlayPane);
 

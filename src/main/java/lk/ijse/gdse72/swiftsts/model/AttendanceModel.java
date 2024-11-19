@@ -21,6 +21,19 @@ public class AttendanceModel {
         );
     }
 
+    public String getNextAttendanceId() throws SQLException {
+        ResultSet rst = CrudUtil.execute("SELECT AttendanceId FROM Attendance ORDER BY AttendanceId DESC LIMIT 1");
+
+        if (rst.next()) {
+            String lastId = rst.getString(1);
+            String substring = lastId.substring(1);
+            int i = Integer.parseInt(substring);
+            int newIdIndex = i + 1;
+            return String.format("A%03d", newIdIndex);
+        }
+        return "A001";
+    }
+
     public ArrayList<AttendanceDto> getAllAttendances() throws SQLException {
         ResultSet rst = CrudUtil.execute("SELECT * FROM Attendance");
         ArrayList<AttendanceDto> attendenceList = new ArrayList<>();
@@ -40,7 +53,7 @@ public class AttendanceModel {
         return attendenceList;
     }
 
-    public boolean updateAttendence(AttendanceDto dto) throws SQLException {
+    public boolean updateAttendance(AttendanceDto dto) throws SQLException {
         return CrudUtil.execute("UPDATE Attendance SET StudentId=?, DriverId=?, Year=?, Month=?, DayCount=? WHERE AttendanceId=?",
                 dto.getStudentId(),
                 dto.getDriverId(),
@@ -50,6 +63,7 @@ public class AttendanceModel {
                 dto.getAttendanceId()
         );
     }
+
 
     public boolean deleteAttendence(String attendenceId) throws SQLException {
         return CrudUtil.execute("DELETE FROM Attendance WHERE AttendanceId=?", attendenceId);
