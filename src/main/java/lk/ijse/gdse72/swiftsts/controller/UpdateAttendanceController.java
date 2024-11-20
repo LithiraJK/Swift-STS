@@ -120,7 +120,8 @@ public class UpdateAttendanceController implements Initializable {
                     cbDriverId.getValue(),
                     Integer.parseInt(cbYear.getValue()),
                     cbMonth.getValue(),
-                    Integer.parseInt(txtDayCount.getText())
+                    Integer.parseInt(txtDayCount.getText()),
+                    0.0
             );
 
             boolean isUpdated = attendanceModel.updateAttendance(updatedAttendance);

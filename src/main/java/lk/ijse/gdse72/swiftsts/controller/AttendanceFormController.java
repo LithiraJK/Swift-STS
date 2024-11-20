@@ -16,7 +16,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import lk.ijse.gdse72.swiftsts.db.DBConnection;
 import lk.ijse.gdse72.swiftsts.dto.AttendanceDto;
 import lk.ijse.gdse72.swiftsts.dto.PaymentDto;
 import lk.ijse.gdse72.swiftsts.dto.tm.AttendanceTM;
@@ -49,6 +48,9 @@ public class AttendanceFormController implements Initializable {
 
     @FXML
     public JFXButton btnCalculateFees;
+
+    @FXML
+    public TableColumn<AttendanceTM, Double> colMonthlyFee;
 
     @FXML
     private ImageView btnGoBack;
@@ -162,6 +164,7 @@ public class AttendanceFormController implements Initializable {
                     dto.getYear(),
                     dto.getMonth(),
                     dto.getDayCount(),
+                    dto.getMonthlyFee(),
                     actionBox
             );
 
@@ -218,6 +221,7 @@ public class AttendanceFormController implements Initializable {
         colYear.setCellValueFactory(new PropertyValueFactory<>("year"));
         colMonth.setCellValueFactory(new PropertyValueFactory<>("month"));
         colDayCount.setCellValueFactory(new PropertyValueFactory<>("dayCount"));
+        colMonthlyFee.setCellValueFactory(new PropertyValueFactory<>("monthlyFee"));
         colAction.setCellValueFactory(new PropertyValueFactory<>("actionBox"));
 
         try {
@@ -301,7 +305,8 @@ public class AttendanceFormController implements Initializable {
                     cbDriverId.getValue(),
                     Integer.parseInt(cbYear.getValue()),
                     cbMonth.getValue(),
-                    Integer.parseInt(txtDayCount.getText())
+                    Integer.parseInt(txtDayCount.getText()),
+                    Double.parseDouble(lblMonthlyfee.getText())
             );
 
             boolean isAttendanceSaved = attendanceModel.saveAttendance(attendanceDto);

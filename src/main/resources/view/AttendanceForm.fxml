@@ -24,11 +24,12 @@
               <columns>
                 <TableColumn fx:id="colAttendanceId" prefWidth="108.0" text="AttendanceID" />
                 <TableColumn fx:id="colStudentId" prefWidth="175.0" text="Student Name" />
-                  <TableColumn fx:id="colDriverId" prefWidth="144.0" text="Driver Name" />
-                  <TableColumn fx:id="colYear" prefWidth="137.0" text="Year" />
-                  <TableColumn fx:id="colMonth" prefWidth="138.0" text="Month" />
-                  <TableColumn fx:id="colDayCount" prefWidth="122.0" text="Day Count" />
-                  <TableColumn fx:id="colAction" prefWidth="161.0" text="Action" />
+                  <TableColumn fx:id="colDriverId" prefWidth="134.0" text="Driver Name" />
+                  <TableColumn fx:id="colYear" prefWidth="95.0" text="Year" />
+                  <TableColumn fx:id="colMonth" prefWidth="104.0" text="Month" />
+                  <TableColumn fx:id="colDayCount" prefWidth="106.0" text="Day Count" />
+                  <TableColumn fx:id="colMonthlyFee" prefWidth="129.0" text="Monthly Fee" />
+                  <TableColumn fx:id="colAction" prefWidth="134.0" text="Action" />
               </columns>
                <stylesheets>
                   <URL value="@../css-file/tbl.css" />

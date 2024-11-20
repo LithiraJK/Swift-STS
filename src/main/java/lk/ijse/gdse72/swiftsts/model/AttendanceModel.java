@@ -11,13 +11,14 @@ import java.util.ArrayList;
 public class AttendanceModel {
 
     public boolean saveAttendance(AttendanceDto dto) throws SQLException {
-        return CrudUtil.execute("INSERT INTO Attendance (AttendanceId, StudentId, DriverId, Year, Month, DayCount) VALUES (?, ?, ?, ?, ?, ?)",
+        return CrudUtil.execute("INSERT INTO Attendance (AttendanceId, StudentId, DriverId, Year, Month, DayCount, MonthlyFee) VALUES (?, ?, ?, ?, ?, ?, ?)",
                 dto.getAttendanceId(),
                 dto.getStudentId(),
                 dto.getDriverId(),
                 dto.getYear(),
                 dto.getMonth(),
-                dto.getDayCount()
+                dto.getDayCount(),
+                dto.getMonthlyFee()
         );
     }
 
@@ -45,7 +46,8 @@ public class AttendanceModel {
                     rst.getString("DriverId"),
                     rst.getInt("Year"),
                     rst.getString("Month"),
-                    rst.getInt("DayCount")
+                    rst.getInt("DayCount"),
+                    rst.getDouble("MonthlyFee")
             );
             attendenceList.add(dto);
         }
@@ -53,13 +55,15 @@ public class AttendanceModel {
         return attendenceList;
     }
 
+
     public boolean updateAttendance(AttendanceDto dto) throws SQLException {
-        return CrudUtil.execute("UPDATE Attendance SET StudentId=?, DriverId=?, Year=?, Month=?, DayCount=? WHERE AttendanceId=?",
+        return CrudUtil.execute("UPDATE Attendance SET StudentId=?, DriverId=?, Year=?, Month=?, DayCount=?, MonthlyFee=? WHERE AttendanceId=?",
                 dto.getStudentId(),
                 dto.getDriverId(),
                 dto.getYear(),
                 dto.getMonth(),
                 dto.getDayCount(),
+                dto.getMonthlyFee(),
                 dto.getAttendanceId()
         );
     }
