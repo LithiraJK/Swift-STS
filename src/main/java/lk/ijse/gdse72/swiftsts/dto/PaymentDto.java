@@ -11,8 +11,8 @@ public class PaymentDto {
     private String paymentId;
     private String studentId;
     private double monthlyFee;
-    private double creditBalance;
     private double amount;
+    private double creditBalance;
     private double balance;
     private String status;
     private String date;

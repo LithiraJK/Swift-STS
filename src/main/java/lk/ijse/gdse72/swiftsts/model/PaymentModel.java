@@ -20,12 +20,11 @@ public class PaymentModel {
     }
 
     public static boolean insertPayment(PaymentDto paymentDto) throws SQLException {
-        String query = "INSERT INTO Payment (PaymentId, StudentId, MonthlyFee, CreditBalance, Amount, Balance, Status, Date) VALUES (?,?,?,?,?,?,?,?)";
+        String query = "INSERT INTO Payment (PaymentId, StudentId, MonthlyFee, Amount, Balance, Status, Date) VALUES (?,?,?,?,?,?,?)";
         return CrudUtil.execute(query,
                 paymentDto.getPaymentId(),
                 paymentDto.getStudentId(),
                 paymentDto.getMonthlyFee(),
-                paymentDto.getCreditBalance(),
                 paymentDto.getAmount(),
                 paymentDto.getBalance(),
                 paymentDto.getStatus(),
@@ -37,8 +36,8 @@ public class PaymentModel {
         List<PaymentDto> paymentData = new ArrayList<>();
 
         String query = """
-            SELECT p.PaymentId, s.StudentId, p.MonthlyFee, s.CreditBalance, p.Amount,
-                   p.Balance, p.Status, p.Date
+            SELECT p.PaymentId, s.StudentId, p.MonthlyFee,  p.Amount,
+                   p.Balance, s.CreditBalance, p.Status, p.Date
             FROM Payment p
             INNER JOIN Student s ON p.StudentId = s.StudentId
             """;

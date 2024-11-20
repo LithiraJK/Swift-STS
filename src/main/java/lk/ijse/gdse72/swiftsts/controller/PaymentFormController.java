@@ -199,25 +199,33 @@ public class PaymentFormController implements Initializable {
 
             int dayCount = AttendanceModel.getDayCountByAttendanceId(attendanceId);
             double monthlyFee = PaymentModel.calculateMonthlyFee(cmbStudentId.getValue(), dayCount);
-            double balance = (monthlyFee+creditBalance) - payAmount;
+            double balance = payAmount - (monthlyFee+creditBalance);
 
+            if(balance>=0){
+                lblBalance.setText(String.format("%.2f", balance));
+                lblCreditBalance.setText("0.00");
+                creditBalance = 0;
+            } else if (balance < 0) {
+                lblBalance.setText("0.00");
+                lblCreditBalance.setText(String.format("%.2f", -balance));
+                creditBalance += balance;
 
 
             PaymentDto paymentDto = new PaymentDto(
                     lblPaymentId.getText(),
                     studentId,
                     monthlyFee,
-                    0.0,
                     payAmount,
+                    creditBalance,
                     balance,
-                    balance <= 0 ? "Paid" : "Pending",
+                    creditBalance <= 0 ? "Paid" : "Pending",
                     LocalDate.now().toString()
             );
 
             boolean isPaymentInserted = PaymentModel.insertPayment(paymentDto);
             if (isPaymentInserted) {
                 new Alert(Alert.AlertType.INFORMATION, "Payment made successfully!").show();
-                lblBalance.setText(String.format("%.2f", balance));
+                }
                 loadPaymentData(); // Refresh the table data
             } else {
                 new Alert(Alert.AlertType.ERROR, "Failed to make payment.").show();
