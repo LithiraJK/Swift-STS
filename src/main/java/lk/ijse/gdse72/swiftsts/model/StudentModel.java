@@ -44,6 +44,15 @@ public class StudentModel{
         return studentIds;
     }
 
+    public static ArrayList<String> getStudentIdsByDriverId(String driverId) throws SQLException {
+        ResultSet rst = CrudUtil.execute("SELECT StudentId FROM Attendance  WHERE DriverId = ?", driverId);
+        ArrayList<String> studentIds = new ArrayList<>();
+        while (rst.next()) {
+            studentIds.add(rst.getString(1));
+        }
+        return studentIds;
+    }
+
     public String getNextStudentId() throws SQLException {
         ResultSet rst = CrudUtil.execute("SELECT studentId FROM Student ORDER BY studentId DESC LIMIT 1");
 
@@ -99,7 +108,7 @@ public class StudentModel{
     }
 
 
-    public String getStudentNameById(String studentId) throws SQLException {
+    public static String getStudentNameById(String studentId) throws SQLException {
         ResultSet rst = CrudUtil.execute("SELECT StudentName FROM Student WHERE StudentId=?", studentId);
         if (rst.next()) {
             return rst.getString(1);

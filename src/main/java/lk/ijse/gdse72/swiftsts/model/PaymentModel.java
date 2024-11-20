@@ -50,7 +50,7 @@ public class PaymentModel {
         return paymentData;
     }
 
-    public double calculateMonthlyFee(String studentId, int dayCount) throws SQLException {
+    public static double calculateMonthlyFee(String studentId, int dayCount) throws SQLException {
         double feePerDay = 10.0;
         return dayCount * feePerDay;
     }
@@ -66,4 +66,17 @@ public class PaymentModel {
                 paymentDto.getStudentId()
         );
     }
+    public static String getNextPaymentId() throws SQLException {
+        ResultSet rst = CrudUtil.execute("SELECT PaymentId FROM Payment ORDER BY PaymentId DESC LIMIT 1");
+
+        if (rst.next()) {
+            String lastId = rst.getString(1);
+            String substring = lastId.substring(1);
+            int i = Integer.parseInt(substring);
+            int newIdIndex = i + 1;
+            return String.format("P%03d", newIdIndex);
+        }
+        return "P001";
+    }
+
 }

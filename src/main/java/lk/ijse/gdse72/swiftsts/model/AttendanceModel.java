@@ -10,15 +10,50 @@ import java.util.ArrayList;
 
 public class AttendanceModel {
 
+    public static ArrayList<String> getAllAttendanceIds() {
+        try {
+            ResultSet rst = CrudUtil.execute("SELECT AttendanceId FROM Attendance");
+            ArrayList<String> ids = new ArrayList<>();
+            while (rst.next()) {
+                ids.add(rst.getString(1));
+            }
+            return ids;
+        } catch (SQLException sqlException ) {
+            sqlException.printStackTrace();
+
+        }
+        return null;
+    }
+
+    public static int getDayCountByAttendanceId(String attendanceId) {
+        try {
+            ResultSet rst = CrudUtil.execute("SELECT DayCount FROM Attendance WHERE AttendanceId = ?", attendanceId);
+            if (rst.next()) {
+                return rst.getInt(1);
+            }
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
+        return 0;
+    }
+
+    public static ArrayList<String> getAttendanceIdsByStudentId(String studentId) throws SQLException {
+        ResultSet rst = CrudUtil.execute("SELECT AttendanceId FROM Attendance WHERE StudentId = ?", studentId);
+        ArrayList<String> attendanceIds = new ArrayList<>();
+        while (rst.next()) {
+            attendanceIds.add(rst.getString(1));
+        }
+        return attendanceIds;
+    }
+
     public boolean saveAttendance(AttendanceDto dto) throws SQLException {
-        return CrudUtil.execute("INSERT INTO Attendance (AttendanceId, StudentId, DriverId, Year, Month, DayCount, MonthlyFee) VALUES (?, ?, ?, ?, ?, ?, ?)",
+        return CrudUtil.execute("INSERT INTO Attendance (AttendanceId, StudentId, DriverId, Year, Month, DayCount) VALUES (?, ?, ?, ?, ?, ?)",
                 dto.getAttendanceId(),
                 dto.getStudentId(),
                 dto.getDriverId(),
                 dto.getYear(),
                 dto.getMonth(),
-                dto.getDayCount(),
-                dto.getMonthlyFee()
+                dto.getDayCount()
         );
     }
 
@@ -46,8 +81,7 @@ public class AttendanceModel {
                     rst.getString("DriverId"),
                     rst.getInt("Year"),
                     rst.getString("Month"),
-                    rst.getInt("DayCount"),
-                    rst.getDouble("MonthlyFee")
+                    rst.getInt("DayCount")
             );
             attendenceList.add(dto);
         }
@@ -57,13 +91,12 @@ public class AttendanceModel {
 
 
     public boolean updateAttendance(AttendanceDto dto) throws SQLException {
-        return CrudUtil.execute("UPDATE Attendance SET StudentId=?, DriverId=?, Year=?, Month=?, DayCount=?, MonthlyFee=? WHERE AttendanceId=?",
+        return CrudUtil.execute("UPDATE Attendance SET StudentId=?, DriverId=?, Year=?, Month=?, DayCount=? WHERE AttendanceId=?",
                 dto.getStudentId(),
                 dto.getDriverId(),
                 dto.getYear(),
                 dto.getMonth(),
                 dto.getDayCount(),
-                dto.getMonthlyFee(),
                 dto.getAttendanceId()
         );
     }

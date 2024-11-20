@@ -42,14 +42,9 @@ public class AttendanceFormController implements Initializable {
 
     @FXML
     public TableColumn<AttendanceTM, String> colAttendanceId;
-    @FXML
-    public Label lblMonthlyfee;
 
     @FXML
     public JFXButton btnCalculateFees;
-
-    @FXML
-    public TableColumn<AttendanceTM, Double> colMonthlyFee;
 
     @FXML
     private ImageView btnGoBack;
@@ -101,10 +96,6 @@ public class AttendanceFormController implements Initializable {
 
     private AttendanceModel attendanceModel = new AttendanceModel();
     private final StudentModel studentModel = new StudentModel();
-    private final PaymentModel paymentModel = new PaymentModel();
-
-    public AttendanceFormController() throws SQLException {
-    }
 
     @FXML
     void btnGoBackOnMouseClicked(MouseEvent event) throws IOException {
@@ -113,18 +104,26 @@ public class AttendanceFormController implements Initializable {
         paneAttendence.getChildren().add(anchorPane);
     }
 
-    private void loadStudentIds() throws SQLException {
-        ArrayList<String> studentIds = StudentModel.getAllStudentIds();
-        ObservableList<String> observableList = FXCollections.observableArrayList();
-        observableList.addAll(studentIds);
-        cbStudentId.setItems(observableList);
-    }
-
     private void loadDriverIds() throws SQLException {
         ArrayList<String> driverIds = DriverModel.getAllDriverIds();
         ObservableList<String> observableList = FXCollections.observableArrayList();
         observableList.addAll(driverIds);
         cbDriverId.setItems(observableList);
+        cbDriverId.setOnAction(event -> {
+            try {
+                String selectedDriverId = cbDriverId.getValue();
+                loadStudentIds(selectedDriverId);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    private void loadStudentIds(String driverId) throws SQLException {
+        ArrayList<String> studentIds = StudentModel.getStudentIdsByDriverId(driverId);
+        ObservableList<String> observableList = FXCollections.observableArrayList();
+        observableList.addAll(studentIds);
+        cbStudentId.setItems(observableList);
     }
 
     private void loadYears() {
@@ -163,7 +162,6 @@ public class AttendanceFormController implements Initializable {
                     dto.getYear(),
                     dto.getMonth(),
                     dto.getDayCount(),
-                    dto.getMonthlyFee(),
                     actionBox
             );
 
@@ -220,11 +218,10 @@ public class AttendanceFormController implements Initializable {
         colYear.setCellValueFactory(new PropertyValueFactory<>("year"));
         colMonth.setCellValueFactory(new PropertyValueFactory<>("month"));
         colDayCount.setCellValueFactory(new PropertyValueFactory<>("dayCount"));
-        colMonthlyFee.setCellValueFactory(new PropertyValueFactory<>("monthlyFee"));
         colAction.setCellValueFactory(new PropertyValueFactory<>("actionBox"));
 
         try {
-            loadStudentIds();
+            loadStudentIds( (String) cbDriverId.getValue());
             loadDriverIds();
             loadYears();
             loadMonths();
@@ -257,9 +254,6 @@ public class AttendanceFormController implements Initializable {
             }
         });
 
-        // Initialize the Calculate Fees button as disabled
-        btnCalculateFees.setDisable(true);
-
         // Add listener to enable the Calculate Fees button when a record is selected
         tblAttendance.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             btnCalculateFees.setDisable(newValue == null);
@@ -291,7 +285,6 @@ public class AttendanceFormController implements Initializable {
         txtDayCount.clear();
         lblStudentName.setText("Student Name");
         lblDriverName.setText("Driver Name");
-        lblMonthlyfee.setText("Rs. 0000.00");
 
     }
 
@@ -304,8 +297,7 @@ public class AttendanceFormController implements Initializable {
                     cbDriverId.getValue(),
                     Integer.parseInt(cbYear.getValue()),
                     cbMonth.getValue(),
-                    Integer.parseInt(txtDayCount.getText()),
-                    Double.parseDouble(lblMonthlyfee.getText())
+                    Integer.parseInt(txtDayCount.getText())
             );
 
             boolean isAttendanceSaved = attendanceModel.saveAttendance(attendanceDto);
@@ -322,85 +314,4 @@ public class AttendanceFormController implements Initializable {
         }
     }
 
-
-    @FXML
-    void tblAttendanceOnclick(MouseEvent event) {
-        AttendanceTM selectedItem = tblAttendance.getSelectionModel().getSelectedItem();
-        if (selectedItem != null) {
-            lblAttendenceId.setText(selectedItem.getAttendanceId());
-            cbStudentId.setValue(selectedItem.getStudentId());
-            cbDriverId.setValue(selectedItem.getDriverId());
-            cbYear.setValue(String.valueOf(selectedItem.getYear()));
-            cbMonth.setValue(selectedItem.getMonth());
-            txtDayCount.setText(String.valueOf(selectedItem.getDayCount()));
-
-            // Disable the text fields and combo boxes
-            cbStudentId.setDisable(true);
-            cbDriverId.setDisable(true);
-            cbYear.setDisable(true);
-            cbMonth.setDisable(true);
-            txtDayCount.setDisable(true);
-
-            btnMakeAttendance.setDisable(true);
-            btnReset.setDisable(false);
-            btnCalculateFees.setDisable(false);
-        }
-    }
-
-    private void loadPaymentData() {
-
-    }
-
-    private double calculateMonthlyFee(int dayCount) {
-        // Assuming the monthly fee is calculated as $10 per day
-        return dayCount * 10.0;
-    }
-
-    public void btnCalculateFeesOnAction(ActionEvent actionEvent) {
-        try {
-            String studentId = attendanceModel.getStudentIdByAttendanceId(lblAttendenceId.getText());
-            if (studentId==null){
-                new Alert(Alert.AlertType.ERROR, "Failed to retrieve student ID.").show();
-                return;
-            }
-
-            int dayCount = attendanceModel.getAttendanceDayCount(studentId, cbYear.getValue(), cbMonth.getValue());
-            if (dayCount <= -1) {
-                new Alert(Alert.AlertType.ERROR, "Failed to retrieve attendance day count.").show();
-                return;
-            }
-
-            // Calculate the monthly fee based on the attendance day count
-            double monthlyFee = calculateMonthlyFee(dayCount);
-
-            // Update the Payment table with the calculated monthly fee
-            PaymentDto paymentDto = new PaymentDto(
-                    null,
-                    studentId,
-                    lblStudentName.getText(),
-                    monthlyFee,
-                    0, // Assuming amount is not needed here
-                    0, // Assuming balance is not needed here
-                    "Pending", // Assuming status is "Pending"
-                    LocalDate.now().toString()
-            );
-
-            boolean isPaymentUpdated = paymentModel.updatePayment(paymentDto);
-            if (!isPaymentUpdated) {
-                new Alert(Alert.AlertType.ERROR, "Failed to update payment.").show();
-                return;
-            }
-
-            // Update the label displaying the monthly fee
-            lblMonthlyfee.setText(String.format("RS . %.2f", monthlyFee));
-
-            // Refresh the payment data in the table
-            loadPaymentData();
-
-            new Alert(Alert.AlertType.INFORMATION, "Payment updated successfully!").show();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR, "An error occurred while updating the payment: " + e.getMessage()).show();
-        }
-    }
 }

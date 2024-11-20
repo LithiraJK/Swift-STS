@@ -13,6 +13,5 @@ public class AttendanceTM {
     private int year;
     private String month;
     private int dayCount;
-    private double monthlyFee;
     private HBox actionBox;
 }

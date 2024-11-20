@@ -14,5 +14,4 @@ public class AttendanceDto {
     private int year;
     private String month;
     private int dayCount;
-    private double monthlyFee;
 }

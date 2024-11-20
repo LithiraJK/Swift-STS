@@ -14,54 +14,54 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import lk.ijse.gdse72.swiftsts.db.DBConnection;
 import lk.ijse.gdse72.swiftsts.dto.PaymentDto;
-import lk.ijse.gdse72.swiftsts.dto.tm.PaymentTM;
+import lk.ijse.gdse72.swiftsts.model.AttendanceModel;
 import lk.ijse.gdse72.swiftsts.model.PaymentModel;
+import lk.ijse.gdse72.swiftsts.model.StudentModel;
 
 import java.net.URL;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class PaymentFormController implements Initializable {
-    @FXML
-    public Label lblStudentName112;
-    @FXML
-    public Label lblStudentName11;
-    @FXML
-    public Label lblStudentName2;
-    @FXML
-    public Label lblStudentName111;
 
     @FXML
-    private JFXButton btnCalculatePayment;
+    private JFXButton btnCalculatepayment;
 
     @FXML
-    private JFXComboBox<String> cbStudentId;
+    private JFXButton btnMakePayment;
 
     @FXML
-    private TableColumn<PaymentTM, Double> colAmount;
+    private JFXComboBox<String> cmbAttendanceId;
 
     @FXML
-    private TableColumn<PaymentTM, Double> colBalance;
+    private JFXComboBox<String> cmbStudentId;
 
     @FXML
-    private TableColumn<PaymentTM, String> colDate;
+    private TableColumn<?, ?> colAmount;
 
     @FXML
-    private TableColumn<PaymentTM, Double> colMonthlyFee;
+    private TableColumn<?, ?> colBalance;
 
     @FXML
-    private TableColumn<PaymentTM, String> colPaymentId;
+    private TableColumn<?, ?> colCreditBalance;
 
     @FXML
-    private TableColumn<PaymentTM, String> colStatus;
+    private TableColumn<?, ?> colDate;
 
     @FXML
-    private TableColumn<PaymentTM, String> colStudentId;
+    private TableColumn<?, ?> colMonthlyFee;
+
+    @FXML
+    private TableColumn<?, ?> colPaymentId;
+
+    @FXML
+    private TableColumn<?, ?> colStatus;
+
+    @FXML
+    private TableColumn<?, ?> colStudentId;
 
     @FXML
     private Label lblBalance;
@@ -82,90 +82,123 @@ public class PaymentFormController implements Initializable {
     private Label lblStudentName;
 
     @FXML
+    private Label lblStudentName11;
+
+    @FXML
+    private Label lblStudentName112;
+
+    @FXML
+    private Label lblStudentName2;
+
+    @FXML
     private AnchorPane panePayment;
 
     @FXML
-    private TableView<PaymentTM> tblPayments;
+    private TableView<?> tblPayments;
 
     @FXML
     private JFXTextField txtPayAmount;
 
-    private PaymentModel paymentModel;
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            paymentModel = new PaymentModel();
+            setNextPaymentId();
+            loadStudentIds();
+            loadAttendanceIds( (String) cmbStudentId.getValue());
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
-        lblPaymentDate.setText(LocalDate.now().toString());
-        loadPaymentData();
-
-        // Initialize the Calculate Payment button as disabled
-        btnCalculatePayment.setDisable(true);
-
-        // Add listener to enable the Calculate Payment button when a record is selected
-        tblPayments.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            btnCalculatePayment.setDisable(newValue == null);
-        });
     }
 
-    private void loadPaymentData() {
-        List<PaymentDto> paymentData = paymentModel.getPaymentData();
-        ObservableList<PaymentTM> paymentList = FXCollections.observableArrayList();
+    private void setNextPaymentId() throws SQLException {
+        String nextPaymentId = PaymentModel.getNextPaymentId();
+        lblPaymentId.setText(nextPaymentId);
+    }
 
-        for (PaymentDto dto : paymentData) {
-            PaymentTM tm = new PaymentTM(
-                    dto.getPaymentId(),
-                    dto.getStudentId(),
-                    dto.getStudentName(),
-                    dto.getMonthlyFee(),
-                    dto.getAmount(),
-                    dto.getBalance(),
-                    dto.getStatus(),
-                    dto.getDate()
-            );
-            paymentList.add(tm);
+    private void loadAttendanceIds(String studentId) throws SQLException {
+        ArrayList<String> attendanceIds = AttendanceModel.getAttendanceIdsByStudentId(studentId);
+        ObservableList<String> observableList = FXCollections.observableArrayList(attendanceIds);
+        cmbAttendanceId.setItems(observableList);
+    }
+
+    private void loadStudentIds() throws SQLException {
+        ArrayList<String> studentIds = StudentModel.getAllStudentIds();
+        ObservableList<String> observableList = FXCollections.observableArrayList(studentIds);
+        cmbStudentId.setItems(observableList);
+        cmbStudentId.setOnAction(event -> {
+            try {
+                String selectedStudentId = cmbStudentId.getValue();
+                loadAttendanceIds(selectedStudentId);
+                String studentName = StudentModel.getStudentNameById(selectedStudentId);
+                lblStudentName.setText(studentName);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+    @FXML
+    void btnCalculatepaymentOnAction(ActionEvent event) {
+        try {
+            String attendanceId = (String) cmbAttendanceId.getValue();
+            if (attendanceId == null) {
+                new Alert(Alert.AlertType.ERROR, "Please select an attendance ID.").show();
+                return;
+            }
+
+            int dayCount = AttendanceModel.getDayCountByAttendanceId(attendanceId);
+            double monthlyFee = PaymentModel.calculateMonthlyFee(cmbStudentId.getValue() ,dayCount);
+
+            lblMonthlyFee.setText(String.format("%.2f", monthlyFee));
+        } catch (SQLException e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "An error occurred while calculating the monthly fee: " + e.getMessage()).show();
         }
-
-        tblPayments.setItems(paymentList);
     }
 
     @FXML
-    void btnCalculatePayment(ActionEvent event) {
+    void btnMakePaymentOnAction(ActionEvent event) {
         try {
-            String studentId = cbStudentId.getValue();
-            int dayCount = Integer.parseInt(txtPayAmount.getText());
-            double monthlyFee = paymentModel.calculateMonthlyFee(studentId, dayCount);
+            String studentId = (String) cmbStudentId.getValue();
+            String attendanceId = (String) cmbAttendanceId.getValue();
+            double payAmount = Double.parseDouble(txtPayAmount.getText());
 
+            if (studentId == null || attendanceId == null || payAmount <= 0) {
+                new Alert(Alert.AlertType.ERROR, "Please fill in all fields correctly.").show();
+                return;
+            }
+
+            int dayCount = AttendanceModel.getDayCountByAttendanceId(attendanceId);
+            double monthlyFee = PaymentModel.calculateMonthlyFee(cmbStudentId.getValue() ,dayCount);
+            double balance = monthlyFee - payAmount;
+            System.out.println(lblPaymentId.getText());
             PaymentDto paymentDto = new PaymentDto(
-                    null, // Assuming paymentId is auto-generated
+                    lblPaymentId.getText(),
                     studentId,
-                    null, // Assuming studentName is not needed here
+                    lblStudentName.getText(),
                     monthlyFee,
-                    0, // Assuming amount is not needed here
-                    0, // Assuming balance is not needed here
-                    "Pending", // Assuming status is "Pending"
+                    payAmount,
+                    balance,
+                    balance <= 0 ? "Paid" : "Pending",
                     LocalDate.now().toString()
             );
 
             boolean isPaymentUpdated = PaymentModel.updatePayment(paymentDto);
-
-            if (!isPaymentUpdated) {
-                new Alert(Alert.AlertType.ERROR, "Failed to update payment.").show();
-                return;
+            if (isPaymentUpdated) {
+                new Alert(Alert.AlertType.INFORMATION, "Payment made successfully!").show();
+                lblBalance.setText(String.format("%.2f", balance));
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Failed to make payment.").show();
             }
-
-            loadPaymentData();
-        } catch (SQLException e) {
+        } catch (SQLException | NumberFormatException e) {
             e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR, "An error occurred while updating the payment: " + e.getMessage()).show();
+            new Alert(Alert.AlertType.ERROR, "An error occurred while making the payment: " + e.getMessage()).show();
         }
     }
 
     @FXML
     void tblPaymentsOnClicked(MouseEvent event) {
-
+        // Handle table row click event if needed
     }
+
+
 }
