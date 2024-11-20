@@ -13,8 +13,7 @@ public class PaymentDto {
     private String studentName;
     private double monthlyFee;
     private double amount;
-    private double creditBalance;
     private double balance;
     private String status;
-    private Date date;
+    private String date;
 }

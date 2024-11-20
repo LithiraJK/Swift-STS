@@ -9,10 +9,10 @@ import lombok.*;
 public class PaymentTM {
     private String paymentId;
     private String studentId;
+    private String studentName;
     private double monthlyFee;
     private double amount;
-    private double creditBalance;
     private double balance;
     private String status;
-    private Date date;
+    private String date;
 }
