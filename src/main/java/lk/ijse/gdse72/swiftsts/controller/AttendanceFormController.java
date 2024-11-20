@@ -27,6 +27,7 @@ import lk.ijse.gdse72.swiftsts.model.StudentModel;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -375,9 +376,10 @@ public class AttendanceFormController implements Initializable {
                     lblStudentName.getText(),
                     monthlyFee,
                     0, // Assuming amount is not needed here
+                    0,
                     0, // Assuming balance is not needed here
                     "Pending", // Assuming status is "Pending"
-                    LocalDate.now().toString()
+                    Date.valueOf(LocalDate.now())
             );
 
             boolean isPaymentUpdated = paymentModel.updatePayment(paymentDto);
