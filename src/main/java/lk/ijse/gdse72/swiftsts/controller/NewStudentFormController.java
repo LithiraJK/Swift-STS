@@ -103,7 +103,7 @@ public class NewStudentFormController implements Initializable {
         }
 
         if (isValidName && isValidParentName && isValidAddress && isValidEmail && isValidPhoneNo && isValidGrade) {
-            StudentDto studentDto = new StudentDto(studentId, studentName, parentName, address, email, studentGrade, phoneNo, userId);
+            StudentDto studentDto = new StudentDto(studentId, studentName, parentName, address, email, studentGrade, phoneNo, userId, 0.0);
 
             try {
                 boolean isSaved = studentModel.saveStudent(studentDto);

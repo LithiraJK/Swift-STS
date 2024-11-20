@@ -14,7 +14,6 @@
 
 <AnchorPane fx:id="paneStudent" prefHeight="555.0" prefWidth="1036.0" styleClass="bg-bodypane" stylesheets="@../css-file/DashBoard.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse72.swiftsts.controller.StudentFormController">
    <children>
-      <AnchorPane layoutX="636.0" layoutY="23.0" prefHeight="171.0" prefWidth="380.0" style="-fx-background-color: black;" styleClass="bg-whitepane" />
       <Label layoutX="21.0" layoutY="9.0" prefHeight="46.0" prefWidth="198.0" styleClass="label-H2-" text="Student Details" />
       <JFXTextField fx:id="txtStudentName" focusColor="BLACK" labelFloat="true" layoutX="202.0" layoutY="76.0" prefHeight="26.0" prefWidth="176.0" promptText="Student Name" styleClass="textfields-" unFocusColor="BLACK" />
       <Label fx:id="lblStudentId" layoutX="120.0" layoutY="76.0" prefHeight="26.0" prefWidth="59.0" styleClass="label-H5-">
@@ -22,23 +21,24 @@
             <Font size="18.0" />
          </font></Label>
       <JFXTextField fx:id="txtParentName" focusColor="BLACK" labelFloat="true" layoutX="413.0" layoutY="76.0" prefHeight="26.0" prefWidth="176.0" promptText="Parent Name" styleClass="textfields-" unFocusColor="BLACK" />
-      <JFXTextField fx:id="txtAddress" focusColor="BLACK" labelFloat="true" layoutX="27.0" layoutY="127.0" prefHeight="26.0" prefWidth="558.0" promptText="Location" styleClass="textfields-" unFocusColor="BLACK" />
-      <JFXTextField fx:id="txtEmail" focusColor="BLACK" labelFloat="true" layoutX="27.0" layoutY="174.0" prefHeight="26.0" prefWidth="558.0" promptText="Email" styleClass="textfields-" unFocusColor="BLACK" />
-      <JFXTextField fx:id="txtStudentGrade" focusColor="BLACK" labelFloat="true" layoutX="27.0" layoutY="220.0" promptText="Student Grade" styleClass="textfields-" unFocusColor="BLACK" />
-      <JFXTextField fx:id="txtPhoneNo" focusColor="BLACK" labelFloat="true" layoutX="202.0" layoutY="220.0" prefHeight="26.0" prefWidth="186.0" promptText="Phone No" styleClass="textfields-" unFocusColor="BLACK" />
-      <JFXButton fx:id="btnSave" layoutX="708.0" layoutY="212.0" onAction="#btnSaveOnAction" prefHeight="26.0" prefWidth="88.0" styleClass="button-1" text="Save" />
+      <JFXTextField fx:id="txtAddress" focusColor="BLACK" labelFloat="true" layoutX="27.0" layoutY="127.0" prefHeight="26.0" prefWidth="445.0" promptText="Location" styleClass="textfields-" unFocusColor="BLACK" />
+      <JFXTextField fx:id="txtEmail" focusColor="BLACK" labelFloat="true" layoutX="559.0" layoutY="127.0" prefHeight="26.0" prefWidth="445.0" promptText="Email" styleClass="textfields-" unFocusColor="BLACK" />
+      <JFXTextField fx:id="txtStudentGrade" focusColor="BLACK" labelFloat="true" layoutX="634.0" layoutY="75.0" promptText="Student Grade" styleClass="textfields-" unFocusColor="BLACK" />
+      <JFXTextField fx:id="txtPhoneNo" focusColor="BLACK" labelFloat="true" layoutX="27.0" layoutY="186.0" prefHeight="26.0" prefWidth="211.0" promptText="Phone No" styleClass="textfields-" unFocusColor="BLACK" />
+      <JFXButton fx:id="btnSave" layoutX="919.0" layoutY="187.0" onAction="#btnSaveOnAction" prefHeight="37.0" prefWidth="95.0" styleClass="button-1" text="Save" />
       <Pane layoutX="20.0" layoutY="267.0" prefHeight="260.0" prefWidth="1000.0" style="-fx-background-color: white;" styleClass="bg-bodypane">
          <children>
             <TableView fx:id="tblStudent" layoutY="4.0" onMouseClicked="#onClickTable" prefHeight="250.0" prefWidth="1000.0">
               <columns>
-                  <TableColumn fx:id="colStudentId" prefWidth="95.0" text="Student ID" />
-                  <TableColumn fx:id="colStudentName" prefWidth="130.0" text="Student Name" />
-                  <TableColumn fx:id="colParentName" prefWidth="123.0" text="Parent Name" />
-                  <TableColumn fx:id="colAddress" minWidth="0.0" prefWidth="172.0" text="Location" />
-                  <TableColumn fx:id="colEmail" minWidth="0.0" prefWidth="186.0" text="Email" />
-                  <TableColumn fx:id="colGrade" prefWidth="104.0" text="Grade" />
-                  <TableColumn fx:id="colPhoneNo" prefWidth="122.0" text="Phone No." />
-                  <TableColumn fx:id="colUserID" prefWidth="73.0" text="UserID" />
+                  <TableColumn fx:id="colStudentId" prefWidth="87.0" text="Student ID" />
+                  <TableColumn fx:id="colStudentName" prefWidth="124.0" text="Student Name" />
+                  <TableColumn fx:id="colParentName" prefWidth="114.0" text="Parent Name" />
+                  <TableColumn fx:id="colAddress" minWidth="0.0" prefWidth="148.0" text="Location" />
+                  <TableColumn fx:id="colEmail" minWidth="0.0" prefWidth="154.0" text="Email" />
+                  <TableColumn fx:id="colGrade" prefWidth="99.0" text="Grade" />
+                  <TableColumn fx:id="colPhoneNo" prefWidth="109.0" text="Phone No." />
+                  <TableColumn fx:id="colUserID" prefWidth="76.0" text="UserID" />
+                  <TableColumn fx:id="colCreditBalance" prefWidth="88.0" text="Credit " />
               </columns>
             </TableView>
          </children>
@@ -47,15 +47,25 @@
             <URL value="@../css-file/Scrool.css" />
          </stylesheets>
       </Pane>
-      <JFXButton fx:id="btnUpdate" layoutX="818.0" layoutY="212.0" onAction="#btnUpdateOnAction" prefHeight="37.0" prefWidth="88.0" styleClass="button-1" text="Update" />
-      <JFXButton fx:id="btnDelete" layoutX="921.0" layoutY="212.0" onAction="#btnDeleteOnAction" prefHeight="37.0" prefWidth="88.0" styleClass="button-1" text="Delete" />
-      <JFXButton fx:id="btnReset" layoutX="592.0" layoutY="212.0" onAction="#btnResetOnAction" prefHeight="12.0" prefWidth="88.0" styleClass="button-1" text="Reset" />
+      <JFXButton fx:id="btnUpdate" layoutX="798.0" layoutY="187.0" onAction="#btnUpdateOnAction" prefHeight="37.0" prefWidth="95.0" styleClass="button-1" text="Update" />
+      <JFXButton fx:id="btnDelete" layoutX="675.0" layoutY="187.0" onAction="#btnDeleteOnAction" prefHeight="37.0" prefWidth="95.0" styleClass="button-1" text="Delete" />
+      <JFXButton fx:id="btnReset" layoutX="554.0" layoutY="187.0" onAction="#btnResetOnAction" prefHeight="37.0" prefWidth="95.0" styleClass="button-1" text="Reset" />
       <Label layoutX="25.0" layoutY="77.0" prefHeight="26.0" prefWidth="88.0" styleClass="label-H5-" text="Student Id">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <JFXComboBox fx:id="cbUserID" focusColor="BLACK" labelFloat="true" layoutX="419.0" layoutY="220.0" prefHeight="26.0" prefWidth="118.0" promptText="User ID" />
+      <JFXComboBox fx:id="cbUserID" focusColor="BLACK" labelFloat="true" layoutX="840.0" layoutY="72.0" prefHeight="26.0" prefWidth="136.0" promptText="User ID" />
       <Group layoutX="471.0" layoutY="29.0" />
+      <Label layoutX="269.0" layoutY="192.0" prefHeight="26.0" prefWidth="123.0" styleClass="label-H5-" text="Credit Balance">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblCreditBalance" layoutX="404.0" layoutY="192.0" prefHeight="26.0" prefWidth="95.0" styleClass="label-H5-" text="00.00">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

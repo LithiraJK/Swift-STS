@@ -24,7 +24,8 @@ public class StudentModel{
                     rst.getString(5),
                     rst.getString(6),
                     rst.getString(7),
-                    rst.getString(8)
+                    rst.getString(8),
+                    rst.getDouble("CreditBalance")
             );
             studentDtos.add(studentDto);
         }
@@ -67,7 +68,7 @@ public class StudentModel{
     }
 
     public boolean saveStudent(StudentDto studentDto) throws SQLException {
-        return CrudUtil.execute("INSERT INTO Student VALUES (?,?,?,?,?,?,?,?)",
+        return CrudUtil.execute("INSERT INTO Student VALUES (?,?,?,?,?,?,?,?,?)",
                 studentDto.getStudentId(),
                 studentDto.getStudentName(),
                 studentDto.getParentName(),
@@ -75,12 +76,13 @@ public class StudentModel{
                 studentDto.getEmail(),
                 studentDto.getStudentGrade(),
                 studentDto.getPhoneNo(),
-                studentDto.getUserId()
+                studentDto.getUserId(),
+                studentDto.getCreditBalance()
         );
     }
 
     public boolean updateStudent(StudentDto studentDto) throws SQLException {
-        return CrudUtil.execute("UPDATE Student SET StudentName=?, ParentName=?, PickupLocation=?, Email=?, StudentGrade=?, ContactNo=?, UserId=? WHERE StudentId=?",
+        return CrudUtil.execute("UPDATE Student SET StudentName=?, ParentName=?, PickupLocation=?, Email=?, StudentGrade=?, ContactNo=?, UserId=?, CreditBalance=?  WHERE StudentId=?",
                 studentDto.getStudentName(),
                 studentDto.getParentName(),
                 studentDto.getAddress(),
@@ -88,6 +90,7 @@ public class StudentModel{
                 studentDto.getStudentGrade(),
                 studentDto.getPhoneNo(),
                 studentDto.getUserId(),
+                studentDto.getCreditBalance(),
                 studentDto.getStudentId()
         );
     }

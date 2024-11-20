@@ -15,4 +15,5 @@ public class StudentTM {
     private String studentGrade;
     private String phoneNo;
     private String userId;
+    private double creditBalance;
 }

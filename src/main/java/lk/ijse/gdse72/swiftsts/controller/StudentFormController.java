@@ -7,7 +7,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -18,7 +17,6 @@ import lk.ijse.gdse72.swiftsts.dto.StudentDto;
 import lk.ijse.gdse72.swiftsts.dto.tm.StudentTM;
 import lk.ijse.gdse72.swiftsts.model.StudentModel;
 
-import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -26,6 +24,8 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class StudentFormController implements Initializable {
+    @FXML
+    public Label lblCreditBalance;
 
     @FXML
     private JFXButton btnUpdate;
@@ -58,31 +58,34 @@ public class StudentFormController implements Initializable {
     private JFXTextField txtStudentName;
 
     @FXML
-    private TableColumn<StudentTM,String> colAddress;
+    public TableColumn<StudentTM, Double> colCreditBalance;
+
+    @FXML
+    private TableColumn<StudentTM, String> colAddress;
 
     @FXML
     private TableColumn<StudentTM, String> colEmail;
 
     @FXML
-    private TableColumn<StudentTM,String> colGrade;
+    private TableColumn<StudentTM, String> colGrade;
 
     @FXML
-    private TableColumn<StudentTM,String> colParentName;
+    private TableColumn<StudentTM, String> colParentName;
 
     @FXML
-    private TableColumn<StudentTM,String> colPhoneNo;
+    private TableColumn<StudentTM, String> colPhoneNo;
 
     @FXML
-    private TableColumn<StudentTM,String> colStudentId;
+    private TableColumn<StudentTM, String> colStudentId;
 
     @FXML
-    private TableColumn<StudentTM,String> colStudentName;
+    private TableColumn<StudentTM, String> colStudentName;
 
     @FXML
     private TableView<StudentTM> tblStudent;
 
     @FXML
-    private TableColumn<StudentTM,String> colUserID;
+    private TableColumn<StudentTM, String> colUserID;
 
     @FXML
     private AnchorPane paneStudent;
@@ -108,6 +111,7 @@ public class StudentFormController implements Initializable {
         String studentGrade = txtStudentGrade.getText();
         String phoneNo = txtPhoneNo.getText();
         String userId = cbUserID.getValue();
+        double creditBalance = Double.parseDouble(lblCreditBalance.getText()); // New field
 
         // Define regex patterns for validation
         String namePattern = "^[A-Za-z ]+$";
@@ -149,7 +153,7 @@ public class StudentFormController implements Initializable {
         }
 
         if (isValidName && isValidParentName && isValidAddress && isValidEmail && isValidPhoneNo && isValidGrade) {
-            StudentDto studentDto = new StudentDto(studentId, studentName, parentName, address, email, studentGrade, phoneNo, userId);
+            StudentDto studentDto = new StudentDto(studentId, studentName, parentName, address, email, studentGrade, phoneNo, userId, creditBalance);
 
             try {
                 boolean isSaved = studentModel.saveStudent(studentDto);
@@ -176,6 +180,7 @@ public class StudentFormController implements Initializable {
         String studentGrade = txtStudentGrade.getText();
         String phoneNo = txtPhoneNo.getText();
         String userId = cbUserID.getValue();
+        double creditBalance = Double.parseDouble(lblCreditBalance.getText()); // New field
 
         // Define regex patterns for validation
         String namePattern = "^[A-Za-z ]+$";
@@ -217,7 +222,7 @@ public class StudentFormController implements Initializable {
         }
 
         if (isValidName && isValidParentName && isValidAddress && isValidEmail && isValidPhoneNo && isValidGrade) {
-            StudentDto studentDto = new StudentDto(studentId, studentName, parentName, address, email, studentGrade, phoneNo, userId);
+            StudentDto studentDto = new StudentDto(studentId, studentName, parentName, address, email, studentGrade, phoneNo, userId, creditBalance);
             boolean isUpdated = studentModel.updateStudent(studentDto);
 
             if (isUpdated) {
@@ -262,6 +267,7 @@ public class StudentFormController implements Initializable {
             txtStudentGrade.setText(selectedItem.getStudentGrade());
             txtPhoneNo.setText(selectedItem.getPhoneNo());
             cbUserID.setValue(selectedItem.getUserId());
+            lblCreditBalance.setText(String.valueOf(selectedItem.getCreditBalance())); // New field
 
             btnSave.setDisable(true);
             btnDelete.setDisable(false);
@@ -281,6 +287,7 @@ public class StudentFormController implements Initializable {
         colGrade.setCellValueFactory(new PropertyValueFactory<>("studentGrade"));
         colPhoneNo.setCellValueFactory(new PropertyValueFactory<>("phoneNo"));
         colUserID.setCellValueFactory(new PropertyValueFactory<>("userId"));
+        colCreditBalance.setCellValueFactory(new PropertyValueFactory<>("creditBalance")); // New column setup
 
         try {
             refreshPage();
@@ -310,6 +317,7 @@ public class StudentFormController implements Initializable {
         txtStudentGrade.setText("");
         txtPhoneNo.setText("");
         cbUserID.setValue(null);
+        lblCreditBalance.setText("0000.00"); // New field
 
         btnSave.setDisable(false);
 
@@ -330,7 +338,8 @@ public class StudentFormController implements Initializable {
                     studentDto.getEmail(),
                     studentDto.getStudentGrade(),
                     studentDto.getPhoneNo(),
-                    studentDto.getUserId()
+                    studentDto.getUserId(),
+                    studentDto.getCreditBalance() // New field
             );
             studentTMS.add(studentTM);
         }
@@ -342,7 +351,6 @@ public class StudentFormController implements Initializable {
         txtStudentGrade.setFocusColor(Paint.valueOf("black"));
         tblStudent.setItems(studentTMS);
     }
-
 
     private void addValidationListeners() {
         // Define regex patterns
