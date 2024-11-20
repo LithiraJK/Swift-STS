@@ -19,11 +19,25 @@ public class PaymentModel {
         this.connection = DBConnection.getInstance().getConnection();
     }
 
+    public static boolean insertPayment(PaymentDto paymentDto) throws SQLException {
+        String query = "INSERT INTO Payment (PaymentId, StudentId, MonthlyFee, CreditBalance, Amount, Balance, Status, Date) VALUES (?,?,?,?,?,?,?,?)";
+        return CrudUtil.execute(query,
+                paymentDto.getPaymentId(),
+                paymentDto.getStudentId(),
+                paymentDto.getMonthlyFee(),
+                paymentDto.getCreditBalance(),
+                paymentDto.getAmount(),
+                paymentDto.getBalance(),
+                paymentDto.getStatus(),
+                paymentDto.getDate()
+        );
+    }
+
     public List<PaymentDto> getPaymentData() {
         List<PaymentDto> paymentData = new ArrayList<>();
 
         String query = """
-            SELECT p.PaymentId, s.StudentId, s.StudentName, p.MonthlyFee, p.Amount,
+            SELECT p.PaymentId, s.StudentId, p.MonthlyFee, p.CreditBalance, p.Amount,
                    p.Balance, p.Status, p.Date
             FROM Payment p
             INNER JOIN Student s ON p.StudentId = s.StudentId
@@ -34,14 +48,14 @@ public class PaymentModel {
             while (rs.next()) {
                 String paymentId = rs.getString("PaymentId");
                 String studentId = rs.getString("StudentId");
-                String studentName = rs.getString("StudentName");
                 double monthlyFee = rs.getDouble("MonthlyFee");
+                double creditBalance = rs.getDouble("CreditBalance");
                 double amount = rs.getDouble("Amount");
                 double balance = rs.getDouble("Balance");
                 String status = rs.getString("Status");
                 String date = rs.getString("Date");
 
-                paymentData.add(new PaymentDto(paymentId, studentId, studentName, monthlyFee, amount, balance, status, date));
+                paymentData.add(new PaymentDto(paymentId, studentId, monthlyFee,creditBalance, amount, balance, status, date));
             }
         } catch (Exception e) {
             e.printStackTrace();

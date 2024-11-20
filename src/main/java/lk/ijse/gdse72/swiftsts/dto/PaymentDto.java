@@ -10,8 +10,8 @@ import lombok.*;
 public class PaymentDto {
     private String paymentId;
     private String studentId;
-    private String studentName;
     private double monthlyFee;
+    private double creditBalance;
     private double amount;
     private double balance;
     private String status;

@@ -100,6 +100,19 @@
     -fx-font-weight:700;
 }
 
+.label-H1-{
+    -fx-font-size:30;
+    -fx-text-fill: white;
+    -fx-font-family: poppins;
+    -fx-font-weight:700;
+}
+.label-H4-{
+    -fx-font-size:30;
+    -fx-text-fill: #ffdf00 ;
+    -fx-font-family: poppins;
+    -fx-font-weight:700;
+}
+
 .label-H5-{
     -fx-font-size:15;
     /*-fx-font-style:SemiBold;*/
