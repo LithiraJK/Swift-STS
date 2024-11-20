@@ -2,22 +2,13 @@ package lk.ijse.gdse72.swiftsts.model;
 
 import lk.ijse.gdse72.swiftsts.dto.PaymentDto;
 import lk.ijse.gdse72.swiftsts.util.CrudUtil;
-import lk.ijse.gdse72.swiftsts.db.DBConnection;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PaymentModel {
-
-    private Connection connection;
-
-    public PaymentModel() throws SQLException {
-        this.connection = DBConnection.getInstance().getConnection();
-    }
 
     public static boolean insertPayment(PaymentDto paymentDto) throws SQLException {
         String query = "INSERT INTO Payment (PaymentId, StudentId, MonthlyFee, Amount, Balance, Status, Date) VALUES (?,?,?,?,?,?,?)";
@@ -34,29 +25,28 @@ public class PaymentModel {
 
     public List<PaymentDto> getPaymentData() {
         List<PaymentDto> paymentData = new ArrayList<>();
-
         String query = """
-            SELECT p.PaymentId, s.StudentId, p.MonthlyFee,  p.Amount,
+            SELECT p.PaymentId, s.StudentId, p.MonthlyFee, p.Amount,
                    p.Balance, s.CreditBalance, p.Status, p.Date
             FROM Payment p
             INNER JOIN Student s ON p.StudentId = s.StudentId
             """;
 
-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            ResultSet rs = stmt.executeQuery();
+        try {
+            ResultSet rs = CrudUtil.execute(query);
             while (rs.next()) {
-                String paymentId = rs.getString("PaymentId");
-                String studentId = rs.getString("StudentId");
-                double monthlyFee = rs.getDouble("MonthlyFee");
-                double creditBalance = rs.getDouble("CreditBalance");
-                double amount = rs.getDouble("Amount");
-                double balance = rs.getDouble("Balance");
-                String status = rs.getString("Status");
-                String date = rs.getString("Date");
+                String paymentId = rs.getString(1);
+                String studentId = rs.getString(2);
+                double monthlyFee = rs.getDouble(3);
+                double amount = rs.getDouble(4);
+                double balance = rs.getDouble(5);
+                double creditBalance = rs.getDouble(6);
+                String status = rs.getString(7);
+                String date = rs.getString(8);
 
-                paymentData.add(new PaymentDto(paymentId, studentId, monthlyFee,creditBalance, amount, balance, status, date));
+                paymentData.add(new PaymentDto(paymentId, studentId, monthlyFee, amount, balance, creditBalance, status, date));
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
@@ -92,5 +82,4 @@ public class PaymentModel {
         }
         return "P001";
     }
-
 }

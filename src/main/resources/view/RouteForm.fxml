@@ -24,7 +24,7 @@
          </font></Label>
       <JFXTextField fx:id="txtStartPoint" focusColor="BLACK" labelFloat="true" layoutX="423.0" layoutY="83.0" prefHeight="26.0" prefWidth="175.0" promptText="Start Point" styleClass="textfields-" unFocusColor="BLACK" />
       <JFXTextField fx:id="txtDestination" focusColor="BLACK" labelFloat="true" layoutX="631.0" layoutY="83.0" prefHeight="26.0" prefWidth="162.0" promptText="Destination" styleClass="textfields-" unFocusColor="BLACK" />
-      <JFXTextField fx:id="txtRouteFee" focusColor="BLACK" labelFloat="true" layoutX="838.0" layoutY="85.0" promptText="Day Fee" styleClass="textfields-" unFocusColor="BLACK" />
+      <JFXTextField fx:id="txtRouteFee" focusColor="BLACK" labelFloat="true" layoutX="838.0" layoutY="85.0" promptText="Route Fee" styleClass="textfields-" unFocusColor="BLACK" />
       <JFXButton fx:id="btnUpdate" layoutX="783.0" layoutY="130.0" onAction="#btnUpdateOnAction" prefHeight="37.0" prefWidth="102.0" styleClass="button-1" text="Update" />
       <JFXButton fx:id="btnDelete" layoutX="905.0" layoutY="130.0" onAction="#btnDeleteOnAction" prefHeight="37.0" prefWidth="102.0" styleClass="button-1" text="Delete" />
       <JFXButton fx:id="btnReset" layoutX="547.0" layoutY="130.0" onAction="#btnResetOnAction" prefHeight="37.0" prefWidth="102.0" styleClass="button-1" text="Reset" />

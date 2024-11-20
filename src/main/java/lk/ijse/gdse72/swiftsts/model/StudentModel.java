@@ -20,6 +20,11 @@ public class StudentModel{
         return 0.0;
     }
 
+    public static boolean updateCreditBalance(String studentId, double creditBalance) throws SQLException {
+        String query = "UPDATE Student SET CreditBalance = ? WHERE StudentId = ?";
+        return CrudUtil.execute(query, creditBalance, studentId);
+    }
+
     public ArrayList<StudentDto> getAllStudents() throws SQLException {
         ResultSet rst = CrudUtil.execute("SELECT * FROM Student");
         ArrayList<StudentDto> studentDtos = new ArrayList<>();

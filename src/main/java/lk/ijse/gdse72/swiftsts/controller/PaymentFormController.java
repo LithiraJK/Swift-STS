@@ -20,6 +20,7 @@ import lk.ijse.gdse72.swiftsts.dto.tm.PaymentTM;
 import lk.ijse.gdse72.swiftsts.model.AttendanceModel;
 import lk.ijse.gdse72.swiftsts.model.PaymentModel;
 import lk.ijse.gdse72.swiftsts.model.StudentModel;
+import lk.ijse.gdse72.swiftsts.util.CrudUtil;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -99,9 +100,9 @@ public class PaymentFormController implements Initializable {
             colPaymentId.setCellValueFactory(new PropertyValueFactory<>("paymentId"));
             colStudentId.setCellValueFactory(new PropertyValueFactory<>("studentId"));
             colMonthlyFee.setCellValueFactory(new PropertyValueFactory<>("monthlyFee"));
-            colCreditBalance.setCellValueFactory(new PropertyValueFactory<>("creditBalance"));
             colAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));
             colBalance.setCellValueFactory(new PropertyValueFactory<>("balance"));
+            colCreditBalance.setCellValueFactory(new PropertyValueFactory<>("creditBalance"));
             colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
             colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
 
@@ -154,9 +155,9 @@ public class PaymentFormController implements Initializable {
                     dto.getPaymentId(),
                     dto.getStudentId(),
                     dto.getMonthlyFee(),
-                    dto.getCreditBalance(),
                     dto.getAmount(),
                     dto.getBalance(),
+                    dto.getCreditBalance(),
                     dto.getStatus(),
                     java.sql.Date.valueOf(dto.getDate())
             ));
@@ -199,38 +200,46 @@ public class PaymentFormController implements Initializable {
 
             int dayCount = AttendanceModel.getDayCountByAttendanceId(attendanceId);
             double monthlyFee = PaymentModel.calculateMonthlyFee(cmbStudentId.getValue(), dayCount);
-            double balance = payAmount - (monthlyFee+creditBalance);
+            double balance = payAmount - (monthlyFee + creditBalance);
 
-            if(balance>=0){
+            if (balance >= 0) {
                 lblBalance.setText(String.format("%.2f", balance));
                 lblCreditBalance.setText("0.00");
                 creditBalance = 0;
-            } else if (balance < 0) {
+            } else {
                 lblBalance.setText("0.00");
                 lblCreditBalance.setText(String.format("%.2f", -balance));
                 creditBalance += balance;
-
+            }
 
             PaymentDto paymentDto = new PaymentDto(
                     lblPaymentId.getText(),
                     studentId,
                     monthlyFee,
                     payAmount,
-                    creditBalance,
                     balance,
+                    creditBalance,
                     creditBalance <= 0 ? "Paid" : "Pending",
                     LocalDate.now().toString()
             );
 
+            CrudUtil.startTransaction();
+
             boolean isPaymentInserted = PaymentModel.insertPayment(paymentDto);
-            if (isPaymentInserted) {
-                new Alert(Alert.AlertType.INFORMATION, "Payment made successfully!").show();
-                }
-                loadPaymentData(); // Refresh the table data
-            } else {
-                new Alert(Alert.AlertType.ERROR, "Failed to make payment.").show();
-            }
+            if (!isPaymentInserted) throw new SQLException("Failed to insert into Payment");
+
+            boolean isCreditBalanceUpdated = StudentModel.updateCreditBalance(studentId, creditBalance);
+            if (!isCreditBalanceUpdated) throw new SQLException("Failed to update credit balance");
+
+            CrudUtil.commitTransaction();
+            new Alert(Alert.AlertType.INFORMATION, "Payment made successfully!").show();
+            loadPaymentData(); // Refresh the table data
         } catch (SQLException | NumberFormatException e) {
+            try {
+                CrudUtil.rollbackTransaction();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
             e.printStackTrace();
             new Alert(Alert.AlertType.ERROR, "An error occurred while making the payment: " + e.getMessage()).show();
         }

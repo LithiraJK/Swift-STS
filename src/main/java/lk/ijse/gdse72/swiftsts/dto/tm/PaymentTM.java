@@ -10,9 +10,9 @@ public class PaymentTM {
     private String paymentId;
     private String studentId;
     private double monthlyFee;
-    private double creditBalance;
     private double amount;
     private double balance;
+    private double creditBalance;
     private String status;
     private Date date;
 }
