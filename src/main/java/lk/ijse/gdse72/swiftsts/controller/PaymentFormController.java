@@ -115,6 +115,24 @@ public class PaymentFormController implements Initializable {
         }
     }
 
+    private void loadStudentIds() throws SQLException {
+        ArrayList<String> studentIds = StudentModel.getAllStudentIds();
+        ObservableList<String> observableList = FXCollections.observableArrayList(studentIds);
+        cmbStudentId.setItems(observableList);
+        cmbStudentId.setOnAction(event -> {
+            try {
+                String selectedStudentId = cmbStudentId.getValue();
+                loadAttendanceIds(selectedStudentId);
+                String studentName = StudentModel.getStudentNameById(selectedStudentId);
+                lblStudentName.setText(studentName);
+                double creditBalance = StudentModel.getCreditBalanceById(selectedStudentId);
+                lblCreditBalance.setText(String.format("%.2f", creditBalance));
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
     private void setNextPaymentId() throws SQLException {
         String nextPaymentId = PaymentModel.getNextPaymentId();
         lblPaymentId.setText(nextPaymentId);
@@ -126,21 +144,6 @@ public class PaymentFormController implements Initializable {
         cmbAttendanceId.setItems(observableList);
     }
 
-    private void loadStudentIds() throws SQLException {
-        ArrayList<String> studentIds = StudentModel.getAllStudentIds();
-        ObservableList<String> observableList = FXCollections.observableArrayList(studentIds);
-        cmbStudentId.setItems(observableList);
-        cmbStudentId.setOnAction(event -> {
-            try {
-                String selectedStudentId = cmbStudentId.getValue();
-                loadAttendanceIds(selectedStudentId);
-                String studentName = StudentModel.getStudentNameById(selectedStudentId);
-                lblStudentName.setText(studentName);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        });
-    }
 
     private void loadPaymentData() throws SQLException {
         List<PaymentDto> paymentData = new PaymentModel().getPaymentData();
@@ -187,6 +190,7 @@ public class PaymentFormController implements Initializable {
             String studentId = (String) cmbStudentId.getValue();
             String attendanceId = (String) cmbAttendanceId.getValue();
             double payAmount = Double.parseDouble(txtPayAmount.getText());
+            double creditBalance = Double.parseDouble(lblCreditBalance.getText());
 
             if (studentId == null || attendanceId == null || payAmount <= 0) {
                 new Alert(Alert.AlertType.ERROR, "Please fill in all fields correctly.").show();
@@ -195,7 +199,9 @@ public class PaymentFormController implements Initializable {
 
             int dayCount = AttendanceModel.getDayCountByAttendanceId(attendanceId);
             double monthlyFee = PaymentModel.calculateMonthlyFee(cmbStudentId.getValue(), dayCount);
-            double balance = monthlyFee - payAmount;
+            double balance = (monthlyFee+creditBalance) - payAmount;
+
+
 
             PaymentDto paymentDto = new PaymentDto(
                     lblPaymentId.getText(),

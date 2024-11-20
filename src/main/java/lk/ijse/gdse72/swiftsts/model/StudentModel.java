@@ -11,6 +11,15 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class StudentModel{
+    public static double getCreditBalanceById(String studentId) throws SQLException {
+        String query = "SELECT CreditBalance FROM Student WHERE StudentId = ?";
+        ResultSet rs = CrudUtil.execute(query, studentId);
+        if (rs.next()) {
+            return rs.getDouble("CreditBalance");
+        }
+        return 0.0;
+    }
+
     public ArrayList<StudentDto> getAllStudents() throws SQLException {
         ResultSet rst = CrudUtil.execute("SELECT * FROM Student");
         ArrayList<StudentDto> studentDtos = new ArrayList<>();

@@ -37,7 +37,7 @@ public class PaymentModel {
         List<PaymentDto> paymentData = new ArrayList<>();
 
         String query = """
-            SELECT p.PaymentId, s.StudentId, p.MonthlyFee, p.CreditBalance, p.Amount,
+            SELECT p.PaymentId, s.StudentId, p.MonthlyFee, s.CreditBalance, p.Amount,
                    p.Balance, p.Status, p.Date
             FROM Payment p
             INNER JOIN Student s ON p.StudentId = s.StudentId
@@ -80,6 +80,7 @@ public class PaymentModel {
                 paymentDto.getStudentId()
         );
     }
+
     public static String getNextPaymentId() throws SQLException {
         ResultSet rst = CrudUtil.execute("SELECT PaymentId FROM Payment ORDER BY PaymentId DESC LIMIT 1");
 
