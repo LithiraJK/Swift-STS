@@ -77,6 +77,18 @@ public class StudentRegistrationModel {
         }
         return list;
     }
+
+    public static double getRouteFeeByRouteId(String routeId) throws SQLException {
+        String query = "SELECT RouteFee FROM Route WHERE RouteId = ?";
+        ResultSet rs = CrudUtil.execute(query, routeId);
+
+        if (rs.next()) {
+            return rs.getDouble("RouteFee");
+        } else {
+            throw new SQLException("Route ID not found in Route table");
+        }
+    }
+
     public ArrayList<StudentRegistrationDto> getAllStudentRegistrations() throws SQLException {
         ResultSet rst = CrudUtil.execute("SELECT * FROM StudentRegistration");
         ArrayList<StudentRegistrationDto> studentRegistrationList = new ArrayList<>();

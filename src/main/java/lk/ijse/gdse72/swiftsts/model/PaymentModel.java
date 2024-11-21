@@ -54,21 +54,18 @@ public class PaymentModel {
     }
 
     public static double calculateMonthlyFee(String studentId, int dayCount) throws SQLException {
-        double feePerDay = 10.0;
-        return dayCount * feePerDay;
+        String query = "SELECT DayPrice FROM StudentRegistration WHERE StudentId = ?";
+        ResultSet rs = CrudUtil.execute(query, studentId);
+
+        if (rs.next()) {
+            double dayPrice = rs.getDouble("DayPrice");
+            double monthlyFee = dayCount * dayPrice;
+            return monthlyFee ;
+        } else {
+            throw new SQLException("Student ID not found in StudentRegistrationTable");
+        }
     }
 
-    public static boolean updatePayment(PaymentDto paymentDto) throws SQLException {
-        String query = "UPDATE Payment SET MonthlyFee = ?, Amount = ?, Balance = ?, Status = ?, Date = ? WHERE StudentId = ?";
-        return CrudUtil.execute(query,
-                paymentDto.getMonthlyFee(),
-                paymentDto.getAmount(),
-                paymentDto.getBalance(),
-                paymentDto.getStatus(),
-                paymentDto.getDate(),
-                paymentDto.getStudentId()
-        );
-    }
 
     public static String getNextPaymentId() throws SQLException {
         ResultSet rst = CrudUtil.execute("SELECT PaymentId FROM Payment ORDER BY PaymentId DESC LIMIT 1");

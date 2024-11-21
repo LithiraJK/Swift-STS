@@ -15,6 +15,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.InputMethodEvent;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.gdse72.swiftsts.dto.StudentRegistrationDto;
@@ -42,6 +44,9 @@ public class StudentRegistrationController implements Initializable {
     public JFXButton btnReset;
     @FXML
     public ImageView viewTable;
+
+    @FXML
+    public Label txtDayPrice;
 
 
     @FXML
@@ -108,9 +113,6 @@ public class StudentRegistrationController implements Initializable {
     private JFXToggleButton trbtnCalculateDistance;
 
     @FXML
-    private JFXTextField txtDayPrice;
-
-    @FXML
     private JFXTextField txtDistance;
 
     @FXML
@@ -120,6 +122,7 @@ public class StudentRegistrationController implements Initializable {
     private AnchorPane paneRegistration;
 
     StudentRegistrationModel studentRegistrationModel = new StudentRegistrationModel();
+    public static double dayPrice = 0.00;
 
     @FXML
     void btnNewRouteOnAction(ActionEvent event) throws IOException {
@@ -176,12 +179,31 @@ public class StudentRegistrationController implements Initializable {
     }
 
     @FXML
+    void DistanceOnKeyReleased(KeyEvent event) {
+        String selectedRoute = cmbRoute.getSelectionModel().getSelectedItem();
+        if (selectedRoute != null && !txtDistance.getText().isEmpty()) {
+            try {
+                double routeFee = StudentRegistrationModel.getRouteFeeByRouteId(selectedRoute);
+                double distance = Double.parseDouble(txtDistance.getText());
+                dayPrice = routeFee * distance;
+                txtDayPrice.setText(String.format("%.2f", dayPrice));
+            } catch (SQLException e) {
+                e.printStackTrace();
+                new Alert(Alert.AlertType.ERROR, "Failed to retrieve route fee: " + e.getMessage()).show();
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+                new Alert(Alert.AlertType.ERROR, "Invalid distance value: " + e.getMessage()).show();
+            }
+        }
+    }
+
+    @FXML
     void btnRegisterOnAction(ActionEvent event) {
         String studentId = txtStudentId.getSelectionModel().getSelectedItem();
         String studentRegId = lblRegistrationId.getText();
         String routeId = cmbRoute.getSelectionModel().getSelectedItem();
         String vehicleId = cmbVehicle.getSelectionModel().getSelectedItem();
-        double dayPrice = Double.parseDouble(txtDayPrice.getText());
+        dayPrice = Double.parseDouble(txtDayPrice.getText());
         String registrationDate = lblDate.getText();
         double distance = Double.parseDouble(txtDistance.getText());
 
@@ -206,6 +228,8 @@ public class StudentRegistrationController implements Initializable {
         }
     }
 
+
+
     @FXML
     void onClickTable(MouseEvent event) {
         // Table click action implementation
@@ -221,7 +245,7 @@ public class StudentRegistrationController implements Initializable {
         cmbRoute.getSelectionModel().clearSelection();
         cmbVehicle.getSelectionModel().clearSelection();
         cmbDestination.getSelectionModel().clearSelection();
-        txtDayPrice.clear();
+        txtDayPrice.setText("00.00");
         txtDistance.clear();
         lblRegistrationId.setText(studentRegistrationModel.getNextRegistrationId());
         lableStudentName.setText("Student Name");
