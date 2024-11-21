@@ -59,8 +59,10 @@ public class PaymentModel {
 
         if (rs.next()) {
             double dayPrice = rs.getDouble("DayPrice");
-            double monthlyFee = dayCount * dayPrice;
-            return monthlyFee ;
+            if (dayCount>0){
+                return dayCount * dayPrice;
+            }
+            return 0.00;
         } else {
             throw new SQLException("Student ID not found in StudentRegistrationTable");
         }

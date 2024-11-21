@@ -232,7 +232,6 @@ public class StudentRegistrationController implements Initializable {
 
     @FXML
     void onClickTable(MouseEvent event) {
-        // Table click action implementation
     }
 
     @FXML

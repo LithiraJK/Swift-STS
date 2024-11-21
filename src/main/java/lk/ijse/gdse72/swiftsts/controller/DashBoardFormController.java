@@ -35,6 +35,8 @@ public class DashBoardFormController implements Initializable {
     @FXML
     public JFXButton btnRoute;
     @FXML
+    public JFXButton btnExpense;
+    @FXML
     private JFXButton btnDashBoard;
 
     @FXML
@@ -171,6 +173,12 @@ public class DashBoardFormController implements Initializable {
     public void btnAttendenceOnAction(ActionEvent actionEvent) throws IOException {
         paneBody.getChildren().clear();
         AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/view/AttendanceForm.fxml"));
+        paneBody.getChildren().add(anchorPane);
+    }
+    @FXML
+    public void btnExpenseOnAction(ActionEvent actionEvent) throws IOException {
+        paneBody.getChildren().clear();
+        AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/view/Expenses.fxml"));
         paneBody.getChildren().add(anchorPane);
     }
 }

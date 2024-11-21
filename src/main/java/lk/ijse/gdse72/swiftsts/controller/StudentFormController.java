@@ -267,7 +267,7 @@ public class StudentFormController implements Initializable {
             txtStudentGrade.setText(selectedItem.getStudentGrade());
             txtPhoneNo.setText(selectedItem.getPhoneNo());
             cbUserID.setValue(selectedItem.getUserId());
-            lblCreditBalance.setText(String.valueOf(selectedItem.getCreditBalance())); // New field
+            lblCreditBalance.setText(String.valueOf(selectedItem.getCreditBalance()));
 
             btnSave.setDisable(true);
             btnDelete.setDisable(false);
@@ -287,7 +287,7 @@ public class StudentFormController implements Initializable {
         colGrade.setCellValueFactory(new PropertyValueFactory<>("studentGrade"));
         colPhoneNo.setCellValueFactory(new PropertyValueFactory<>("phoneNo"));
         colUserID.setCellValueFactory(new PropertyValueFactory<>("userId"));
-        colCreditBalance.setCellValueFactory(new PropertyValueFactory<>("creditBalance")); // New column setup
+        colCreditBalance.setCellValueFactory(new PropertyValueFactory<>("creditBalance"));
 
         try {
             refreshPage();
@@ -317,7 +317,7 @@ public class StudentFormController implements Initializable {
         txtStudentGrade.setText("");
         txtPhoneNo.setText("");
         cbUserID.setValue(null);
-        lblCreditBalance.setText("0000.00"); // New field
+        lblCreditBalance.setText("0000.00");
 
         btnSave.setDisable(false);
 

@@ -64,7 +64,7 @@ public class StudentRegistrationsController implements Initializable {
 
     @FXML
     void tblStudentRegistrationOnClick(MouseEvent event) {
-        // Handle table row click event
+
     }
 
     @Override

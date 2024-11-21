@@ -75,7 +75,7 @@
       </Group>
       <Group layoutX="20.0" layoutY="398.0">
          <children>
-            <JFXButton fx:id="btnSchedule" onAction="#btnScheduleOnAction" prefHeight="37.0" prefWidth="161.0" styleClass="buttonDash" text="Schedule" textAlignment="JUSTIFY" />
+            <JFXButton fx:id="btnExpense" onAction="#btnExpenseOnAction" prefHeight="37.0" prefWidth="161.0" styleClass="buttonDash" text="Expense" textAlignment="JUSTIFY" />
             <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="7.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/icons/icons8-timetable-90.png" />
