@@ -1,6 +1,7 @@
 package lk.ijse.gdse72.swiftsts.controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
@@ -15,21 +16,27 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.gdse72.swiftsts.db.DBConnection;
 import lk.ijse.gdse72.swiftsts.dto.PaymentDto;
 import lk.ijse.gdse72.swiftsts.dto.tm.PaymentTM;
+import lk.ijse.gdse72.swiftsts.dto.tm.StudentTM;
 import lk.ijse.gdse72.swiftsts.model.AttendanceModel;
 import lk.ijse.gdse72.swiftsts.model.PaymentModel;
 import lk.ijse.gdse72.swiftsts.model.StudentModel;
 import lk.ijse.gdse72.swiftsts.util.CrudUtil;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.view.JasperViewer;
 
 import java.net.URL;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class PaymentFormController implements Initializable {
+
+    @FXML
+    public JFXButton btnPaymentReceipt;
 
     @FXML
     private JFXButton btnCalculatepayment;
@@ -246,7 +253,83 @@ public class PaymentFormController implements Initializable {
     }
 
     @FXML
-    void tblPaymentsOnClicked(MouseEvent event) {
-        // Handle table row click event if needed
+    private void tblPaymentsOnClicked(MouseEvent event) {
+        PaymentTM selectedPayment = tblPayments.getSelectionModel().getSelectedItem();
+        if (selectedPayment != null) {
+            lblPaymentId.setText(selectedPayment.getPaymentId());
+        }
     }
+
+    @FXML
+    public void btnPaymentReceipt(ActionEvent actionEvent) {
+        String selectedPaymentId = lblPaymentId.getText();
+
+        if (selectedPaymentId == null || selectedPaymentId.isEmpty()) {
+            new Alert(Alert.AlertType.ERROR, "Please select a payment from the table.").show();
+            return;
+        }
+
+        try {
+            JasperReport jasperReport = JasperCompileManager.compileReport(
+                    getClass().getResourceAsStream("/reports/PaymentReceipt.jrxml"));
+            Connection connection = DBConnection.getInstance().getConnection();
+
+            Map<String, Object> parameters = new HashMap<>();
+            parameters.put("p.PaymentId", selectedPaymentId);
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(
+                    jasperReport,
+                    parameters,
+                    connection
+            );
+            JasperViewer.viewReport(jasperPrint, false);
+        } catch (JRException e) {
+            new Alert(Alert.AlertType.ERROR, "Failed to generate the report").show();
+            e.printStackTrace();
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, "Failed to connect to the database").show();
+            e.printStackTrace();
+        }
+    }
+
+//    @FXML
+//    void tblPaymentsOnClicked(MouseEvent event) {
+//        // Handle table row click event if needed
+//    }
+//    @FXML
+//    public void btnPaymentReceipt(ActionEvent actionEvent) {
+//        System.out.println("Payment Receipt");
+//        String selectedStudent = cmbStudentId.getSelectionModel().getSelectedItem();
+//
+//        if(selectedStudent == null){
+//            new Alert(Alert.AlertType.ERROR,"Please select a student").show();
+//            return;
+//        }
+//
+//        try{
+//            JasperReport jasperReport = JasperCompileManager.compileReport(
+//                    getClass()
+//                            .getResourceAsStream("/reports/PaymentReceipt.jrxml"
+//                            ));
+//            Connection connection = DBConnection.getInstance().getConnection();
+//
+//            Map<String,Object> parameters = new HashMap<>();
+//
+//            parameters.put("p.paymentId",lblPaymentId.getText());
+//
+//            JasperPrint jasperPrint = JasperFillManager.fillReport(
+//                    jasperReport,
+//                    null,
+//                    connection
+//            );
+//            JasperViewer.viewReport(jasperPrint,false);
+//        }catch (JRException e){
+//            new Alert(Alert.AlertType.ERROR,"Failed to generate the report").show();
+//            e.printStackTrace();
+//        } catch (SQLException e) {
+//            new Alert(Alert.AlertType.ERROR, "Failed to connect to the database").show();
+//            e.printStackTrace();
+//
+//        }
+//    }
 }

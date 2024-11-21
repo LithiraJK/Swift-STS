@@ -68,8 +68,6 @@ public class ExpensesController implements Initializable {
     @FXML
     private JFXTextField txtDescription;
 
-    @FXML
-    private JFXTextField txtExpenseCategory;
 
     private ExpenseModel expenseModel = new ExpenseModel();
 

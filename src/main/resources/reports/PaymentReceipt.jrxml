@@ -1,0 +1,170 @@
+<!-- Created with Jaspersoft Studio version 7.0.0.final using JasperReports Library version 7.0.0-b478feaa9aab4375eba71de77b4ca138ad2f62aa  -->
+<jasperReport name="Payment" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="07aece71-2e83-4a4a-a053-7a1fb89b771a">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SwiftSTS"/>
+	<parameter name="p.PaymentId" class="java.lang.String"/>
+	<query language="SQL"><![CDATA[SELECT  
+		p.PaymentId, 
+		s.StudentId, 
+		s.StudentName, 
+		p.MonthlyFee,   
+		p.Amount,                     
+		p.Balance,  
+		s.CreditBalance,  
+		p.Status,  
+		p.Date 
+FROM Payment p           
+INNER JOIN Student s ON p.StudentId = s.StudentId 
+WHERE  p.PaymentId  = $P!{p.PaymentId}
+
+
+]]></query>
+	<field name="StudentId" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="StudentId"/>
+		<property name="com.jaspersoft.studio.field.label" value="StudentId"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Student"/>
+	</field>
+	<field name="StudentName" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="StudentName"/>
+		<property name="com.jaspersoft.studio.field.label" value="StudentName"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Student"/>
+	</field>
+	<field name="MonthlyFee" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="MonthlyFee"/>
+		<property name="com.jaspersoft.studio.field.label" value="MonthlyFee"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Payment"/>
+	</field>
+	<field name="Amount" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="Amount"/>
+		<property name="com.jaspersoft.studio.field.label" value="Amount"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Payment"/>
+	</field>
+	<field name="Balance" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="Balance"/>
+		<property name="com.jaspersoft.studio.field.label" value="Balance"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Payment"/>
+	</field>
+	<field name="CreditBalance" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="CreditBalance"/>
+		<property name="com.jaspersoft.studio.field.label" value="CreditBalance"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Student"/>
+	</field>
+	<field name="Status" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Status"/>
+		<property name="com.jaspersoft.studio.field.label" value="Status"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Payment"/>
+	</field>
+	<field name="Date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="Date"/>
+		<property name="com.jaspersoft.studio.field.label" value="Date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Payment"/>
+	</field>
+	<field name="PaymentId" class="java.lang.String"/>
+	<background splitType="Stretch"/>
+	<title height="88" splitType="Stretch">
+		<element kind="staticText" uuid="fac30d58-26b0-449a-85ce-29a6c23ee209" mode="Opaque" x="-1" y="-1" width="551" height="89" forecolor="#FFD600" backcolor="#000000" fontSize="30.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Swift Student Transport System]]></text>
+		</element>
+	</title>
+	<pageHeader height="150" splitType="Stretch">
+		<element kind="staticText" uuid="0648538d-fed1-4c55-886d-496f9feda56d" x="166" y="22" width="228" height="47" fontSize="25.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Payment Receipt]]></text>
+		</element>
+		<element kind="line" uuid="fc61856d-0111-44ce-bf34-25f62ec206ce" x="1" y="65" width="551" height="1"/>
+		<element kind="line" uuid="abff5e63-55ef-431b-bd04-8144e7bd77f2" x="0" y="28" width="551" height="1"/>
+		<element kind="staticText" uuid="a177cc96-01d6-40e4-8931-7c4fcc23680f" x="5" y="71" width="212" height="43" forecolor="#737272" markup="none" fontSize="14.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<text><![CDATA[Here is a Summary of your recent payment]]></text>
+		</element>
+	</pageHeader>
+	<columnHeader height="53" splitType="Stretch">
+		<element kind="staticText" uuid="b1ace9ab-04ca-4bb9-8582-6bc2b9982bee" x="2" y="8" width="204" height="30" forecolor="#000000" markup="none" fontSize="18.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<text><![CDATA[Payment information]]></text>
+		</element>
+		<element kind="staticText" uuid="f91ffa31-25bd-4130-8615-df2cd6c6cc58" x="376" y="9" width="178" height="30" forecolor="#000000" fontSize="18.0" bold="true" hTextAlign="Right" vTextAlign="Middle">
+			<text><![CDATA[Payment details]]></text>
+		</element>
+	</columnHeader>
+	<detail>
+		<band height="160" splitType="Stretch">
+			<element kind="staticText" uuid="565000c7-c960-4b24-914c-64dac4502047" x="1" y="0" width="89" height="20" fontSize="12.0" bold="true">
+				<text><![CDATA[Payment ID]]></text>
+			</element>
+			<element kind="staticText" uuid="568348d6-6f8c-4926-800f-23ba37e547c9" x="2" y="39" width="58" height="20" fontSize="12.0" bold="true">
+				<text><![CDATA[Date]]></text>
+			</element>
+			<element kind="staticText" uuid="74fbe1f7-22ce-426b-887e-987f42fc9c88" x="3" y="81" width="47" height="20" fontSize="12.0" bold="true">
+				<text><![CDATA[Status]]></text>
+			</element>
+			<element kind="staticText" uuid="cfe7409c-0f2c-463c-beaa-24c0772d1318" x="139" y="-1" width="72" height="20" fontSize="12.0" bold="true">
+				<text><![CDATA[Student ID]]></text>
+			</element>
+			<element kind="staticText" uuid="de2956de-3a86-4e94-88f0-2fbab9744f28" x="245" y="-1" width="72" height="20" fontSize="12.0" bold="true">
+				<text><![CDATA[Name]]></text>
+			</element>
+			<element kind="staticText" uuid="a4f36bc5-7b1a-4ce2-91ac-4bebc234a62a" x="311" y="-1" width="81" height="20" fontSize="12.0" bold="true">
+				<text><![CDATA[Monthly Fee]]></text>
+			</element>
+			<element kind="staticText" uuid="c832cc4d-456f-448b-b572-b57a78c27628" x="398" y="-1" width="54" height="20" fontSize="12.0" bold="true">
+				<text><![CDATA[Amount]]></text>
+			</element>
+			<element kind="staticText" uuid="f9a9b0ad-50f9-4b40-9595-bf054e128abb" x="466" y="-2" width="90" height="20" fontSize="12.0" bold="true">
+				<text><![CDATA[Credit Balance]]></text>
+			</element>
+			<element kind="line" uuid="ca541152-50de-4ecd-84a1-6994a315a9ef" x="130" y="23" width="426" height="1"/>
+			<element kind="line" uuid="32e1aa93-be7e-44d1-9627-73f8c5f3dcf7" x="130" y="55" width="428" height="1"/>
+			<element kind="staticText" uuid="55f19c48-e4bb-499f-bcbb-1e60e680246d" x="221" y="55" width="86" height="30" fontSize="16.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[Total]]></text>
+			</element>
+			<element kind="staticText" uuid="fc0e5f29-0648-497a-83b2-42a06641ad48" x="395" y="55" width="86" height="30" fontSize="16.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[Balance]]></text>
+			</element>
+			<element kind="textField" uuid="9acd51d2-26e8-4f87-a455-e58a62c2f790" x="4" y="57" width="126" height="24">
+				<expression><![CDATA[$F{Date}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1b70080f-1405-4bbd-8d5d-e92d58d05a2d"/>
+			</element>
+			<element kind="textField" uuid="b94654f2-8aec-4885-b300-778a6e4b5f28" x="209" y="25" width="100" height="30" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{StudentName}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6aeaebe8-ad3d-4e5c-91b6-73f2fc2fbffd"/>
+			</element>
+			<element kind="textField" uuid="576457d0-6c63-4ea4-a0db-a7ba090250ef" x="134" y="29" width="78" height="21" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{StudentId}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="68a01fd3-ef41-4833-a52a-3e6df84f5fb1"/>
+			</element>
+			<element kind="textField" uuid="f01271c9-5d11-4a0d-a55a-ce00a10d5f75" x="313" y="24" width="78" height="30" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{MonthlyFee}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f9a0fccf-1615-437e-8f04-bbc26230c8b9"/>
+			</element>
+			<element kind="textField" uuid="0e0fce2a-df19-42c5-adae-3a516a902d20" x="393" y="24" width="70" height="30" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{Amount}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f00c85e1-12a8-41dc-bf31-116acc6590cc"/>
+			</element>
+			<element kind="textField" uuid="b6a99ad0-7cb8-4acf-8f85-5fb935cd9341" x="471" y="23" width="85" height="30" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{CreditBalance}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3f945d5e-11f9-49ae-8262-7a6aebc455ab"/>
+			</element>
+			<element kind="textField" uuid="a0ef169e-0968-4094-b041-1af8a13c05d9" x="291" y="58" width="81" height="23" fontSize="12.0" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{Amount}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="23271575-0e0c-48dd-8639-a3206362c613"/>
+			</element>
+			<element kind="textField" uuid="3e802cfe-5ce7-4e50-a2b2-59752950dd0d" x="478" y="59" width="74" height="22" fontSize="12.0" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{Balance}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="660cb75a-6b4a-4c61-a490-b2484e8c999f"/>
+			</element>
+			<element kind="textField" uuid="bad894f8-9b70-4c7e-80c0-7e47ef10f1ad" x="2" y="102" width="88" height="18">
+				<expression><![CDATA[$F{Status}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="04056079-a91a-4883-bf66-2d860e421734"/>
+			</element>
+			<element kind="textField" uuid="2a95e90c-74d4-4657-a2d2-3e648c363645" x="3" y="20" width="81" height="19">
+				<expression><![CDATA[$F{PaymentId}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="18bb1542-e394-4dba-938e-c1c6eb2a7708"/>
+			</element>
+		</band>
+	</detail>
+	<columnFooter height="59" splitType="Stretch"/>
+	<pageFooter height="54" splitType="Stretch">
+		<element kind="staticText" uuid="48a6ea64-df6e-4836-a3ae-c9af677d35ae" mode="Opaque" x="0" y="20" width="558" height="34" forecolor="#FFD600" backcolor="#000000" fontSize="16.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Thank You !]]></text>
+		</element>
+	</pageFooter>
+	<summary height="26" splitType="Stretch"/>
+</jasperReport>
