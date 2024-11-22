@@ -1,9 +1,6 @@
 package lk.ijse.gdse72.swiftsts.controller;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXCheckBox;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -24,6 +21,7 @@ import lk.ijse.gdse72.swiftsts.model.AttendanceModel;
 import lk.ijse.gdse72.swiftsts.model.PaymentModel;
 import lk.ijse.gdse72.swiftsts.model.StudentModel;
 import lk.ijse.gdse72.swiftsts.util.CrudUtil;
+import lk.ijse.gdse72.swiftsts.util.SendMailUtil;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.view.JasperViewer;
 
@@ -37,6 +35,8 @@ public class PaymentFormController implements Initializable {
 
     @FXML
     public JFXButton btnPaymentReceipt;
+    @FXML
+    public JFXToggleButton trbtnSendMail;
 
     @FXML
     private JFXButton btnCalculatepayment;
@@ -187,11 +187,31 @@ public class PaymentFormController implements Initializable {
             double monthlyFee = PaymentModel.calculateMonthlyFee(cmbStudentId.getValue(), dayCount);
 
             lblMonthlyFee.setText(String.format("%.2f", monthlyFee));
+
+            if (trbtnSendMail.isSelected()) {
+                NotifyStudentByEmail();
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
             new Alert(Alert.AlertType.ERROR, "An error occurred while calculating the monthly fee: " + e.getMessage()).show();
         }
     }
+    private void NotifyStudentByEmail() {
+        try {
+            String studentId = (String) cmbStudentId.getValue();
+            String email = StudentModel.getEmailByStudentId(studentId);
+            String subject = "Monthly Fee Notification";
+            String body = "Dear Student,\n\nYour monthly fee is: " + lblMonthlyFee.getText() + " RS.\n\nThank you.";
+
+            SendMailUtil.sendEmail(email, subject, body);
+            new Alert(Alert.AlertType.INFORMATION, "Email sent successfully!").show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Failed to send email: " + e.getMessage()).show();
+        }
+    }
+
 
     @FXML
     void btnMakePaymentOnAction(ActionEvent event) {
@@ -295,4 +315,7 @@ public class PaymentFormController implements Initializable {
         }
     }
 
+    public void trbtnSendMailOnAction(ActionEvent actionEvent) {
+
+    }
 }

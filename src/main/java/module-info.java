@@ -5,6 +5,7 @@ module lk.ijse.gdse72.swiftsts {
     requires static lombok;
     requires java.sql;
     requires net.sf.jasperreports.core;
+    requires jakarta.mail;
 //    requires com.google.api.client.json.gson;
 //    requires com.google.api.client;
 //    requires com.google.api.services.gmail;

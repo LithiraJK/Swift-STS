@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXToggleButton?>
 <?import java.net.URL?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -80,7 +81,7 @@
          </font>
       </Label>
       <JFXComboBox fx:id="cmbAttendanceId" layoutX="464.0" layoutY="74.0" prefHeight="26.0" prefWidth="156.0" promptText="Select Attendance ID" styleClass="combo-box" />
-      <JFXButton fx:id="btnCalculatepayment" layoutX="542.0" layoutY="123.0" onAction="#btnCalculatepaymentOnAction" prefHeight="37.0" prefWidth="180.0" styleClass="button-1" text="Calculate Payment" />
+      <JFXButton fx:id="btnCalculatepayment" layoutX="713.0" layoutY="126.0" onAction="#btnCalculatepaymentOnAction" prefHeight="37.0" prefWidth="180.0" styleClass="button-1" text="Calculate Payment" />
       <Label layoutX="145.0" layoutY="138.0" text="RS.">
          <font>
             <Font name="System Bold" size="15.0" />
@@ -97,6 +98,7 @@
          </font>
       </Label>
       <JFXButton fx:id="btnPaymentReceipt" layoutX="791.0" layoutY="184.0" onAction="#btnPaymentReceipt" prefHeight="37.0" prefWidth="192.0" styleClass="button-1" text="Get Payment Receipt" />
+      <JFXToggleButton fx:id="trbtnSendMail" layoutX="545.0" layoutY="118.0" onAction="#trbtnSendMailOnAction" text="Send Mail" toggleColor="#ffd600" toggleLineColor="#ffd600" unToggleLineColor="BLACK" />
 
    </children>
 </AnchorPane>

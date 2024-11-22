@@ -25,6 +25,15 @@ public class StudentModel{
         return CrudUtil.execute(query, creditBalance, studentId);
     }
 
+    public static String getEmailByStudentId(String studentId) throws SQLException {
+        String query = "SELECT Email FROM Student WHERE StudentId = ?";
+        ResultSet rs = CrudUtil.execute(query, studentId);
+        if (rs.next()) {
+            return rs.getString("Email");
+        }
+        return null;
+    }
+
     public ArrayList<StudentDto> getAllStudents() throws SQLException {
         ResultSet rst = CrudUtil.execute("SELECT * FROM Student");
         ArrayList<StudentDto> studentDtos = new ArrayList<>();
