@@ -2,23 +2,28 @@
 <jasperReport name="Payment" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="07aece71-2e83-4a4a-a053-7a1fb89b771a">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SwiftSTS"/>
-	<parameter name="p.PaymentId" class="java.lang.String"/>
-	<query language="SQL"><![CDATA[SELECT  
-		p.PaymentId, 
-		s.StudentId, 
-		s.StudentName, 
-		p.MonthlyFee,   
-		p.Amount,                     
-		p.Balance,  
-		s.CreditBalance,  
-		p.Status,  
-		p.Date 
-FROM Payment p           
-INNER JOIN Student s ON p.StudentId = s.StudentId 
-WHERE  p.PaymentId  = $P!{p.PaymentId}
+	<parameter name="PaymentId" class="java.lang.String"/>
+	<query language="SQL"><![CDATA[SELECT
+		p.PaymentId,
+		s.StudentId,
+		s.StudentName,
+		p.MonthlyFee,
+		p.Amount,
+		p.Balance,
+		s.CreditBalance,
+		p.Status,
+		p.Date
+FROM Payment p
+INNER JOIN Student s ON p.StudentId = s.StudentId
+WHERE  p.PaymentId  = $P{PaymentId}
 
 
 ]]></query>
+	<field name="PaymentId" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="PaymentId"/>
+		<property name="com.jaspersoft.studio.field.label" value="PaymentId"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Payment"/>
+	</field>
 	<field name="StudentId" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="StudentId"/>
 		<property name="com.jaspersoft.studio.field.label" value="StudentId"/>
@@ -59,7 +64,6 @@ WHERE  p.PaymentId  = $P!{p.PaymentId}
 		<property name="com.jaspersoft.studio.field.label" value="Date"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="Payment"/>
 	</field>
-	<field name="PaymentId" class="java.lang.String"/>
 	<background splitType="Stretch"/>
 	<title height="88" splitType="Stretch">
 		<element kind="staticText" uuid="fac30d58-26b0-449a-85ce-29a6c23ee209" mode="Opaque" x="-1" y="-1" width="551" height="89" forecolor="#FFD600" backcolor="#000000" fontSize="30.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
@@ -154,9 +158,8 @@ WHERE  p.PaymentId  = $P!{p.PaymentId}
 				<expression><![CDATA[$F{Status}]]></expression>
 				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="04056079-a91a-4883-bf66-2d860e421734"/>
 			</element>
-			<element kind="textField" uuid="2a95e90c-74d4-4657-a2d2-3e648c363645" x="3" y="20" width="81" height="19">
-				<expression><![CDATA[$F{PaymentId}]]></expression>
-				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="18bb1542-e394-4dba-938e-c1c6eb2a7708"/>
+			<element kind="textField" uuid="1f4a0fcb-00e3-44ae-b487-4cdbde14aaa0" x="2" y="18" width="88" height="21">
+				<expression><![CDATA[$P{PaymentId}]]></expression>
 			</element>
 		</band>
 	</detail>

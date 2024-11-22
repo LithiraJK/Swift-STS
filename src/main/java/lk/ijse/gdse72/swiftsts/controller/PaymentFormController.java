@@ -118,6 +118,7 @@ public class PaymentFormController implements Initializable {
             loadAttendanceIds((String) cmbStudentId.getValue());
             loadPaymentData();
             lblPaymentDate.setText(LocalDate.now().toString());
+            btnPaymentReceipt.setDisable(true);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -257,6 +258,9 @@ public class PaymentFormController implements Initializable {
         PaymentTM selectedPayment = tblPayments.getSelectionModel().getSelectedItem();
         if (selectedPayment != null) {
             lblPaymentId.setText(selectedPayment.getPaymentId());
+            btnPaymentReceipt.setDisable(false);
+        } else {
+            btnPaymentReceipt.setDisable(true);
         }
     }
 
@@ -275,8 +279,7 @@ public class PaymentFormController implements Initializable {
             Connection connection = DBConnection.getInstance().getConnection();
 
             Map<String, Object> parameters = new HashMap<>();
-            parameters.put("p.PaymentId", selectedPaymentId);
-
+            parameters.put("PaymentId", selectedPaymentId);
             JasperPrint jasperPrint = JasperFillManager.fillReport(
                     jasperReport,
                     parameters,
@@ -292,44 +295,4 @@ public class PaymentFormController implements Initializable {
         }
     }
 
-//    @FXML
-//    void tblPaymentsOnClicked(MouseEvent event) {
-//        // Handle table row click event if needed
-//    }
-//    @FXML
-//    public void btnPaymentReceipt(ActionEvent actionEvent) {
-//        System.out.println("Payment Receipt");
-//        String selectedStudent = cmbStudentId.getSelectionModel().getSelectedItem();
-//
-//        if(selectedStudent == null){
-//            new Alert(Alert.AlertType.ERROR,"Please select a student").show();
-//            return;
-//        }
-//
-//        try{
-//            JasperReport jasperReport = JasperCompileManager.compileReport(
-//                    getClass()
-//                            .getResourceAsStream("/reports/PaymentReceipt.jrxml"
-//                            ));
-//            Connection connection = DBConnection.getInstance().getConnection();
-//
-//            Map<String,Object> parameters = new HashMap<>();
-//
-//            parameters.put("p.paymentId",lblPaymentId.getText());
-//
-//            JasperPrint jasperPrint = JasperFillManager.fillReport(
-//                    jasperReport,
-//                    null,
-//                    connection
-//            );
-//            JasperViewer.viewReport(jasperPrint,false);
-//        }catch (JRException e){
-//            new Alert(Alert.AlertType.ERROR,"Failed to generate the report").show();
-//            e.printStackTrace();
-//        } catch (SQLException e) {
-//            new Alert(Alert.AlertType.ERROR, "Failed to connect to the database").show();
-//            e.printStackTrace();
-//
-//        }
-//    }
 }
