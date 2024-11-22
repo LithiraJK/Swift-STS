@@ -199,7 +199,6 @@ public class VehicleFormController implements Initializable {
         int seatCount = Integer.parseInt(txtSeatCount.getText());
         int availableSeatCount = Integer.parseInt(txtAvailableSeatCount.getText());
 
-        // Define regex patterns for validation
         String registrationNoPattern = "^[A-Za-z0-9-]+$";
         String vehicleTypePattern = "^[A-Za-z ]+$";
         String fuelTypePattern = "^[A-Za-z ]+$";

@@ -128,5 +128,15 @@
             </Label>
          </children>
       </HBox>
+      <ImageView fitHeight="71.0" fitWidth="74.0" layoutX="12.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/images/icons8-bus-stop-64.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="222.0" layoutY="56.0" text="SWIFT STUDENT TRANSPORT SERVICE">
+         <font>
+            <Font name="Monospaced Bold" size="24.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

@@ -30,13 +30,12 @@ public class LoginFormController implements Initializable{
     private Pane yellowPane;
 
     public void initialize(URL location, ResourceBundle resources) {
-        // Load the SignInForm.fxml by default when the login form is initialized
         try {
             AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/view/SignInForm.fxml"));
-            loginPane.getChildren().clear();  // Clear current content
-            loginPane.getChildren().add(anchorPane);  // Add the loaded SignIn form
+            loginPane.getChildren().clear();
+            loginPane.getChildren().add(anchorPane);
         } catch (IOException e) {
-            e.printStackTrace();  // Print any loading errors to the console
+            e.printStackTrace();
         }
     }
 

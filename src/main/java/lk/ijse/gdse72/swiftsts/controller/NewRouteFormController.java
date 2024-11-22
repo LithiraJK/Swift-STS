@@ -131,7 +131,7 @@ public class NewRouteFormController implements Initializable {
         String destinationPattern = "^[A-Za-z ]+$";
         String routeFeePattern = "^[0-9]+(\\.[0-9]{1,2})?$";
 
-        // Add listener for each field
+
         txtRouteName.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches(routeNamePattern)) {
                 txtRouteName.setFocusColor(Paint.valueOf("red"));
