@@ -13,15 +13,16 @@
 
 <AnchorPane fx:id="paneSignUpSecond" prefHeight="465.0" prefWidth="300.0" styleClass="bg-signup" stylesheets="@../css-file/Login.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse72.swiftsts.controller.SignUpSecondFormController">
     <children>
-      <VBox layoutX="10.0" layoutY="183.0" spacing="24.0">
+      <VBox layoutX="12.0" layoutY="148.0" spacing="24.0">
          <children>
                 <JFXTextField fx:id="txtUserName" focusColor="#ffd600" labelFloat="true" prefHeight="26.0" prefWidth="280.0" promptText="Username" styleClass="custom-textfield" unFocusColor="WHITE" />
+            <JFXTextField fx:id="txtEmail" focusColor="#ffd600" labelFloat="true" layoutX="10.0" layoutY="10.0" prefHeight="26.0" prefWidth="280.0" promptText="Email" styleClass="custom-textfield" unFocusColor="WHITE" />
                 <JFXPasswordField fx:id="txtPassWord" focusColor="#ffd600" labelFloat="true" prefHeight="26.0" prefWidth="280.0" promptText="Password" styleClass="custom-textfield" unFocusColor="WHITE" />
                 <JFXPasswordField fx:id="txtConfirmPassword" focusColor="#ffd600" labelFloat="true" prefHeight="26.0" prefWidth="280.0" promptText="Confirm password" styleClass="custom-textfield" unFocusColor="WHITE" />
                 <JFXTextField fx:id="txtRole" focusColor="#ffd600" labelFloat="true" prefHeight="26.0" prefWidth="280.0" promptText="Role" styleClass="custom-textfield" unFocusColor="WHITE" />
          </children>
       </VBox>
-          <JFXButton fx:id="btnSignUp" layoutX="62.0" layoutY="383.0" onAction="#btnSignUpOnAction" prefHeight="37.0" prefWidth="180.0" styleClass="loginbtn" text="Create An Account" />
+          <JFXButton fx:id="btnSignUp" layoutX="60.0" layoutY="409.0" onAction="#btnSignUpOnAction" prefHeight="37.0" prefWidth="180.0" styleClass="loginbtn" text="Create An Account" />
       <Group layoutX="18.0" layoutY="70.0">
          <children>
             <Pane prefHeight="37.67" prefWidth="255.04" style="-fx-background-color: #EEEFF3; -fx-background-radius: 50;">

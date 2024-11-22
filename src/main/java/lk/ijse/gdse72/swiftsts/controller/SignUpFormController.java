@@ -55,6 +55,7 @@ public class SignUpFormController implements Initializable {
         String inputOTP = txtEnterOTP.getText();
 
         if (inputOTP.equals(generatedOTP)) {
+//        if(true){
             paneSignUp.getChildren().clear();
             AnchorPane pane = FXMLLoader.load(getClass().getResource("/view/SignUpSecondForm.fxml"));
             paneSignUp.getChildren().add(pane);
