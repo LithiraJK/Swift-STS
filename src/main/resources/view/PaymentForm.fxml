@@ -98,7 +98,7 @@
          </font>
       </Label>
       <JFXButton fx:id="btnPaymentReceipt" layoutX="791.0" layoutY="184.0" onAction="#btnPaymentReceipt" prefHeight="37.0" prefWidth="192.0" styleClass="button-1" text="Get Payment Receipt" />
-      <JFXToggleButton fx:id="trbtnSendMail" layoutX="545.0" layoutY="118.0" onAction="#trbtnSendMailOnAction" text="Send Mail" toggleColor="#ffd600" toggleLineColor="#ffd600" unToggleLineColor="BLACK" />
+      <JFXToggleButton fx:id="trbtnSendMail" layoutX="545.0" layoutY="118.0" text="Send Mail" toggleColor="#ffd600" toggleLineColor="#ffd600" unToggleLineColor="BLACK" />
 
    </children>
 </AnchorPane>

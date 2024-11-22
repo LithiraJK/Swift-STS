@@ -202,7 +202,7 @@ public class PaymentFormController implements Initializable {
             String studentId = (String) cmbStudentId.getValue();
             String email = StudentModel.getEmailByStudentId(studentId);
             String subject = "Monthly Fee Notification";
-            String body = "Dear Student,\n\nYour monthly fee is: " + lblMonthlyFee.getText() + " RS.\n\nThank you.";
+            String body = "Dear Student,\n\nYour monthly fee is: RS." + lblMonthlyFee.getText() +" \n\nYour Credit Balance is: RS." + lblCreditBalance.getText() + " \n\nThank you.";
 
             SendMailUtil.sendEmail(email, subject, body);
             new Alert(Alert.AlertType.INFORMATION, "Email sent successfully!").show();
@@ -315,7 +315,4 @@ public class PaymentFormController implements Initializable {
         }
     }
 
-    public void trbtnSendMailOnAction(ActionEvent actionEvent) {
-
-    }
 }
