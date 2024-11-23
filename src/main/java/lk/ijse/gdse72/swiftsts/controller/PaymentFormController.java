@@ -204,7 +204,8 @@ public class PaymentFormController implements Initializable {
             String subject = "Monthly Fee Notification";
             String body = "Dear Student,\n\nYour monthly fee is: RS." + lblMonthlyFee.getText() +" \n\nYour Credit Balance is: RS." + lblCreditBalance.getText() + " \n\nThank you.";
 
-            SendMailUtil.sendEmail(email, subject, body);
+            SendMailUtil emailThread = new SendMailUtil(email, subject, body);
+            emailThread.start();
             new Alert(Alert.AlertType.INFORMATION, "Email sent successfully!").show();
         } catch (Exception e) {
             e.printStackTrace();
@@ -261,7 +262,7 @@ public class PaymentFormController implements Initializable {
 
             CrudUtil.commitTransaction();
             new Alert(Alert.AlertType.INFORMATION, "Payment made successfully!").show();
-            loadPaymentData(); // Refresh the table data
+            loadPaymentData();
         } catch (SQLException | NumberFormatException e) {
             try {
                 CrudUtil.rollbackTransaction();
@@ -293,26 +294,32 @@ public class PaymentFormController implements Initializable {
             return;
         }
 
-        try {
-            JasperReport jasperReport = JasperCompileManager.compileReport(
-                    getClass().getResourceAsStream("/reports/PaymentReceipt.jrxml"));
-            Connection connection = DBConnection.getInstance().getConnection();
+        Thread reportThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    JasperReport jasperReport = JasperCompileManager.compileReport(
+                            getClass().getResourceAsStream("/reports/PaymentReceipt.jrxml"));
+                    Connection connection = DBConnection.getInstance().getConnection();
 
-            Map<String, Object> parameters = new HashMap<>();
-            parameters.put("PaymentId", selectedPaymentId);
-            JasperPrint jasperPrint = JasperFillManager.fillReport(
-                    jasperReport,
-                    parameters,
-                    connection
-            );
-            JasperViewer.viewReport(jasperPrint, false);
-        } catch (JRException e) {
-            new Alert(Alert.AlertType.ERROR, "Failed to generate the report").show();
-            e.printStackTrace();
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, "Failed to connect to the database").show();
-            e.printStackTrace();
-        }
+                    Map<String, Object> parameters = new HashMap<>();
+                    parameters.put("PaymentId", selectedPaymentId);
+                    JasperPrint jasperPrint = JasperFillManager.fillReport(
+                            jasperReport,
+                            parameters,
+                            connection
+                    );
+                    JasperViewer.viewReport(jasperPrint, false);
+                } catch (JRException e) {
+                    new Alert(Alert.AlertType.ERROR, "Failed to generate the report").show();
+                    e.printStackTrace();
+                } catch (SQLException e) {
+                    new Alert(Alert.AlertType.ERROR, "Failed to connect to the database").show();
+                    e.printStackTrace();
+                }
+            }
+        });
+        reportThread.start();
     }
 
 }
