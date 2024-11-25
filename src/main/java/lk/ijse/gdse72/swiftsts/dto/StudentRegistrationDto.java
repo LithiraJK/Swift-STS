@@ -11,7 +11,7 @@ public class StudentRegistrationDto {
     private String studentId;
     private double distance;
     private double dayPrice;
-    private String routeId;
+    private String routeName;
     private String vehicleId;
     private Date registrationDate;
 }

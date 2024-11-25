@@ -36,7 +36,7 @@ public class StudentRegistrationsController implements Initializable {
     private TableColumn<StudentRegistrationDto, Double> colDistance;
 
     @FXML
-    private TableColumn<StudentRegistrationDto, String> colRouteId;
+    private TableColumn<StudentRegistrationDto, String> colRouteName; // Changed from colRouteId to colRouteName
 
     @FXML
     private TableColumn<StudentRegistrationDto, String> colStudentId;
@@ -71,7 +71,7 @@ public class StudentRegistrationsController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         colStudentRegistrationId.setCellValueFactory(new PropertyValueFactory<>("registrationId"));
         colStudentId.setCellValueFactory(new PropertyValueFactory<>("studentId"));
-        colRouteId.setCellValueFactory(new PropertyValueFactory<>("routeId"));
+        colRouteName.setCellValueFactory(new PropertyValueFactory<>("routeName")); // Changed from routeId to routeName
         colVehicleId.setCellValueFactory(new PropertyValueFactory<>("vehicleId"));
         colDate.setCellValueFactory(new PropertyValueFactory<>("registrationDate"));
         colDayPrice.setCellValueFactory(new PropertyValueFactory<>("dayPrice"));
@@ -89,5 +89,4 @@ public class StudentRegistrationsController implements Initializable {
         ObservableList<StudentRegistrationDto> studentRegistrationList = FXCollections.observableArrayList(studentRegistrations);
         tblStudentRegistration.setItems(studentRegistrationList);
     }
-
 }

@@ -147,10 +147,21 @@ public class PaymentFormController implements Initializable {
         lblPaymentId.setText(nextPaymentId);
     }
 
+    private Map<String, String> attendanceMap = new HashMap<>();
+
     private void loadAttendanceIds(String studentId) throws SQLException {
-        ArrayList<String> attendanceIds = AttendanceModel.getAttendanceIdsByStudentId(studentId);
-        ObservableList<String> observableList = FXCollections.observableArrayList(attendanceIds);
+        ArrayList<String> attendanceMonths = AttendanceModel.getAttendanceMonthsByStudentId(studentId);
+        ObservableList<String> observableList = FXCollections.observableArrayList(attendanceMonths);
         cmbAttendanceId.setItems(observableList);
+
+        // Populate the attendanceMap with year-month to AttendanceId mapping
+        for (String attendanceMonth : attendanceMonths) {
+            String[] parts = attendanceMonth.split("-");
+            String year = parts[0];
+            String month = parts[1];
+            String attendanceId = AttendanceModel.getAttendanceIdByStudentIdYearMonth(studentId, year, month);
+            attendanceMap.put(attendanceMonth, attendanceId);
+        }
     }
 
 
@@ -177,7 +188,8 @@ public class PaymentFormController implements Initializable {
     @FXML
     void btnCalculatepaymentOnAction(ActionEvent event) {
         try {
-            String attendanceId = (String) cmbAttendanceId.getValue();
+            String selectedMonthYear = cmbAttendanceId.getValue();
+            String attendanceId = attendanceMap.get(selectedMonthYear);
             if (attendanceId == null) {
                 new Alert(Alert.AlertType.ERROR, "Please select an attendance ID.").show();
                 return;
@@ -215,10 +227,11 @@ public class PaymentFormController implements Initializable {
 
 
     @FXML
-    void btnMakePaymentOnAction(ActionEvent event) {
+    void btnMakePaymentOnAction(ActionEvent event) throws SQLException {
         try {
-            String studentId = (String) cmbStudentId.getValue();
-            String attendanceId = (String) cmbAttendanceId.getValue();
+            String studentId = cmbStudentId.getValue();
+            String selectedMonthYear = cmbAttendanceId.getValue();
+            String attendanceId = attendanceMap.get(selectedMonthYear);
             double payAmount = Double.parseDouble(txtPayAmount.getText());
             double creditBalance = Double.parseDouble(lblCreditBalance.getText());
 
@@ -229,22 +242,28 @@ public class PaymentFormController implements Initializable {
 
             int dayCount = AttendanceModel.getDayCountByAttendanceId(attendanceId);
             double monthlyFee = PaymentModel.calculateMonthlyFee(cmbStudentId.getValue(), dayCount);
-            double balance = payAmount - (monthlyFee + creditBalance);
+            double totalDue = monthlyFee + creditBalance;
+            double remainingBalance = totalDue - payAmount;
 
-            if (balance >= 0) {
+            double balance;
+            if (remainingBalance > 0) {
+                // Payment does not cover the total due, update credit balance
+                balance = 0.00;
+                lblBalance.setText(String.format("%.2f", balance));
+                lblCreditBalance.setText(String.format("%.2f", remainingBalance));
+                creditBalance = remainingBalance;
+            } else {
+                // Payment covers the total due, update balance
+                balance = Math.abs(remainingBalance);
                 lblBalance.setText(String.format("%.2f", balance));
                 lblCreditBalance.setText("0.00");
                 creditBalance = 0;
-            } else {
-                lblBalance.setText("0.00");
-                lblCreditBalance.setText(String.format("%.2f", -balance));
-                creditBalance += balance;
             }
 
             PaymentDto paymentDto = new PaymentDto(
                     lblPaymentId.getText(),
                     studentId,
-                    monthlyFee,
+                    Double.parseDouble(lblMonthlyFee.getText()),
                     payAmount,
                     balance,
                     creditBalance,
@@ -272,6 +291,23 @@ public class PaymentFormController implements Initializable {
             e.printStackTrace();
             new Alert(Alert.AlertType.ERROR, "An error occurred while making the payment: " + e.getMessage()).show();
         }
+        refreshPage();
+    }
+
+    private void refreshPage() throws SQLException {
+        cmbStudentId.getSelectionModel().clearSelection();
+        cmbAttendanceId.getSelectionModel().clearSelection();
+
+        lblMonthlyFee.setText("0.00");
+        lblCreditBalance.setText("0.00");
+        lblBalance.setText("0.00");
+        lblStudentName.setText("");
+
+        txtPayAmount.clear();
+        loadStudentIds();
+        loadPaymentData();
+        setNextPaymentId();
+        btnPaymentReceipt.setDisable(true);
     }
 
     @FXML

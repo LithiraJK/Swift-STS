@@ -90,7 +90,11 @@ public class StudentRegistrationModel {
     }
 
     public ArrayList<StudentRegistrationDto> getAllStudentRegistrations() throws SQLException {
-        ResultSet rst = CrudUtil.execute("SELECT * FROM StudentRegistration");
+        ResultSet rst = CrudUtil.execute("SELECT StudentRegistrationId, " +
+                "StudentId, Distance,DayPrice,RouteName,VehicleId,Date " +
+                "FROM StudentRegistration sr " +
+                "join Route r " +
+                "on sr.RouteId = r.RouteId");
         ArrayList<StudentRegistrationDto> studentRegistrationList = new ArrayList<>();
 
         while (rst.next()) {
@@ -99,7 +103,7 @@ public class StudentRegistrationModel {
                     rst.getString("StudentId"),
                     rst.getDouble("DayPrice"),
                     rst.getDouble("Distance"),
-                    rst.getString("RouteId"),
+                    rst.getString("RouteName"),
                     rst.getString("VehicleId"),
                     rst.getDate("Date")
 
@@ -119,6 +123,17 @@ public class StudentRegistrationModel {
         return CrudUtil.execute("UPDATE Vehicle SET AvailableSeatCount = AvailableSeatCount - ? WHERE VehicleId = ?", decrementBy, vehicleId);
     }
 
+    public static String getRouteIdByRouteName(String routeName) throws SQLException {
+        String query = "SELECT RouteId FROM Route WHERE RouteName = ?";
+        ResultSet rs = CrudUtil.execute(query, routeName);
+
+        if (rs.next()) {
+            return rs.getString("RouteId");
+        } else {
+            throw new SQLException("Route Name not found in Route table");
+        }
+    }
+
     public static List<String> getAllStudentIds() throws SQLException {
         List<String> studentIds = new ArrayList<>();
         ResultSet resultSet = CrudUtil.execute("SELECT StudentId FROM Student");
@@ -130,9 +145,9 @@ public class StudentRegistrationModel {
 
     public static List<String> getAllRoutes() throws SQLException {
         List<String> routes = new ArrayList<>();
-        ResultSet resultSet = CrudUtil.execute("SELECT RouteId FROM Route");
+        ResultSet resultSet = CrudUtil.execute("SELECT RouteName FROM Route");
         while (resultSet.next()) {
-            routes.add(resultSet.getString("RouteId"));
+            routes.add(resultSet.getString("RouteName"));
         }
         return routes;
     }

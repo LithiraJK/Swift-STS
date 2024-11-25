@@ -21,7 +21,7 @@
                         <TableColumn fx:id="colDistance" prefWidth="98.0" text="Distance" />
                         <TableColumn fx:id="colDayPrice" minWidth="0.0" prefWidth="95.0" text="DayPrice" />
                         <TableColumn fx:id="colDate" minWidth="0.0" prefWidth="165.0" text="Date" />
-                        <TableColumn fx:id="colRouteId" minWidth="0.0" prefWidth="110.0" text="Route ID" />
+                        <TableColumn fx:id="colRouteName" minWidth="0.0" prefWidth="110.0" text="Route Name" />
                         <TableColumn fx:id="colVehicleId" minWidth="0.0" prefWidth="110.0" text="Vehicle ID" />
                      </columns>
                   </TableView>

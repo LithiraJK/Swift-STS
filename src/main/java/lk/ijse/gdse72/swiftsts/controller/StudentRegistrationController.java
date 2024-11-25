@@ -180,10 +180,11 @@ public class StudentRegistrationController implements Initializable {
 
     @FXML
     void DistanceOnKeyReleased(KeyEvent event) {
-        String selectedRoute = cmbRoute.getSelectionModel().getSelectedItem();
-        if (selectedRoute != null && !txtDistance.getText().isEmpty()) {
+        String selectedRouteName = cmbRoute.getSelectionModel().getSelectedItem();
+        if (selectedRouteName != null && !txtDistance.getText().isEmpty()) {
             try {
-                double routeFee = StudentRegistrationModel.getRouteFeeByRouteId(selectedRoute);
+                String selectedRouteId = StudentRegistrationModel.getRouteIdByRouteName(selectedRouteName);
+                double routeFee = StudentRegistrationModel.getRouteFeeByRouteId(selectedRouteId);
                 double distance = Double.parseDouble(txtDistance.getText());
                 dayPrice = routeFee * distance;
                 txtDayPrice.setText(String.format("%.2f", dayPrice));
@@ -198,10 +199,10 @@ public class StudentRegistrationController implements Initializable {
     }
 
     @FXML
-    void btnRegisterOnAction(ActionEvent event) {
+    void btnRegisterOnAction(ActionEvent event) throws SQLException {
         String studentId = txtStudentId.getSelectionModel().getSelectedItem();
         String studentRegId = lblRegistrationId.getText();
-        String routeId = cmbRoute.getSelectionModel().getSelectedItem();
+        String routeId = StudentRegistrationModel.getRouteIdByRouteName(cmbRoute.getSelectionModel().getSelectedItem());
         String vehicleId = cmbVehicle.getSelectionModel().getSelectedItem();
         dayPrice = Double.parseDouble(txtDayPrice.getText());
         String registrationDate = lblDate.getText();
