@@ -12,12 +12,12 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="panePayment" prefHeight="555.0" prefWidth="1036.0" styleClass="bg-bodypane" stylesheets="@../css-file/DashBoard.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse72.swiftsts.controller.PaymentFormController">
+<AnchorPane fx:id="panePayment" prefHeight="555.0" prefWidth="1036.0" styleClass="bg-bodypane" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse72.swiftsts.controller.PaymentFormController">
    <children>
       <Pane layoutX="-1.0" layoutY="125.0" prefHeight="46.0" prefWidth="530.0" styleClass="bg-bodypane" />
       <AnchorPane layoutX="28.0" layoutY="253.0" prefHeight="277.0" prefWidth="986.0" style="-fx-background-color: white;" styleClass="bg-whitepane">
          <children>
-            <TableView fx:id="tblPayments" layoutY="-6.0" onMouseClicked="#tblPaymentsOnClicked" prefHeight="282.0" prefWidth="986.0">
+            <TableView fx:id="tblPayments" layoutY="-6.0" onMouseClicked="#tblPaymentsOnClicked" prefHeight="282.0" prefWidth="986.0" stylesheets="@../css-file/tbl.css">
                <columns>
                   <TableColumn fx:id="colPaymentId" prefWidth="108.0" text="Payment ID" />
                   <TableColumn fx:id="colStudentId" prefWidth="119.0" text="Student ID" />
@@ -81,7 +81,7 @@
          </font>
       </Label>
       <JFXComboBox fx:id="cmbAttendanceId" layoutX="464.0" layoutY="74.0" prefHeight="26.0" prefWidth="156.0" promptText="Select Attendance ID" styleClass="combo-box" />
-      <JFXButton fx:id="btnCalculatepayment" layoutX="713.0" layoutY="126.0" onAction="#btnCalculatepaymentOnAction" prefHeight="37.0" prefWidth="180.0" styleClass="button-1" text="Calculate Payment" />
+      <JFXButton fx:id="btnCalculatepayment" layoutX="736.0" layoutY="126.0" onAction="#btnCalculatepaymentOnAction" prefHeight="37.0" prefWidth="180.0" styleClass="button-1" text="Calculate Payment" />
       <Label layoutX="145.0" layoutY="138.0" text="RS.">
          <font>
             <Font name="System Bold" size="15.0" />
@@ -97,8 +97,12 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <JFXButton fx:id="btnPaymentReceipt" layoutX="791.0" layoutY="184.0" onAction="#btnPaymentReceipt" prefHeight="37.0" prefWidth="192.0" styleClass="button-1" text="Get Payment Receipt" />
+      <JFXButton fx:id="btnPaymentReceipt" layoutX="732.0" layoutY="184.0" onAction="#btnPaymentReceipt" prefHeight="37.0" prefWidth="192.0" styleClass="button-1" text="Get Payment Receipt" />
       <JFXToggleButton fx:id="trbtnSendMail" layoutX="545.0" layoutY="118.0" text="Send Mail" toggleColor="#ffd600" toggleLineColor="#ffd600" unToggleLineColor="BLACK" />
 
    </children>
+   <stylesheets>
+      <URL value="@../css-file/DashBoard.css" />
+      <URL value="@../css-file/Scrool.css" />
+   </stylesheets>
 </AnchorPane>

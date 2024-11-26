@@ -40,6 +40,17 @@ public class ExpenseModel {
         return "E001";
     }
 
+    public static double getMonthlyExpense(String month) throws SQLException {
+        String query = "SELECT SUM(Amount) AS TotalExpense FROM Expense WHERE Date LIKE ?";
+        ResultSet rs = CrudUtil.execute(query, month + "%");
+
+        if (rs.next()) {
+            return rs.getDouble("TotalExpense");
+        } else {
+            return 0.0;
+        }
+    }
+
     public boolean saveExpense(ExpenseDto expenseDto) throws SQLException {
         return CrudUtil.execute("INSERT INTO Expense VALUES (?,?,?,?,?)",
                 expenseDto.getExpenseId(),

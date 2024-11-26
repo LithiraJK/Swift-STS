@@ -19,6 +19,7 @@ import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Paint;
 import lk.ijse.gdse72.swiftsts.dto.StudentRegistrationDto;
 import lk.ijse.gdse72.swiftsts.dto.tm.StudentRegistrationDetailsTM;
 import lk.ijse.gdse72.swiftsts.model.StudentRegistrationModel;
@@ -124,6 +125,38 @@ public class StudentRegistrationController implements Initializable {
     StudentRegistrationModel studentRegistrationModel = new StudentRegistrationModel();
     public static double dayPrice = 0.00;
 
+    private boolean validateDistance() {
+        try {
+            double distance = Double.parseDouble(txtDistance.getText());
+            if (distance > 0) {
+                txtDistance.setFocusColor(Paint.valueOf("black"));
+                return true;
+            } else {
+                txtDistance.setFocusColor(Paint.valueOf("red"));
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            txtDistance.setFocusColor(Paint.valueOf("red"));
+            return false;
+        }
+    }
+    private boolean validateSeatCount() {
+        try {
+            int seatCount = Integer.parseInt(lblAvailableSeat.getText());
+            if (seatCount > 0) {
+                lblAvailableSeat.setTextFill(Paint.valueOf("black"));
+                return true;
+            } else {
+                lblAvailableSeat.setTextFill(Paint.valueOf("red"));
+                new Alert(Alert.AlertType.ERROR, "No Seats Available !").show();
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            lblAvailableSeat.setTextFill(Paint.valueOf("red"));
+            return false;
+        }
+    }
+
     @FXML
     void btnNewRouteOnAction(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/NewRouteForm.fxml"));
@@ -180,6 +213,9 @@ public class StudentRegistrationController implements Initializable {
 
     @FXML
     void DistanceOnKeyReleased(KeyEvent event) {
+        if (!validateDistance()) {
+            return;
+        }
         String selectedRouteName = cmbRoute.getSelectionModel().getSelectedItem();
         if (selectedRouteName != null && !txtDistance.getText().isEmpty()) {
             try {
@@ -200,6 +236,9 @@ public class StudentRegistrationController implements Initializable {
 
     @FXML
     void btnRegisterOnAction(ActionEvent event) throws SQLException {
+        if (!validateSeatCount()) {
+            return;
+        }
         String studentId = txtStudentId.getSelectionModel().getSelectedItem();
         String studentRegId = lblRegistrationId.getText();
         String routeId = StudentRegistrationModel.getRouteIdByRouteName(cmbRoute.getSelectionModel().getSelectedItem());
@@ -251,6 +290,8 @@ public class StudentRegistrationController implements Initializable {
         lableStudentName.setText("Student Name");
         lblPickupLocation.setText("Pickup Location");
         lblAvailableSeat.setText("00");
+        lblAvailableSeat.setTextFill(Paint.valueOf("black"));
+
     }
 
     private void refreshTable() {

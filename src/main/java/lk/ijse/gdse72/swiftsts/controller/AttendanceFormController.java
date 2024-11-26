@@ -106,6 +106,21 @@ public class AttendanceFormController implements Initializable {
         paneAttendence.getChildren().add(anchorPane);
     }
 
+    private boolean validateDayCount() {
+        try {
+            int dayCount = Integer.parseInt(txtDayCount.getText());
+            if (dayCount < 30 && dayCount >= 0) {
+                return true;
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Day count must be less than 30.").show();
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            new Alert(Alert.AlertType.ERROR, "Please enter a valid number for day count.").show();
+            return false;
+        }
+    }
+
     private void loadDriverIds() throws SQLException {
         ArrayList<String> driverIds = DriverModel.getAllDriverIds();
         ObservableList<String> observableList = FXCollections.observableArrayList();
@@ -292,6 +307,9 @@ public class AttendanceFormController implements Initializable {
 
     @FXML
     public void btnMakeAttendenceOnAction(ActionEvent actionEvent) {
+        if (!validateDayCount()) {
+            return;
+        }
         try {
             AttendanceDto attendanceDto = new AttendanceDto(
                     lblAttendenceId.getText(),

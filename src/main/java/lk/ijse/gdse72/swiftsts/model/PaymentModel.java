@@ -53,6 +53,17 @@ public class PaymentModel {
         return paymentData;
     }
 
+    public static double getMonthlyIncome(String month) throws SQLException {
+        String query = "SELECT SUM(Amount) AS TotalIncome FROM Payment WHERE Date LIKE ?";
+        ResultSet rs = CrudUtil.execute(query, month + "%");
+
+        if (rs.next()) {
+            return rs.getDouble("TotalIncome");
+        } else {
+            return 0.0;
+        }
+    }
+
     public static double calculateMonthlyFee(String studentId, int dayCount) throws SQLException {
         String query = "SELECT DayPrice FROM StudentRegistration WHERE StudentId = ?";
         ResultSet rs = CrudUtil.execute(query, studentId);
