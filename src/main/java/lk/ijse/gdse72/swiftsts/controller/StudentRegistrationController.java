@@ -22,7 +22,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 import lk.ijse.gdse72.swiftsts.dto.StudentRegistrationDto;
 import lk.ijse.gdse72.swiftsts.dto.tm.StudentRegistrationDetailsTM;
+import lk.ijse.gdse72.swiftsts.model.RouteModel;
+import lk.ijse.gdse72.swiftsts.model.StudentModel;
 import lk.ijse.gdse72.swiftsts.model.StudentRegistrationModel;
+import lk.ijse.gdse72.swiftsts.model.VehicleModel;
 import lk.ijse.gdse72.swiftsts.util.CrudUtil;
 import java.io.IOException;
 import java.net.URL;
@@ -123,6 +126,10 @@ public class StudentRegistrationController implements Initializable {
     private AnchorPane paneRegistration;
 
     StudentRegistrationModel studentRegistrationModel = new StudentRegistrationModel();
+    VehicleModel vehicleModel = new VehicleModel();
+    StudentModel studentModel = new StudentModel();
+    RouteModel routeModel = new RouteModel();
+
     public static double dayPrice = 0.00;
 
     private boolean validateDistance() {
@@ -219,8 +226,8 @@ public class StudentRegistrationController implements Initializable {
         String selectedRouteName = cmbRoute.getSelectionModel().getSelectedItem();
         if (selectedRouteName != null && !txtDistance.getText().isEmpty()) {
             try {
-                String selectedRouteId = StudentRegistrationModel.getRouteIdByRouteName(selectedRouteName);
-                double routeFee = StudentRegistrationModel.getRouteFeeByRouteId(selectedRouteId);
+                String selectedRouteId = routeModel.getRouteIdByRouteName(selectedRouteName);
+                double routeFee = routeModel.getRouteFeeByRouteId(selectedRouteId);
                 double distance = Double.parseDouble(txtDistance.getText());
                 dayPrice = routeFee * distance;
                 txtDayPrice.setText(String.format("%.2f", dayPrice));
@@ -241,7 +248,7 @@ public class StudentRegistrationController implements Initializable {
         }
         String studentId = txtStudentId.getSelectionModel().getSelectedItem();
         String studentRegId = lblRegistrationId.getText();
-        String routeId = StudentRegistrationModel.getRouteIdByRouteName(cmbRoute.getSelectionModel().getSelectedItem());
+        String routeId = routeModel.getRouteIdByRouteName(cmbRoute.getSelectionModel().getSelectedItem());
         String vehicleId = cmbVehicle.getSelectionModel().getSelectedItem();
         dayPrice = Double.parseDouble(txtDayPrice.getText());
         String registrationDate = lblDate.getText();
@@ -250,10 +257,10 @@ public class StudentRegistrationController implements Initializable {
         try {
             CrudUtil.startTransaction();
 
-            boolean isStudentInserted = StudentRegistrationModel.insertStudentRegistration(studentRegId, studentId, distance, dayPrice, registrationDate, routeId, vehicleId);
+            boolean isStudentInserted = studentRegistrationModel.insertStudentRegistration(studentRegId, studentId, distance, dayPrice, registrationDate, routeId, vehicleId);
             if (!isStudentInserted) throw new SQLException("Failed to insert into StudentRegistration");
 
-            boolean isVehicleUpdated = StudentRegistrationModel.updateVehicleSeatCount(vehicleId, 1);
+            boolean isVehicleUpdated = vehicleModel.updateVehicleSeatCount(vehicleId, 1);
             if (!isVehicleUpdated) throw new SQLException("Failed to update Vehicle seat count");
 
             CrudUtil.commitTransaction();
@@ -347,8 +354,8 @@ public class StudentRegistrationController implements Initializable {
             String selectedStudentId = txtStudentId.getSelectionModel().getSelectedItem();
             if (selectedStudentId != null) {
                 try {
-                    lableStudentName.setText(StudentRegistrationModel.getStudentNameById(selectedStudentId));
-                    lblPickupLocation.setText(StudentRegistrationModel.getPickupLocationById(selectedStudentId));
+                    lableStudentName.setText(studentModel.getStudentNameById(selectedStudentId));
+                    lblPickupLocation.setText(studentModel.getPickupLocationById(selectedStudentId));
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -359,7 +366,7 @@ public class StudentRegistrationController implements Initializable {
             String selectedVehicleId = cmbVehicle.getSelectionModel().getSelectedItem();
             if (selectedVehicleId != null) {
                 try {
-                    int availableSeats = StudentRegistrationModel.getAvailableSeatCountByVehicleId(selectedVehicleId);
+                    int availableSeats = vehicleModel.getAvailableSeatCountByVehicleId(selectedVehicleId);
                     lblAvailableSeat.setText(String.valueOf(availableSeats));
                 } catch (SQLException e) {
                     e.printStackTrace();
@@ -369,27 +376,27 @@ public class StudentRegistrationController implements Initializable {
     }
 
     private void loadStudentRegistrationDetails() throws SQLException {
-        ObservableList<StudentRegistrationDetailsTM> studentRegistrationDetails = StudentRegistrationModel.getAllStudentRegistrationDetails();
+        ObservableList<StudentRegistrationDetailsTM> studentRegistrationDetails = studentRegistrationModel.getAllStudentRegistrationDetails();
         tblStudentRegistration.setItems(studentRegistrationDetails);
     }
 
     private void loadStudentIds() throws SQLException {
-        List<String> studentIds = StudentRegistrationModel.getAllStudentIds();
+        List<String> studentIds = studentModel.getAllStudentIds();
         txtStudentId.getItems().addAll(studentIds);
     }
 
     private void loadVehicleIds() throws SQLException {
-        List<String> vehicleIds = StudentRegistrationModel.getAllVehicleIds();
+        List<String> vehicleIds = vehicleModel.getAllVehicleIds();
         cmbVehicle.getItems().addAll(vehicleIds);
     }
 
     private void loadRoutes() throws SQLException {
-        List<String> routes = StudentRegistrationModel.getAllRoutes();
+        List<String> routes = routeModel.getAllRouteNames();
         cmbRoute.getItems().addAll(routes);
     }
 
     private void loadDestinations() throws SQLException {
-        List<String> destinations = StudentRegistrationModel.getAllDestinations();
+        List<String> destinations = routeModel.getAllDestinations();
         cmbDestination.getItems().addAll(destinations);
     }
     @FXML

@@ -10,7 +10,7 @@ import java.util.List;
 
 public class PaymentModel {
 
-    public static boolean insertPayment(PaymentDto paymentDto) throws SQLException {
+    public boolean savePayment(PaymentDto paymentDto) throws SQLException {
         String query = "INSERT INTO Payment (PaymentId, StudentId, MonthlyFee, Amount, Balance, Status, Date) VALUES (?,?,?,?,?,?,?)";
         return CrudUtil.execute(query,
                 paymentDto.getPaymentId(),
@@ -53,7 +53,7 @@ public class PaymentModel {
         return paymentData;
     }
 
-    public static double getMonthlyIncome(String month) throws SQLException {
+    public double getMonthlyIncome(String month) throws SQLException {
         String query = "SELECT SUM(Amount) AS TotalIncome FROM Payment WHERE Date LIKE ?";
         ResultSet rs = CrudUtil.execute(query, month + "%");
 
@@ -64,7 +64,7 @@ public class PaymentModel {
         }
     }
 
-    public static double calculateMonthlyFee(String studentId, int dayCount) throws SQLException {
+    public double calculateMonthlyFee(String studentId, int dayCount) throws SQLException {
         String query = "SELECT DayPrice FROM StudentRegistration WHERE StudentId = ?";
         ResultSet rs = CrudUtil.execute(query, studentId);
 
@@ -80,7 +80,7 @@ public class PaymentModel {
     }
 
 
-    public static String getNextPaymentId() throws SQLException {
+    public String getNextPaymentId() throws SQLException {
         ResultSet rst = CrudUtil.execute("SELECT PaymentId FROM Payment ORDER BY PaymentId DESC LIMIT 1");
 
         if (rst.next()) {

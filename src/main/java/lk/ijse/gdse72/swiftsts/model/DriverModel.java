@@ -9,18 +9,6 @@ import java.util.ArrayList;
 
 public class DriverModel {
 
-    public boolean saveDriver(DriverDto dto) throws SQLException {
-        return CrudUtil.execute("INSERT INTO Driver (DriverId, Name, LicenseNo, NIC, ContactNo, Address, Email) VALUES (?, ?, ?, ?, ?, ?, ?)",
-                dto.getDriverId(),
-                dto.getName(),
-                dto.getLicenseNo(),
-                dto.getNic(),
-                dto.getContactNo(),
-                dto.getAddress(),
-                dto.getEmail()
-        );
-    }
-
     public ArrayList<DriverDto> getAllDrivers() throws SQLException {
         ResultSet rst = CrudUtil.execute("SELECT * FROM Driver");
         ArrayList<DriverDto> driverList = new ArrayList<>();
@@ -40,6 +28,20 @@ public class DriverModel {
 
         return driverList;
     }
+
+    public boolean saveDriver(DriverDto dto) throws SQLException {
+        return CrudUtil.execute("INSERT INTO Driver (DriverId, Name, LicenseNo, NIC, ContactNo, Address, Email) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                dto.getDriverId(),
+                dto.getName(),
+                dto.getLicenseNo(),
+                dto.getNic(),
+                dto.getContactNo(),
+                dto.getAddress(),
+                dto.getEmail()
+        );
+    }
+
+
 
     public boolean updateDriver(DriverDto dto) throws SQLException {
         return CrudUtil.execute("UPDATE Driver SET Name=?, LicenseNo=?, NIC=?, ContactNo=?, Address=?, Email=? WHERE DriverId=?",
@@ -69,7 +71,7 @@ public class DriverModel {
 
 
 
-    public static ArrayList<String> getAllDriverIds() throws SQLException {
+    public ArrayList<String> getAllDriverIds() throws SQLException {
         ResultSet rst = CrudUtil.execute("SELECT DriverId FROM Driver");
 
         ArrayList<String> driverIds = new ArrayList<>();
@@ -85,7 +87,7 @@ public class DriverModel {
         return CrudUtil.execute("DELETE FROM Driver WHERE DriverId=?", driverId);
     }
 
-    public static String getDriverNameById(String driverId) throws SQLException {
+    public String getDriverNameById(String driverId) throws SQLException {
         ResultSet rst = CrudUtil.execute("SELECT Name FROM Driver WHERE DriverId=?", driverId);
         if (rst.next()) {
             return rst.getString(1);

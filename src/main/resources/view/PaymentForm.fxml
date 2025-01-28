@@ -44,7 +44,7 @@
       <Label fx:id="lblPaymentId" layoutX="152.0" layoutY="85.0" styleClass="label-H5-" text="P001" />
 
       <!-- Student Selection ComboBox -->
-      <JFXComboBox fx:id="cmbStudentId" layoutX="253.0" layoutY="76.0" prefHeight="26.0" prefWidth="163.0" promptText="Select Student ID" />
+      <JFXComboBox fx:id="cmbStudentNames" layoutX="253.0" layoutY="76.0" prefHeight="26.0" prefWidth="163.0" promptText="Select Student ID" />
 
       <!-- Student Name Label -->
       <Label fx:id="lblStudentName" layoutX="681.0" layoutY="75.0" prefHeight="18.0" prefWidth="105.0" styleClass="label-H5-" text="Student Name" />

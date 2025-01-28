@@ -56,20 +56,7 @@ create table Student
         on update cascade on delete cascade
 );
 
-create table Attendance
-(
-    AttendanceId varchar(10) not null
-        primary key,
-    StudentId    varchar(10) not null,
-    Year         int         not null,
-    Month        varchar(15) not null,
-    DayCount     int         not null,
-    DriverId     varchar(10) not null,
-    foreign key (StudentId) references Student (StudentId)
-        on update cascade on delete cascade,
-    foreign key (DriverId) references Driver (DriverId)
-        on update cascade on delete cascade
-);
+
 
 create table Payment
 (
@@ -96,6 +83,21 @@ create table Vehicle
     Model              varchar(20)   null,
     SeatCount          int           not null,
     AvailableSeatCount int           not null
+);
+
+create table Attendance
+(
+    AttendanceId varchar(10) not null
+        primary key,
+    Year         int         not null,
+    Month        varchar(15) not null,
+    DayCount     int         not null,
+    StudentId    varchar(10) not null,
+    VehicleId    varchar(10) not null,
+    foreign key (StudentId) references Student (StudentId)
+        on update cascade on delete cascade,
+    foreign key (VehicleId) references Vehicle (VehicleId)
+        on update cascade on delete cascade
 );
 
 create table Route
@@ -211,14 +213,13 @@ VALUES
 
 
 -- Attendance Table
-INSERT INTO Attendance (AttendanceId, Month, DayCount, Year, StudentId, DriverId)
+INSERT INTO Attendance (AttendanceId, Month, DayCount, Year, StudentId, VehicleId)
 VALUES
-    ('A001', 'January', 22, 2024, 'S001', 'D001'),
-    ('A006', 'January', 20, 2024, 'S002', 'D002'),
-    ('A003', 'January', 18, 2024, 'S003', 'D003'),
-    ('A004', 'January', 23, 2024, 'S004', 'D004'),
-    ('A005', 'January', 21, 2024, 'S005', 'D005');
-
+    ('A001', 'January', 22, 2024, 'S001', 'V001'),
+    ('A006', 'January', 20, 2024, 'S002', 'V002'),
+    ('A003', 'January', 18, 2024, 'S003', 'V003'),
+    ('A004', 'January', 23, 2024, 'S004', 'V004'),
+    ('A005', 'January', 21, 2024, 'S005', 'V005');
 
 INSERT INTO Payment (PaymentId, Date, Amount, MonthlyFee, Balance, Status, StudentId) VALUES
                                                                                           ('P001', '2024-11-01', 500.00, 1000.00, 500.00, 'Pending', 'S001'),

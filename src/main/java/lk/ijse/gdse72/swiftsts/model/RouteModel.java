@@ -6,6 +6,7 @@ import lk.ijse.gdse72.swiftsts.util.CrudUtil;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class RouteModel {
 
@@ -62,5 +63,45 @@ public class RouteModel {
 
     public boolean deleteRoute(String routeId) throws SQLException {
         return CrudUtil.execute("DELETE FROM Route WHERE routeId=?", routeId);
+    }
+
+    public double getRouteFeeByRouteId(String routeId) throws SQLException {
+        String query = "SELECT RouteFee FROM Route WHERE RouteId = ?";
+        ResultSet rs = CrudUtil.execute(query, routeId);
+
+        if (rs.next()) {
+            return rs.getDouble("RouteFee");
+        } else {
+            throw new SQLException("Route ID not found in Route table");
+        }
+    }
+
+    public String getRouteIdByRouteName(String routeName) throws SQLException {
+        String query = "SELECT RouteId FROM Route WHERE RouteName = ?";
+        ResultSet rs = CrudUtil.execute(query, routeName);
+
+        if (rs.next()) {
+            return rs.getString("RouteId");
+        } else {
+            throw new SQLException("Route Name not found in Route table");
+        }
+    }
+
+    public List<String> getAllDestinations() throws SQLException {
+        List<String> destinations = new ArrayList<>();
+        ResultSet resultSet = CrudUtil.execute("SELECT Destination FROM Route");
+        while (resultSet.next()) {
+            destinations.add(resultSet.getString("Destination"));
+        }
+        return destinations;
+    }
+
+    public List<String> getAllRouteNames() throws SQLException {
+        List<String> routes = new ArrayList<>();
+        ResultSet resultSet = CrudUtil.execute("SELECT RouteName FROM Route");
+        while (resultSet.next()) {
+            routes.add(resultSet.getString("RouteName"));
+        }
+        return routes;
     }
 }

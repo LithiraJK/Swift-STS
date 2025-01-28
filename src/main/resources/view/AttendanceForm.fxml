@@ -20,8 +20,8 @@
             <TableView fx:id="tblAttendance" prefHeight="276.0" prefWidth="986.0">
               <columns>
                 <TableColumn fx:id="colAttendanceId" prefWidth="116.0" text="AttendanceID" />
-                <TableColumn fx:id="colStudentId" prefWidth="167.0" text="Student Name" />
-                  <TableColumn fx:id="colDriverId" prefWidth="134.0" text="Driver Name" />
+                <TableColumn fx:id="colStudentId" prefWidth="167.0" text="Student ID" />
+                  <TableColumn fx:id="colVehicleId" prefWidth="134.0" text="Vehicle Name" />
                   <TableColumn fx:id="colYear" prefWidth="95.0" text="Year" />
                   <TableColumn fx:id="colMonth" prefWidth="141.0" text="Month" />
                   <TableColumn fx:id="colDayCount" prefWidth="129.0" text="Day Count" />
@@ -40,13 +40,13 @@
       </ImageView>
       <Label layoutX="24.0" layoutY="79.0" prefHeight="18.0" prefWidth="99.0" text="Attendence ID" />
       <Label fx:id="lblAttendenceId" layoutX="137.0" layoutY="79.0" prefHeight="18.0" prefWidth="62.0" text="A001" />
-      <JFXComboBox fx:id="cbDriverId" layoutX="220.0" layoutY="71.0" prefHeight="26.0" prefWidth="150.0" promptText="Diver Id" />
+      <JFXComboBox fx:id="cbVehicleId" layoutX="220.0" layoutY="71.0" prefHeight="26.0" prefWidth="150.0" promptText="Select Vehicle" />
       <JFXComboBox fx:id="cbYear" layoutX="24.0" layoutY="137.0" prefHeight="26.0" prefWidth="150.0" promptText="Year" styleClass="combo-box" />
       <JFXComboBox fx:id="cbMonth" layoutX="220.0" layoutY="137.0" prefHeight="26.0" prefWidth="150.0" promptText="Month" styleClass="combo-box" />
       <JFXButton fx:id="btnReset" layoutX="578.0" layoutY="132.0" onAction="#btnResetOnAction" prefHeight="37.0" prefWidth="160.0" styleClass="button-1" text="Reset" />
-      <JFXComboBox fx:id="cbStudentId" layoutX="584.0" layoutY="70.0" prefHeight="26.0" prefWidth="160.0" promptText="Student Id" />
-      <Label fx:id="lblStudentName" layoutX="782.0" layoutY="78.0" prefHeight="18.0" prefWidth="113.0" text="Student Name" />
-      <Label fx:id="lblDriverName" layoutX="403.0" layoutY="78.0" prefHeight="18.0" prefWidth="113.0" text="Driver Name" />
+      <JFXComboBox fx:id="cbStudentId" layoutX="584.0" layoutY="70.0" prefHeight="26.0" prefWidth="160.0" promptText="Select Student" />
+      <Label fx:id="lblStudentId" layoutX="782.0" layoutY="78.0" prefHeight="18.0" prefWidth="113.0" text="Student Name" />
+      <Label fx:id="lblVehicleRegistrationNo" layoutX="403.0" layoutY="78.0" prefHeight="18.0" prefWidth="140.0" text="Vehicle " />
       <JFXButton fx:id="btnMakeAttendance" layoutX="782.0" layoutY="132.0" onAction="#btnMakeAttendenceOnAction" prefHeight="37.0" prefWidth="222.0" styleClass="button-1" text="Mark Attendence" />
    </children>
 </AnchorPane>

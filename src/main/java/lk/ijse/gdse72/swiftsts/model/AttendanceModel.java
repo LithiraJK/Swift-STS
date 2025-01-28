@@ -3,12 +3,13 @@ package lk.ijse.gdse72.swiftsts.model;
 import lk.ijse.gdse72.swiftsts.dto.AttendanceDto;
 import lk.ijse.gdse72.swiftsts.util.CrudUtil;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class AttendanceModel {
+
+    StudentModel studentModel = new StudentModel();
 
 //    public static ArrayList<String> getAllAttendanceIds() {
 //        try {
@@ -25,7 +26,26 @@ public class AttendanceModel {
 //        return null;
 //    }
 
-    public static int getDayCountByAttendanceId(String attendanceId) {
+    public ArrayList<AttendanceDto> getAllAttendances() throws SQLException {
+        ResultSet rst = CrudUtil.execute("SELECT * FROM Attendance");
+        ArrayList<AttendanceDto> attendenceList = new ArrayList<>();
+
+        while (rst.next()) {
+            AttendanceDto dto = new AttendanceDto(
+                    rst.getString("AttendanceId"),
+                    rst.getString("StudentId"),
+                    rst.getString("VehicleId"),
+                    rst.getInt("Year"),
+                    rst.getString("Month"),
+                    rst.getInt("DayCount")
+            );
+            attendenceList.add(dto);
+        }
+
+        return attendenceList;
+    }
+
+    public int getDayCountByAttendanceId(String attendanceId) {
         try {
             ResultSet rst = CrudUtil.execute("SELECT DayCount FROM Attendance WHERE AttendanceId = ?", attendanceId);
             if (rst.next()) {
@@ -37,16 +57,18 @@ public class AttendanceModel {
         return 0;
     }
 
-    public static String getAttendanceIdByStudentIdYearMonth(String studentId, String year, String month) throws SQLException {
+    public String getAttendanceIdByStudentIdYearMonth(String studentName, String year, String month) throws SQLException {
+        String studentId = studentModel.getStudentNameById(studentName);
         String query = "SELECT AttendanceId FROM Attendance WHERE StudentId = ? AND Year = ? AND Month = ?";
         ResultSet rst = CrudUtil.execute(query, studentId, year, month);
         if (rst.next()) {
-            return rst.getString("AttendanceId");
+            return rst.getString(1);
         }
         return null;
     }
 
-    public static ArrayList<String> getAttendanceMonthsByStudentId(String studentId) throws SQLException {
+    public ArrayList<String> getAttendanceMonthsByStudentName(String studentName) throws SQLException {
+        String studentId = studentModel.getStudentNameById(studentName);
         String query = "SELECT Year, Month FROM Attendance WHERE StudentId = ?";
         ResultSet rst = CrudUtil.execute(query, studentId);
         ArrayList<String> attendanceMonths = new ArrayList<>();
@@ -59,14 +81,30 @@ public class AttendanceModel {
     }
 
     public boolean saveAttendance(AttendanceDto dto) throws SQLException {
-        return CrudUtil.execute("INSERT INTO Attendance (AttendanceId, StudentId, DriverId, Year, Month, DayCount) VALUES (?, ?, ?, ?, ?, ?)",
+        return CrudUtil.execute("INSERT INTO Attendance (AttendanceId, StudentId, VehicleId, Year, Month, DayCount) VALUES (?, ?, ?, ?, ?, ?)",
                 dto.getAttendanceId(),
                 dto.getStudentId(),
-                dto.getDriverId(),
+                dto.getVehicleId(),
                 dto.getYear(),
                 dto.getMonth(),
                 dto.getDayCount()
         );
+    }
+
+    public boolean updateAttendance(AttendanceDto dto) throws SQLException {
+        return CrudUtil.execute("UPDATE Attendance SET StudentId=?, VehicleId=?, Year=?, Month=?, DayCount=? WHERE AttendanceId=?",
+                dto.getStudentId(),
+                dto.getVehicleId(),
+                dto.getYear(),
+                dto.getMonth(),
+                dto.getDayCount(),
+                dto.getAttendanceId()
+        );
+    }
+
+
+    public boolean deleteAttendence(String attendenceId) throws SQLException {
+        return CrudUtil.execute("DELETE FROM Attendance WHERE AttendanceId=?", attendenceId);
     }
 
     public String getNextAttendanceId() throws SQLException {
@@ -82,60 +120,13 @@ public class AttendanceModel {
         return "A001";
     }
 
-    public ArrayList<AttendanceDto> getAllAttendances() throws SQLException {
-        ResultSet rst = CrudUtil.execute("SELECT * FROM Attendance");
-        ArrayList<AttendanceDto> attendenceList = new ArrayList<>();
-
-        while (rst.next()) {
-            AttendanceDto dto = new AttendanceDto(
-                    rst.getString("AttendanceId"),
-                    rst.getString("StudentId"),
-                    rst.getString("DriverId"),
-                    rst.getInt("Year"),
-                    rst.getString("Month"),
-                    rst.getInt("DayCount")
-            );
-            attendenceList.add(dto);
-        }
-
-        return attendenceList;
-    }
-
-
-    public boolean updateAttendance(AttendanceDto dto) throws SQLException {
-        return CrudUtil.execute("UPDATE Attendance SET StudentId=?, DriverId=?, Year=?, Month=?, DayCount=? WHERE AttendanceId=?",
-                dto.getStudentId(),
-                dto.getDriverId(),
-                dto.getYear(),
-                dto.getMonth(),
-                dto.getDayCount(),
-                dto.getAttendanceId()
-        );
-    }
-
-
-    public boolean deleteAttendence(String attendenceId) throws SQLException {
-        return CrudUtil.execute("DELETE FROM Attendance WHERE AttendanceId=?", attendenceId);
-    }
-
-//    public int getAttendanceDayCount(String studentId, String year, String month) throws SQLException {
-//        String query = "SELECT DayCount FROM Attendance WHERE StudentId = ? AND Year = ? AND Month = ?";
-//        ResultSet resultSet = CrudUtil.execute(query, studentId, year, month);
-//
-//        int dayCount = 0;
-//        if (resultSet.next()) {
-//            dayCount = resultSet.getInt("DayCount");
+//    public ArrayList<String> getStudentIdsByDriverId(String driverId) throws SQLException {
+//        ResultSet rst = CrudUtil.execute("SELECT StudentId FROM Attendance  WHERE DriverId = ?", driverId);
+//        ArrayList<String> studentIds = new ArrayList<>();
+//        while (rst.next()) {
+//            studentIds.add(rst.getString(1));
 //        }
-//        return dayCount;
+//        return studentIds;
 //    }
-//
-//    public String getStudentIdByAttendanceId(String attendanceId) throws SQLException {
-//        String query = "SELECT StudentId FROM Attendance WHERE AttendanceId = ?";
-//        ResultSet resultSet = CrudUtil.execute(query, attendanceId);
-//
-//        if (resultSet.next()) {
-//            return resultSet.getString("StudentId");
-//        }
-//        return null;
-//    }
+
 }

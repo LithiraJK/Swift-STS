@@ -13,7 +13,7 @@
    <children>
       <Group layoutX="74.0" layoutY="42.0">
          <children>
-            <AnchorPane layoutX="-14.0" layoutY="-6.0" prefHeight="160.0" prefWidth="250.0" style="-fx-background-color: black;" styleClass="bg-whitepane">
+            <AnchorPane layoutX="-28.0" layoutY="-7.0" prefHeight="160.0" prefWidth="250.0" style="-fx-background-color: black;" styleClass="bg-whitepane">
                <children>
                   <Label fx:id="lblStudentCount" alignment="CENTER" layoutX="165.0" layoutY="64.0" prefHeight="42.0" prefWidth="55.0" styleClass="label-H4-" text="20" textFill="#ffdf00">
                      <font>
@@ -29,7 +29,7 @@
             </AnchorPane>
          </children>
       </Group>
-      <AnchorPane layoutX="366.0" layoutY="222.0" prefHeight="172.0" prefWidth="320.0" style="-fx-background-color: white;">
+      <AnchorPane layoutX="376.0" layoutY="219.0" prefHeight="172.0" prefWidth="320.0" style="-fx-background-color: white;">
          <styleClass>
             <String fx:value="bg-bodypane" />
             <String fx:value="bg-whitepane" />
@@ -52,7 +52,7 @@
             </ImageView>
             <JFXComboBox fx:id="cmbMonthEx" layoutX="30.0" layoutY="125.0" prefHeight="26.0" prefWidth="194.0" promptText="Get Monthly report" styleClass="combo-box" />
          </children></AnchorPane>
-      <AnchorPane layoutX="384.0" layoutY="38.0" prefHeight="160.0" prefWidth="250.0" style="-fx-background-color: black;" styleClass="bg-whitepane">
+      <AnchorPane layoutX="384.0" layoutY="34.0" prefHeight="160.0" prefWidth="250.0" style="-fx-background-color: black;" styleClass="bg-whitepane">
          <children>
             <Label layoutX="64.0" layoutY="13.0" prefHeight="51.0" prefWidth="164.0" styleClass="label-H1-" text="DRIVERS">
                <font>
@@ -66,7 +66,7 @@
             </Label>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="710.0" layoutY="38.0" prefHeight="160.0" prefWidth="250.0" style="-fx-background-color: black;" styleClass="bg-whitepane">
+      <AnchorPane layoutX="733.0" layoutY="33.0" prefHeight="160.0" prefWidth="250.0" style="-fx-background-color: black;" styleClass="bg-whitepane">
          <children>
             <Label layoutX="68.0" layoutY="13.0" prefHeight="51.0" prefWidth="164.0" styleClass="label-H1-" text="VEHICLES">
                <font>
@@ -80,7 +80,7 @@
             </Label>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="42.0" layoutY="416.0" prefHeight="104.0" prefWidth="642.0" style="-fx-background-color: BLACK;" styleClass="bg-bodypane">
+      <AnchorPane layoutX="42.0" layoutY="416.0" prefHeight="104.0" prefWidth="654.0" style="-fx-background-color: BLACK;" styleClass="bg-bodypane">
          <children>
             <Label layoutX="395.0" layoutY="2.0" prefHeight="51.0" prefWidth="229.0" styleClass="label-H1-" text="Monthly Profit">
                <font>
@@ -93,7 +93,7 @@
                </font>
             </Label>
          </children></AnchorPane>
-      <AnchorPane layoutX="41.0" layoutY="220.0" prefHeight="172.0" prefWidth="320.0" style="-fx-background-color: white;">
+      <AnchorPane layoutX="38.0" layoutY="218.0" prefHeight="172.0" prefWidth="320.0" style="-fx-background-color: white;">
          <styleClass>
             <String fx:value="bg-bodypane" />
             <String fx:value="bg-whitepane" />
@@ -104,7 +104,7 @@
                   <Font name="Monospaced Bold" size="30.0" />
                </font>
             </Label>
-            <Label fx:id="lblIncome" alignment="BOTTOM_RIGHT" contentDisplay="TEXT_ONLY" layoutX="35.0" layoutY="60.0" prefHeight="42.0" prefWidth="250.0" text="100" textAlignment="RIGHT" textFill="#00ff3b">
+            <Label fx:id="lblIncome" alignment="BOTTOM_RIGHT" contentDisplay="TEXT_ONLY" layoutX="36.0" layoutY="60.0" prefHeight="42.0" prefWidth="250.0" text="100" textAlignment="RIGHT" textFill="#00ff3b">
                <font>
                   <Font name="System Bold" size="30.0" />
                </font>
@@ -115,6 +115,15 @@
                </image>
             </ImageView>
             <JFXComboBox fx:id="cmbMonthIn" layoutX="30.0" layoutY="125.0" prefHeight="26.0" prefWidth="194.0" promptText="Get Monthly report" styleClass="combo-box" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="718.0" layoutY="214.0" prefHeight="307.0" prefWidth="269.0" style="-fx-background-color: white;" styleClass="bg-bodypane">
+         <children>
+            <ImageView fitHeight="222.0" fitWidth="269.0" layoutY="97.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/images/clip-female-student-with-textbooks-and-backpack-waiting-for-school-bus.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </children>

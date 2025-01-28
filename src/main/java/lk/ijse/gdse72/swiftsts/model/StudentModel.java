@@ -9,30 +9,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
+
 
 public class StudentModel{
-    public static double getCreditBalanceById(String studentId) throws SQLException {
-        String query = "SELECT CreditBalance FROM Student WHERE StudentId = ?";
-        ResultSet rs = CrudUtil.execute(query, studentId);
-        if (rs.next()) {
-            return rs.getDouble("CreditBalance");
-        }
-        return 0.0;
-    }
-
-    public static boolean updateCreditBalance(String studentId, double creditBalance) throws SQLException {
-        String query = "UPDATE Student SET CreditBalance = ? WHERE StudentId = ?";
-        return CrudUtil.execute(query, creditBalance, studentId);
-    }
-
-    public static String getEmailByStudentId(String studentId) throws SQLException {
-        String query = "SELECT Email FROM Student WHERE StudentId = ?";
-        ResultSet rs = CrudUtil.execute(query, studentId);
-        if (rs.next()) {
-            return rs.getString("Email");
-        }
-        return null;
-    }
 
     public ArrayList<StudentDto> getAllStudents() throws SQLException {
         ResultSet rst = CrudUtil.execute("SELECT * FROM Student");
@@ -56,25 +36,40 @@ public class StudentModel{
         return studentDtos;
     }
 
-    public static ArrayList<String> getAllStudentIds() throws SQLException {
-        ResultSet rst = CrudUtil.execute("SELECT StudentId FROM Student");
-
-        ArrayList<String> studentIds = new ArrayList<>();
-
-        while (rst.next()) {
-            studentIds.add(rst.getString(1));
+    public double getCreditBalanceById(String studentId) throws SQLException {
+        String query = "SELECT CreditBalance FROM Student WHERE StudentId = ?";
+        ResultSet rs = CrudUtil.execute(query, studentId);
+        if (rs.next()) {
+            return rs.getDouble("CreditBalance");
         }
-
-        return studentIds;
+        return 0.0;
     }
 
-    public static ArrayList<String> getStudentIdsByDriverId(String driverId) throws SQLException {
-        ResultSet rst = CrudUtil.execute("SELECT StudentId FROM Attendance  WHERE DriverId = ?", driverId);
-        ArrayList<String> studentIds = new ArrayList<>();
-        while (rst.next()) {
-            studentIds.add(rst.getString(1));
+    public boolean updateCreditBalance(String studentId, double creditBalance) throws SQLException {
+        String query = "UPDATE Student SET CreditBalance = ? WHERE StudentId = ?";
+        return CrudUtil.execute(query, creditBalance, studentId);
+    }
+
+    public String getEmailByStudentId(String studentId) throws SQLException {
+        String query = "SELECT Email FROM Student WHERE StudentId = ?";
+        ResultSet rs = CrudUtil.execute(query, studentId);
+        if (rs.next()) {
+            return rs.getString("Email");
         }
-        return studentIds;
+        return null;
+    }
+
+
+    public ArrayList<String> getAllStudentNames() throws SQLException {
+        ResultSet rst = CrudUtil.execute("SELECT StudentName FROM Student");
+
+        ArrayList<String> studentNames = new ArrayList<>();
+
+        while (rst.next()) {
+            studentNames.add(rst.getString(1));
+        }
+
+        return studentNames;
     }
 
     public String getNextStudentId() throws SQLException {
@@ -122,19 +117,7 @@ public class StudentModel{
         return CrudUtil.execute("DELETE FROM Student WHERE StudentId=?", studentId);
     }
 
-    public ArrayList<String> getAllUserIds() throws SQLException {
-        ResultSet rst = CrudUtil.execute("SELECT UserId FROM User");
-        ArrayList<String> userIds = new ArrayList<>();
-
-        while (rst.next()) {
-            userIds.add(rst.getString(1));
-        }
-
-        return userIds;
-    }
-
-
-    public static String getStudentNameById(String studentId) throws SQLException {
+    public String getStudentNameById(String studentId) throws SQLException {
         ResultSet rst = CrudUtil.execute("SELECT StudentName FROM Student WHERE StudentId=?", studentId);
         if (rst.next()) {
             return rst.getString(1);
@@ -142,4 +125,29 @@ public class StudentModel{
         return null;
     }
 
+    public List<String> getAllStudentIds() throws SQLException {
+        List<String> studentIds = new ArrayList<>();
+        ResultSet resultSet = CrudUtil.execute("SELECT StudentId FROM Student");
+        while (resultSet.next()) {
+            studentIds.add(resultSet.getString(1));
+        }
+        return studentIds;
+    }
+
+    public String getPickupLocationById(String studentId) throws SQLException {
+        ResultSet resultSet = CrudUtil.execute("SELECT PickupLocation FROM Student WHERE StudentId = ?", studentId);
+        if (resultSet.next()) {
+            return resultSet.getString("PickupLocation");
+        }
+        return null;
+    }
+
+    public String getStudentIdByName(String studentName) throws SQLException {
+        String query = "SELECT StudentId FROM Student WHERE StudentName = ?";
+        ResultSet rs = CrudUtil.execute(query, studentName);
+        if (rs.next()) {
+            return rs.getString("StudentId");
+        }
+        return null;
+    }
 }

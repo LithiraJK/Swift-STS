@@ -60,6 +60,8 @@ public class UpdateAttendanceController implements Initializable {
     private JFXTextField txtDayCount;
 
     private final AttendanceModel attendanceModel = new AttendanceModel();
+    DriverModel driverModel =  new DriverModel();
+    StudentModel studentModel = new StudentModel();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -74,14 +76,14 @@ public class UpdateAttendanceController implements Initializable {
     }
 
     private void loadStudentIds() throws SQLException {
-        ArrayList<String> studentIds = StudentModel.getAllStudentIds();
+        ArrayList<String> studentNames = studentModel.getAllStudentNames();
         ObservableList<String> observableList = FXCollections.observableArrayList();
-        observableList.addAll(studentIds);
+        observableList.addAll(studentNames);
         cbStudentId.setItems(observableList);
     }
 
     private void loadDriverIds() throws SQLException {
-        ArrayList<String> driverIds = DriverModel.getAllDriverIds();
+        ArrayList<String> driverIds = driverModel.getAllDriverIds();
         ObservableList<String> observableList = FXCollections.observableArrayList();
         observableList.addAll(driverIds);
         cbDriverId.setItems(observableList);
@@ -100,7 +102,7 @@ public class UpdateAttendanceController implements Initializable {
     public void setAttendanceData(AttendanceDto dto) {
         lblAttendenceId.setText(dto.getAttendanceId());
         cbStudentId.setValue(dto.getStudentId());
-        cbDriverId.setValue(dto.getDriverId());
+        cbDriverId.setValue(dto.getVehicleId());
         cbYear.setValue(String.valueOf(dto.getYear()));
         cbMonth.setValue(dto.getMonth());
         txtDayCount.setText(String.valueOf(dto.getDayCount()));

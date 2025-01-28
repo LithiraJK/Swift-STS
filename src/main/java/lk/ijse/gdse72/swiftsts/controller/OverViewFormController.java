@@ -3,25 +3,36 @@ package lk.ijse.gdse72.swiftsts.controller;
 import com.jfoenix.controls.JFXComboBox;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+import lk.ijse.gdse72.swiftsts.db.DBConnection;
 import lk.ijse.gdse72.swiftsts.model.ExpenseModel;
 import lk.ijse.gdse72.swiftsts.model.PaymentModel;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.view.JasperViewer;
 
 import java.net.URL;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class OverViewFormController implements Initializable {
+
+    ExpenseModel expenseModel = new ExpenseModel();
+    PaymentModel paymentModel = new PaymentModel();
 
     @FXML
     private ImageView btnGetExpenseReport;
@@ -61,7 +72,7 @@ public class OverViewFormController implements Initializable {
         String formattedMonth = currentYearMonth.format(DateTimeFormatter.ofPattern("yyyy-MM"));
 
         try {
-            double expense = ExpenseModel.getMonthlyExpense(formattedMonth);
+            double expense = expenseModel.getMonthlyExpense(formattedMonth);
             if (expense > 0) {
                 lblExpense.setText("-" + String.format("%.2f", expense));
             } else {
@@ -77,7 +88,7 @@ public class OverViewFormController implements Initializable {
         String formattedMonth = currentYearMonth.format(DateTimeFormatter.ofPattern("yyyy-MM"));
 
         try {
-            double income = PaymentModel.getMonthlyIncome(formattedMonth);
+            double income = paymentModel.getMonthlyIncome(formattedMonth);
             if (income > 0) {
                 lblIncome.setText("+" + String.format("%.2f", income));
             } else {
@@ -97,7 +108,7 @@ public class OverViewFormController implements Initializable {
             String formattedMonth = yearMonth.format(DateTimeFormatter.ofPattern("yyyy-MM"));
 
             try {
-                double expense = ExpenseModel.getMonthlyExpense(formattedMonth);
+                double expense = expenseModel.getMonthlyExpense(formattedMonth);
                 if (expense > 0) {
                     lblExpense.setText("-" + String.format("%.2f", expense));
                 } else {
@@ -120,18 +131,47 @@ public class OverViewFormController implements Initializable {
             String formattedMonth = yearMonth.format(DateTimeFormatter.ofPattern("yyyy-MM"));
 
             try {
-                double income = PaymentModel.getMonthlyIncome(formattedMonth);
+                double income = paymentModel.getMonthlyIncome(formattedMonth);
                 if (income > 0) {
-                    lblIncome.setText("+" + String.format("%.2f", income));
+                    Thread reportThread = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                JasperReport jasperReport = JasperCompileManager.compileReport(
+                                        getClass().getResourceAsStream("/reports/IncomeReport.jrxml"));
+                                Connection connection = DBConnection.getInstance().getConnection();
+
+                                Map<String, Object> parameters = new HashMap<>();
+                                parameters.put("Month", formattedMonth);
+                                JasperPrint jasperPrint = JasperFillManager.fillReport(
+                                        jasperReport,
+                                        parameters,
+                                        connection
+                                );
+                                Platform.runLater(() -> JasperViewer.viewReport(jasperPrint, false));
+                            } catch (JRException e) {
+                                Platform.runLater(() -> {
+                                    new Alert(Alert.AlertType.ERROR, "Failed to generate the report").show();
+                                    e.printStackTrace();
+                                });
+                            } catch (SQLException e) {
+                                Platform.runLater(() -> {
+                                    new Alert(Alert.AlertType.ERROR, "Failed to connect to the database").show();
+                                    e.printStackTrace();
+                                });
+                            }
+                        }
+                    });
+                    reportThread.start();
                 } else {
-                    lblIncome.setText("No income recorded for " + formattedMonth);
+                    new Alert(Alert.AlertType.INFORMATION, "No income for the selected month.").show();
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
-                lblIncome.setText("Error fetching income data");
+                new Alert(Alert.AlertType.ERROR, "Failed to retrieve income: " + e.getMessage()).show();
             }
         } else {
-            lblIncome.setText("Please select a month");
+            new Alert(Alert.AlertType.WARNING, "Please select a month.").show();
         }
     }
     private void updateProfitLabel() {
@@ -139,8 +179,8 @@ public class OverViewFormController implements Initializable {
         String formattedMonth = currentYearMonth.format(DateTimeFormatter.ofPattern("yyyy-MM"));
 
         try {
-            double income = PaymentModel.getMonthlyIncome(formattedMonth);
-            double expense = ExpenseModel.getMonthlyExpense(formattedMonth);
+            double income = paymentModel.getMonthlyIncome(formattedMonth);
+            double expense = expenseModel.getMonthlyExpense(formattedMonth);
             double profit = income - expense;
 
             lblProfit.setText(String.format("+%.2f", profit));

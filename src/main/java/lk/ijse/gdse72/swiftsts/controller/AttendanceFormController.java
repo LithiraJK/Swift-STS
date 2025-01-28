@@ -17,20 +17,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import lk.ijse.gdse72.swiftsts.dto.AttendanceDto;
-import lk.ijse.gdse72.swiftsts.dto.PaymentDto;
 import lk.ijse.gdse72.swiftsts.dto.tm.AttendanceTM;
-import lk.ijse.gdse72.swiftsts.model.AttendanceModel;
-import lk.ijse.gdse72.swiftsts.model.DriverModel;
-import lk.ijse.gdse72.swiftsts.model.PaymentModel;
-import lk.ijse.gdse72.swiftsts.model.StudentModel;
-import lk.ijse.gdse72.swiftsts.util.CrudUtil;
+import lk.ijse.gdse72.swiftsts.model.*;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -55,7 +49,7 @@ public class AttendanceFormController implements Initializable {
     private TableColumn<AttendanceTM, Integer> colDayCount;
 
     @FXML
-    private TableColumn<AttendanceTM, String> colDriverId;
+    private TableColumn<AttendanceTM, String> colVehicleId;
 
     @FXML
     public TableColumn<AttendanceTM, String> colStudentId;
@@ -67,7 +61,7 @@ public class AttendanceFormController implements Initializable {
     private TableColumn<AttendanceTM, Integer> colYear;
 
     @FXML
-    private JFXComboBox<String> cbDriverId;
+    private JFXComboBox<String> cbVehicleId;
 
     @FXML
     private JFXComboBox<String> cbMonth;
@@ -82,10 +76,10 @@ public class AttendanceFormController implements Initializable {
     private Label lblAttendenceId;
 
     @FXML
-    private Label lblStudentName;
+    private Label lblStudentId;
 
     @FXML
-    private Label lblDriverName;
+    private Label lblVehicleRegistrationNo;
 
     @FXML
     private AnchorPane paneAttendence;
@@ -96,8 +90,11 @@ public class AttendanceFormController implements Initializable {
     @FXML
     private JFXTextField txtDayCount;
 
-    private AttendanceModel attendanceModel = new AttendanceModel();
-    private final StudentModel studentModel = new StudentModel();
+    AttendanceModel attendanceModel = new AttendanceModel();
+    StudentModel studentModel = new StudentModel();
+    DriverModel driverModel = new DriverModel();
+    VehicleModel vehicleModel = new VehicleModel();
+    StudentRegistrationModel studentRegistrationModel = new StudentRegistrationModel();
 
     @FXML
     void btnGoBackOnMouseClicked(MouseEvent event) throws IOException {
@@ -121,25 +118,29 @@ public class AttendanceFormController implements Initializable {
         }
     }
 
-    private void loadDriverIds() throws SQLException {
-        ArrayList<String> driverIds = DriverModel.getAllDriverIds();
+    private void loadVehicleIds() throws SQLException {
+        List<String> vehicleIds = vehicleModel.getAllVehicleIds();
         ObservableList<String> observableList = FXCollections.observableArrayList();
-        observableList.addAll(driverIds);
-        cbDriverId.setItems(observableList);
-        cbDriverId.setOnAction(event -> {
+        observableList.addAll(vehicleIds);
+        cbVehicleId.setItems(observableList);
+        cbVehicleId.setOnAction(event -> {
             try {
-                String selectedDriverId = cbDriverId.getValue();
-                loadStudentIds(selectedDriverId);
+                String selectedVehicleId = cbVehicleId.getValue();
+                loadStudentNames(selectedVehicleId);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         });
     }
 
-    private void loadStudentIds(String driverId) throws SQLException {
-        ArrayList<String> studentIds = StudentModel.getStudentIdsByDriverId(driverId);
+    private void loadStudentNames(String vehicleId) throws SQLException {
+        ArrayList<String> studentIds = studentRegistrationModel.getStudentIdsByVehicleId(vehicleId);
+        ArrayList<String> studentNames = new ArrayList<>();
+        for (String studentId : studentIds) {
+            studentNames.add(studentModel.getStudentNameById(studentId));
+        }
         ObservableList<String> observableList = FXCollections.observableArrayList();
-        observableList.addAll(studentIds);
+        observableList.addAll(studentNames);
         cbStudentId.setItems(observableList);
     }
 
@@ -175,7 +176,7 @@ public class AttendanceFormController implements Initializable {
             AttendanceTM attendanceTM = new AttendanceTM(
                     dto.getAttendanceId(),
                     dto.getStudentId(),
-                    dto.getDriverId(),
+                    dto.getVehicleId(),
                     dto.getYear(),
                     dto.getMonth(),
                     dto.getDayCount(),
@@ -231,15 +232,15 @@ public class AttendanceFormController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         colAttendanceId.setCellValueFactory(new PropertyValueFactory<>("attendanceId"));
         colStudentId.setCellValueFactory(new PropertyValueFactory<>("studentId"));
-        colDriverId.setCellValueFactory(new PropertyValueFactory<>("driverId"));
+        colVehicleId.setCellValueFactory(new PropertyValueFactory<>("vehicleId"));
         colYear.setCellValueFactory(new PropertyValueFactory<>("year"));
         colMonth.setCellValueFactory(new PropertyValueFactory<>("month"));
         colDayCount.setCellValueFactory(new PropertyValueFactory<>("dayCount"));
         colAction.setCellValueFactory(new PropertyValueFactory<>("actionBox"));
 
         try {
-            loadStudentIds( (String) cbDriverId.getValue());
-            loadDriverIds();
+            loadStudentNames(cbVehicleId.getValue());
+            loadVehicleIds();
             loadYears();
             loadMonths();
             refreshTable();
@@ -252,19 +253,19 @@ public class AttendanceFormController implements Initializable {
         cbStudentId.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 try {
-                    String studentName = studentModel.getStudentNameById(newValue);
-                    lblStudentName.setText(studentName);
+                    String studentId = studentModel.getStudentIdByName(newValue);
+                    lblStudentId.setText(studentId);
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
             }
         });
 
-        cbDriverId.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        cbVehicleId.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 try {
-                    String driverName = DriverModel.getDriverNameById(newValue);
-                    lblDriverName.setText(driverName);
+                    String registrationNo = vehicleModel.getRegistrationNoById(newValue);
+                    lblVehicleRegistrationNo.setText(registrationNo);
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -280,7 +281,7 @@ public class AttendanceFormController implements Initializable {
     @FXML
     void btnResetOnAction(ActionEvent event) throws SQLException {
         cbStudentId.setDisable(false);
-        cbDriverId.setDisable(false);
+        cbVehicleId.setDisable(false);
         cbYear.setDisable(false);
         cbMonth.setDisable(false);
         txtDayCount.setDisable(false);
@@ -296,12 +297,12 @@ public class AttendanceFormController implements Initializable {
         String nextAttendanceId = attendanceModel.getNextAttendanceId();
         lblAttendenceId.setText(nextAttendanceId);
         cbStudentId.getSelectionModel().clearSelection();
-        cbDriverId.getSelectionModel().clearSelection();
+        cbVehicleId.getSelectionModel().clearSelection();
         cbYear.getSelectionModel().clearSelection();
         cbMonth.getSelectionModel().clearSelection();
         txtDayCount.clear();
-        lblStudentName.setText("Student Name");
-        lblDriverName.setText("Driver Name");
+        lblStudentId.setText("Student Name");
+        lblVehicleRegistrationNo.setText("Vehicle No");
 
     }
 
@@ -311,10 +312,13 @@ public class AttendanceFormController implements Initializable {
             return;
         }
         try {
+            String studentName = cbStudentId.getValue();
+            String studentId = studentModel.getStudentIdByName(studentName); // Add this method to StudentModel
+
             AttendanceDto attendanceDto = new AttendanceDto(
                     lblAttendenceId.getText(),
-                    cbStudentId.getValue(),
-                    cbDriverId.getValue(),
+                    studentId,
+                    cbVehicleId.getValue(),
                     Integer.parseInt(cbYear.getValue()),
                     cbMonth.getValue(),
                     Integer.parseInt(txtDayCount.getText())

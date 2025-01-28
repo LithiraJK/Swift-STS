@@ -12,6 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 import lk.ijse.gdse72.swiftsts.dto.StudentDto;
 import lk.ijse.gdse72.swiftsts.model.StudentModel;
+import lk.ijse.gdse72.swiftsts.model.UserModel;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -46,6 +47,7 @@ public class NewStudentFormController implements Initializable {
     private AnchorPane paneStudent;
 
     private final StudentModel studentModel = new StudentModel();
+    UserModel userModel =  new UserModel();
 
     public void setOverlayPane(AnchorPane overlayPane, AnchorPane paneStudent) {
         this.overlayPane = overlayPane;
@@ -135,7 +137,7 @@ public class NewStudentFormController implements Initializable {
         }
 
         try {
-            cbUserID.getItems().addAll(studentModel.getAllUserIds());
+            cbUserID.getItems().addAll(userModel.getAllUserIds());
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, "An error occurred while loading user IDs: " + e.getMessage()).show();
         }
