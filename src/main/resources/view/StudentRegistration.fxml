@@ -22,8 +22,8 @@
       <Label fx:id="lblDate" layoutX="904.0" layoutY="14.0" styleClass="label-H5-" text="2024 - 11 - 11" />
       <Label layoutX="22.0" layoutY="65.0" styleClass="label-H5-" text="Registration ID :" />
       <Label fx:id="lblRegistrationId" layoutX="146.0" layoutY="65.0" prefHeight="21.0" prefWidth="53.0" styleClass="label-H5-" text="SR001" />
-      <JFXComboBox fx:id="txtStudentId" layoutX="424.0" layoutY="63.0" promptText=" Select Student ID" styleClass="combo-box" />
-      <Label fx:id="lableStudentName" layoutX="631.0" layoutY="66.0" prefHeight="21.0" prefWidth="131.0" styleClass="label-H5-" text="Student Name" />
+      <JFXComboBox fx:id="cmbStudentName" layoutX="413.0" layoutY="63.0" prefHeight="26.0" prefWidth="167.0" promptText=" Select Student" styleClass="combo-box" />
+      <Label fx:id="lableStudentId" layoutX="706.0" layoutY="66.0" prefHeight="21.0" prefWidth="94.0" styleClass="label-H5-" text="Student ID" />
       <Group layoutX="614.0" layoutY="59.0" />
       <JFXTextField fx:id="txtDistance" layoutX="837.0" layoutY="115.0" onKeyReleased="#DistanceOnKeyReleased" prefHeight="26.0" prefWidth="152.0" promptText="Distance" styleClass="textfields-" />
       <JFXComboBox fx:id="cmbDestination" layoutX="23.0" layoutY="115.0" prefHeight="26.0" prefWidth="156.0" promptText="Destination" styleClass="combo-box" />
@@ -69,7 +69,7 @@
       <Line endX="492.0" layoutX="507.0" layoutY="216.0" startX="-484.0" />
       <JFXButton fx:id="btnRegister" layoutX="730.0" layoutY="226.0" onAction="#btnRegisterOnAction" prefHeight="37.0" prefWidth="225.0" styleClass="button-1" text="Register" />
       <Label fx:id="lblManageStudentOnClick" layoutX="883.0" layoutY="170.0" onMouseClicked="#lblManageStudentOnClick" styleClass="label-text" text="Manage Student" />
-      <Label fx:id="lblPickupLocation" layoutX="818.0" layoutY="66.0" prefHeight="21.0" prefWidth="131.0" styleClass="label-H5-" text="Pickup Location" />
+      <Label fx:id="lblPickupLocation" layoutX="835.0" layoutY="66.0" prefHeight="21.0" prefWidth="131.0" styleClass="label-H5-" text="Pickup Location" />
       <JFXButton fx:id="btnReset" layoutX="26.0" layoutY="227.0" onAction="#btnResetOnAction" prefHeight="37.0" prefWidth="125.0" styleClass="button-1" text="Reset" />
       <ImageView fx:id="viewTable" fitHeight="38.0" fitWidth="42.0" layoutX="968.0" layoutY="226.0" onMouseClicked="#viewTableOnClicked" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -91,6 +91,7 @@
             <Image url="@../assets/icons/icons8-add-user-male-90.png" />
          </image>
       </ImageView>
+      <Label layoutX="614.0" layoutY="66.0" styleClass="label-H5-" text="Student ID :" />
    </children>
    <stylesheets>
       <URL value="@../css-file/DashBoard.css" />

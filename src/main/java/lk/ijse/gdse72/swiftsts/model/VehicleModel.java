@@ -103,4 +103,12 @@ public class VehicleModel {
         }
         return null;
     }
+    public int getVehicleCount() throws SQLException {
+        String query = "SELECT COUNT(*) FROM Vehicle";
+        ResultSet resultSet = CrudUtil.execute(query);
+        if (resultSet.next()){
+            return resultSet.getInt(1);
+        }
+        return 0;
+    }
 }

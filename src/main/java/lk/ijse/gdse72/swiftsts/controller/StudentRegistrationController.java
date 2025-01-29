@@ -3,7 +3,6 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,12 +14,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
-import lk.ijse.gdse72.swiftsts.dto.StudentRegistrationDto;
 import lk.ijse.gdse72.swiftsts.dto.tm.StudentRegistrationDetailsTM;
 import lk.ijse.gdse72.swiftsts.model.RouteModel;
 import lk.ijse.gdse72.swiftsts.model.StudentModel;
@@ -33,7 +30,6 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -99,7 +95,7 @@ public class StudentRegistrationController implements Initializable {
     private TableView<StudentRegistrationDetailsTM> tblStudentRegistration;
 
     @FXML
-    private Label lableStudentName;
+    private Label lableStudentId;
 
     @FXML
     private Label lblAvailableSeat;
@@ -120,7 +116,7 @@ public class StudentRegistrationController implements Initializable {
     private JFXTextField txtDistance;
 
     @FXML
-    private JFXComboBox<String> txtStudentId;
+    private JFXComboBox<String> cmbStudentName;
 
     @FXML
     private AnchorPane paneRegistration;
@@ -246,7 +242,7 @@ public class StudentRegistrationController implements Initializable {
         if (!validateSeatCount()) {
             return;
         }
-        String studentId = txtStudentId.getSelectionModel().getSelectedItem();
+        String studentId = studentModel.getStudentIdByName(cmbStudentName.getSelectionModel().getSelectedItem());
         String studentRegId = lblRegistrationId.getText();
         String routeId = routeModel.getRouteIdByRouteName(cmbRoute.getSelectionModel().getSelectedItem());
         String vehicleId = cmbVehicle.getSelectionModel().getSelectedItem();
@@ -287,14 +283,14 @@ public class StudentRegistrationController implements Initializable {
     }
     private void refreshPage() throws SQLException {
         refreshTable();
-        txtStudentId.getSelectionModel().clearSelection();
+        cmbStudentName.getSelectionModel().clearSelection();
         cmbRoute.getSelectionModel().clearSelection();
         cmbVehicle.getSelectionModel().clearSelection();
         cmbDestination.getSelectionModel().clearSelection();
         txtDayPrice.setText("00.00");
         txtDistance.clear();
         lblRegistrationId.setText(studentRegistrationModel.getNextRegistrationId());
-        lableStudentName.setText("Student Name");
+        lableStudentId.setText("Student Id");
         lblPickupLocation.setText("Pickup Location");
         lblAvailableSeat.setText("00");
         lblAvailableSeat.setTextFill(Paint.valueOf("black"));
@@ -331,7 +327,7 @@ public class StudentRegistrationController implements Initializable {
 
 
         try {
-            loadStudentIds();
+            loadStudentNames();
             loadRoutes();
             loadDestinations();
             loadVehicleIds();
@@ -350,11 +346,18 @@ public class StudentRegistrationController implements Initializable {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         lblDate.setText(currentDate.format(formatter));
 
-        txtStudentId.setOnAction(event -> {
-            String selectedStudentId = txtStudentId.getSelectionModel().getSelectedItem();
+        cmbStudentName.setOnAction(event -> {
+
+            String studentName = cmbStudentName.getSelectionModel().getSelectedItem();
+            String selectedStudentId = null;
+            try {
+                selectedStudentId = studentModel.getStudentIdByName(studentName);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
             if (selectedStudentId != null) {
                 try {
-                    lableStudentName.setText(studentModel.getStudentNameById(selectedStudentId));
+                    lableStudentId.setText(selectedStudentId);
                     lblPickupLocation.setText(studentModel.getPickupLocationById(selectedStudentId));
                 } catch (SQLException e) {
                     e.printStackTrace();
@@ -380,9 +383,9 @@ public class StudentRegistrationController implements Initializable {
         tblStudentRegistration.setItems(studentRegistrationDetails);
     }
 
-    private void loadStudentIds() throws SQLException {
-        List<String> studentIds = studentModel.getAllStudentIds();
-        txtStudentId.getItems().addAll(studentIds);
+    private void loadStudentNames() throws SQLException {
+        List<String> studentIds = studentModel.getAllStudentNames();
+        cmbStudentName.getItems().addAll(studentIds);
     }
 
     private void loadVehicleIds() throws SQLException {

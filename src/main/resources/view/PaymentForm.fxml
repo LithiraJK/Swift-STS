@@ -47,7 +47,7 @@
       <JFXComboBox fx:id="cmbStudentNames" layoutX="253.0" layoutY="76.0" prefHeight="26.0" prefWidth="163.0" promptText="Select Student ID" />
 
       <!-- Student Name Label -->
-      <Label fx:id="lblStudentName" layoutX="681.0" layoutY="75.0" prefHeight="18.0" prefWidth="105.0" styleClass="label-H5-" text="Student Name" />
+      <Label fx:id="lblStudentId" layoutX="681.0" layoutY="75.0" prefHeight="18.0" prefWidth="105.0" styleClass="label-H5-" text="Student Name" />
 
       <!-- Calculate Payment Button -->
       <JFXButton fx:id="btnMakePayment" layoutX="266.0" layoutY="185.0" onAction="#btnMakePaymentOnAction" prefHeight="37.0" prefWidth="203.0" styleClass="button-1" text="Make Payment" />

@@ -91,7 +91,7 @@ public class PaymentFormController implements Initializable {
     private Label lblPaymentId;
 
     @FXML
-    private Label lblStudentName;
+    private Label lblStudentId;
 
     @FXML
     private AnchorPane panePayment;
@@ -135,10 +135,11 @@ public class PaymentFormController implements Initializable {
         cmbStudentNames.setItems(observableList);
         cmbStudentNames.setOnAction(event -> {
             try {
+
                 String selectedStudent = cmbStudentNames.getValue();
                 loadAttendanceIds(selectedStudent);
-                String studentName = studentModel.getStudentNameById(selectedStudent);
-                lblStudentName.setText(studentName);
+                String studentId = studentModel.getStudentIdByName(selectedStudent);
+                lblStudentId.setText(studentId);
                 double creditBalance = studentModel.getCreditBalanceById(selectedStudent);
                 lblCreditBalance.setText(String.format("%.2f", creditBalance));
             } catch (SQLException e) {
@@ -155,7 +156,8 @@ public class PaymentFormController implements Initializable {
     private Map<String, String> attendanceMap = new HashMap<>();
 
     private void loadAttendanceIds(String studentName) throws SQLException {
-        ArrayList<String> attendanceMonths = attendanceModel.getAttendanceMonthsByStudentName(studentName);
+        String studentId = studentModel.getStudentIdByName(studentName);
+        ArrayList<String> attendanceMonths = attendanceModel.getAttendanceMonthsByStudentId(studentId);
         ObservableList<String> observableList = FXCollections.observableArrayList(attendanceMonths);
         cmbAttendanceId.setItems(observableList);
 
@@ -164,7 +166,7 @@ public class PaymentFormController implements Initializable {
             String[] parts = attendanceMonth.split("-");
             String year = parts[0];
             String month = parts[1];
-            String attendanceId = attendanceModel.getAttendanceIdByStudentIdYearMonth(studentName, year, month);
+            String attendanceId = attendanceModel.getAttendanceIdByStudentIdYearMonth(studentId, year, month);
             attendanceMap.put(attendanceMonth, attendanceId);
         }
     }
@@ -201,7 +203,7 @@ public class PaymentFormController implements Initializable {
             }
 
             int dayCount = attendanceModel.getDayCountByAttendanceId(attendanceId);
-            double monthlyFee = paymentModel.calculateMonthlyFee(cmbStudentNames.getValue(), dayCount);
+            double monthlyFee = paymentModel.calculateMonthlyFee(lblStudentId.getText(), dayCount);
 
             lblMonthlyFee.setText(String.format("%.2f", monthlyFee));
 
@@ -234,7 +236,7 @@ public class PaymentFormController implements Initializable {
     @FXML
     void btnMakePaymentOnAction(ActionEvent event) throws SQLException {
         try {
-            String studentId = cmbStudentNames.getValue();
+            String studentId = lblStudentId.getText();
             String selectedMonthYear = cmbAttendanceId.getValue();
             String attendanceId = attendanceMap.get(selectedMonthYear);
             double payAmount = Double.parseDouble(txtPayAmount.getText());
@@ -246,7 +248,7 @@ public class PaymentFormController implements Initializable {
             }
 
             int dayCount = attendanceModel.getDayCountByAttendanceId(attendanceId);
-            double monthlyFee = paymentModel.calculateMonthlyFee(cmbStudentNames.getValue(), dayCount);
+            double monthlyFee = paymentModel.calculateMonthlyFee(lblStudentId.getText(), dayCount);
             double totalDue = monthlyFee + creditBalance;
             double remainingBalance = totalDue - payAmount;
 
@@ -306,7 +308,7 @@ public class PaymentFormController implements Initializable {
         lblMonthlyFee.setText("0.00");
         lblCreditBalance.setText("0.00");
         lblBalance.setText("0.00");
-        lblStudentName.setText("");
+        lblStudentId.setText("");
 
         txtPayAmount.clear();
         loadStudentNames();

@@ -87,6 +87,15 @@ public class DriverModel {
         return CrudUtil.execute("DELETE FROM Driver WHERE DriverId=?", driverId);
     }
 
+    public int getDriverCount() throws SQLException {
+        String query = "SELECT COUNT(*) FROM Driver";
+        ResultSet resultSet = CrudUtil.execute(query);
+        if (resultSet.next()){
+            return resultSet.getInt(1);
+        }
+        return 0;
+    }
+
     public String getDriverNameById(String driverId) throws SQLException {
         ResultSet rst = CrudUtil.execute("SELECT Name FROM Driver WHERE DriverId=?", driverId);
         if (rst.next()) {

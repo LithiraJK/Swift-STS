@@ -4,10 +4,7 @@ import lk.ijse.gdse72.swiftsts.db.DBConnection;
 import lk.ijse.gdse72.swiftsts.dto.StudentDto;
 import lk.ijse.gdse72.swiftsts.util.CrudUtil;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -150,4 +147,13 @@ public class StudentModel{
         }
         return null;
     }
+    public int getStudentCount() throws SQLException {
+        String query = "SELECT COUNT(*) FROM Student";
+        ResultSet resultSet = CrudUtil.execute(query);
+        if (resultSet.next()){
+            return resultSet.getInt(1);
+        }
+        return 0;
+    }
+
 }

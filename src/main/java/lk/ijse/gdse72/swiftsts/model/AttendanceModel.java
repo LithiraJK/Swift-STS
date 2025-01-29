@@ -9,23 +9,6 @@ import java.util.ArrayList;
 
 public class AttendanceModel {
 
-    StudentModel studentModel = new StudentModel();
-
-//    public static ArrayList<String> getAllAttendanceIds() {
-//        try {
-//            ResultSet rst = CrudUtil.execute("SELECT AttendanceId FROM Attendance");
-//            ArrayList<String> ids = new ArrayList<>();
-//            while (rst.next()) {
-//                ids.add(rst.getString(1));
-//            }
-//            return ids;
-//        } catch (SQLException sqlException ) {
-//            sqlException.printStackTrace();
-//
-//        }
-//        return null;
-//    }
-
     public ArrayList<AttendanceDto> getAllAttendances() throws SQLException {
         ResultSet rst = CrudUtil.execute("SELECT * FROM Attendance");
         ArrayList<AttendanceDto> attendenceList = new ArrayList<>();
@@ -57,8 +40,7 @@ public class AttendanceModel {
         return 0;
     }
 
-    public String getAttendanceIdByStudentIdYearMonth(String studentName, String year, String month) throws SQLException {
-        String studentId = studentModel.getStudentNameById(studentName);
+    public String getAttendanceIdByStudentIdYearMonth(String studentId, String year, String month) throws SQLException {
         String query = "SELECT AttendanceId FROM Attendance WHERE StudentId = ? AND Year = ? AND Month = ?";
         ResultSet rst = CrudUtil.execute(query, studentId, year, month);
         if (rst.next()) {
@@ -67,8 +49,7 @@ public class AttendanceModel {
         return null;
     }
 
-    public ArrayList<String> getAttendanceMonthsByStudentName(String studentName) throws SQLException {
-        String studentId = studentModel.getStudentNameById(studentName);
+    public ArrayList<String> getAttendanceMonthsByStudentId(String studentId) throws SQLException {
         String query = "SELECT Year, Month FROM Attendance WHERE StudentId = ?";
         ResultSet rst = CrudUtil.execute(query, studentId);
         ArrayList<String> attendanceMonths = new ArrayList<>();
@@ -120,13 +101,5 @@ public class AttendanceModel {
         return "A001";
     }
 
-//    public ArrayList<String> getStudentIdsByDriverId(String driverId) throws SQLException {
-//        ResultSet rst = CrudUtil.execute("SELECT StudentId FROM Attendance  WHERE DriverId = ?", driverId);
-//        ArrayList<String> studentIds = new ArrayList<>();
-//        while (rst.next()) {
-//            studentIds.add(rst.getString(1));
-//        }
-//        return studentIds;
-//    }
 
 }

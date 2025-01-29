@@ -15,8 +15,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import lk.ijse.gdse72.swiftsts.db.DBConnection;
-import lk.ijse.gdse72.swiftsts.model.ExpenseModel;
-import lk.ijse.gdse72.swiftsts.model.PaymentModel;
+import lk.ijse.gdse72.swiftsts.model.*;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.view.JasperViewer;
 
@@ -33,6 +32,9 @@ public class OverViewFormController implements Initializable {
 
     ExpenseModel expenseModel = new ExpenseModel();
     PaymentModel paymentModel = new PaymentModel();
+    StudentModel studentModel = new StudentModel();
+    DriverModel driverModel = new DriverModel();
+    VehicleModel vehicleModel = new VehicleModel();
 
     @FXML
     private ImageView btnGetExpenseReport;
@@ -190,6 +192,34 @@ public class OverViewFormController implements Initializable {
         }
     }
 
+    private void updateStudentCountLabel() {
+        try {
+            int studentCount = studentModel.getStudentCount();
+            lblStudentCount.setText(String.valueOf(studentCount));
+        } catch (SQLException e) {
+            e.printStackTrace();
+            lblStudentCount.setText("Error fetching student count");
+        }
+    }
+    private void updateDriverCountLabel() {
+        try {
+            int driverCount = driverModel.getDriverCount();
+            lblDriverCount.setText(String.valueOf(driverCount));
+        } catch (SQLException e) {
+            e.printStackTrace();
+            lblDriverCount.setText("Error fetching student count");
+        }
+    }
+    private void updateVehicleCountLabel() {
+        try {
+            int vehicleCount = vehicleModel.getVehicleCount();
+            lblVehicleCount.setText(String.valueOf(vehicleCount));
+        } catch (SQLException e) {
+            e.printStackTrace();
+            lblDriverCount.setText("Error fetching student count");
+        }
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ObservableList<String> months = FXCollections.observableArrayList(
@@ -202,10 +232,13 @@ public class OverViewFormController implements Initializable {
         cmbMonthIn.setVisibleRowCount(4);
 
         // Set up a Timeline to update the expense, income, and profit labels every minute
-        Timeline timeline = new Timeline(new KeyFrame(Duration.minutes(1), event -> {
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(30), event -> {
             updateExpenseLabel();
             updateIncomeLabel();
             updateProfitLabel();
+            updateStudentCountLabel();
+            updateDriverCountLabel();
+            updateVehicleCountLabel();
         }));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
@@ -214,5 +247,8 @@ public class OverViewFormController implements Initializable {
         updateExpenseLabel();
         updateIncomeLabel();
         updateProfitLabel();
+        updateStudentCountLabel();
+        updateDriverCountLabel();
+        updateVehicleCountLabel();
     }
 }
