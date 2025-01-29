@@ -15,6 +15,7 @@ import javafx.scene.paint.Paint;
 import lk.ijse.gdse72.swiftsts.dto.ExpenseDto;
 import lk.ijse.gdse72.swiftsts.dto.tm.ExpenseTM;
 import lk.ijse.gdse72.swiftsts.model.ExpenseModel;
+import lk.ijse.gdse72.swiftsts.model.UserModel;
 
 import java.net.URL;
 import java.sql.Date;
@@ -70,6 +71,7 @@ public class ExpensesController implements Initializable {
 
 
     private ExpenseModel expenseModel = new ExpenseModel();
+    UserModel userModel = new UserModel();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -212,7 +214,7 @@ public class ExpensesController implements Initializable {
     }
 
     private void loadUserIds() throws SQLException {
-        ArrayList<String> userIds = expenseModel.getAllUserIds();
+        ArrayList<String> userIds = userModel.getAllUserIds();
         cmbUserID.setItems(FXCollections.observableArrayList(userIds));
     }
 

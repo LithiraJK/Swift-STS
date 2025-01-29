@@ -16,6 +16,7 @@ import javafx.scene.paint.Paint;
 import lk.ijse.gdse72.swiftsts.dto.StudentDto;
 import lk.ijse.gdse72.swiftsts.dto.tm.StudentTM;
 import lk.ijse.gdse72.swiftsts.model.StudentModel;
+import lk.ijse.gdse72.swiftsts.model.UserModel;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -24,6 +25,9 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class StudentFormController implements Initializable {
+    StudentModel studentModel = new StudentModel();
+    UserModel userModel = new UserModel();
+
     @FXML
     public Label lblCreditBalance;
 
@@ -240,13 +244,13 @@ public class StudentFormController implements Initializable {
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to delete this student?", ButtonType.YES, ButtonType.NO);
         Optional<ButtonType> buttonType = alert.showAndWait();
-        if (buttonType.get() == ButtonType.YES){
+        if (buttonType.get() == ButtonType.YES) {
             try {
                 boolean isDeleted = studentModel.deleteStudent(studentId);
-                if (isDeleted){
+                if (isDeleted) {
                     new Alert(Alert.AlertType.INFORMATION, "Student deleted successfully!").show();
                     refreshPage();
-                }else{
+                } else {
                     new Alert(Alert.AlertType.ERROR, "Failed to delete student!").show();
                 }
             } catch (SQLException e) {
@@ -258,7 +262,7 @@ public class StudentFormController implements Initializable {
     @FXML
     void onClickTable(MouseEvent mouseEvent) {
         StudentTM selectedItem = tblStudent.getSelectionModel().getSelectedItem();
-        if(selectedItem != null){
+        if (selectedItem != null) {
             lblStudentId.setText(selectedItem.getStudentId());
             txtStudentName.setText(selectedItem.getStudentName());
             txtParentName.setText(selectedItem.getParentName());
@@ -275,7 +279,6 @@ public class StudentFormController implements Initializable {
         }
     }
 
-    StudentModel studentModel = new StudentModel();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -300,7 +303,7 @@ public class StudentFormController implements Initializable {
     }
 
     private void loadUserIds() throws SQLException {
-        ArrayList<String> userIds = studentModel.getAllUserIds();
+        ArrayList<String> userIds = userModel.getAllUserIds();
         cbUserID.setItems(FXCollections.observableArrayList(userIds));
     }
 
@@ -329,7 +332,7 @@ public class StudentFormController implements Initializable {
         ArrayList<StudentDto> studentDtos = studentModel.getAllStudents();
         ObservableList<StudentTM> studentTMS = FXCollections.observableArrayList();
 
-        for(StudentDto studentDto : studentDtos){
+        for (StudentDto studentDto : studentDtos) {
             StudentTM studentTM = new StudentTM(
                     studentDto.getStudentId(),
                     studentDto.getStudentName(),

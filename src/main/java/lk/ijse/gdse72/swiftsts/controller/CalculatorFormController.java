@@ -127,11 +127,11 @@ public class CalculatorFormController {
         addNumber("9");
     }
 
-    public void updateTextField(){
+    public void updateTextField() {
         textField.setText(currentNumber);
     }
 
-    public void addNumber(String number){
+    public void addNumber(String number) {
         currentNumber += number;
         updateTextField();
     }

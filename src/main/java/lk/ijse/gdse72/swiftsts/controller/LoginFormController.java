@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class LoginFormController implements Initializable{
+public class LoginFormController implements Initializable {
 
     @FXML
     private AnchorPane loginPane;

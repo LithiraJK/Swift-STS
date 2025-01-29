@@ -32,15 +32,15 @@ public class ExpenseModel {
 
         if (rst.next()) {
             String lastId = rst.getString(1);
-            String substring = lastId.substring(1);
-            int i = Integer.parseInt(substring);
+            String numericPart = lastId.replaceAll("\\D+", ""); // Extract numeric part
+            int i = Integer.parseInt(numericPart);
             int newIdIndex = i + 1;
             return String.format("E%03d", newIdIndex);
         }
         return "E001";
     }
 
-    public static double getMonthlyExpense(String month) throws SQLException {
+    public double getMonthlyExpense(String month) throws SQLException {
         String query = "SELECT SUM(Amount) AS TotalExpense FROM Expense WHERE Date LIKE ?";
         ResultSet rs = CrudUtil.execute(query, month + "%");
 
@@ -73,16 +73,5 @@ public class ExpenseModel {
 
     public boolean deleteExpense(String expenseId) throws SQLException {
         return CrudUtil.execute("DELETE FROM Expense WHERE ExpenseId=?", expenseId);
-    }
-
-    public ArrayList<String> getAllUserIds() throws SQLException {
-        ResultSet rst = CrudUtil.execute("SELECT UserId FROM User");
-        ArrayList<String> userIds = new ArrayList<>();
-
-        while (rst.next()) {
-            userIds.add(rst.getString(1));
-        }
-
-        return userIds;
     }
 }

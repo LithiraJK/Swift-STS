@@ -5,6 +5,7 @@ import lk.ijse.gdse72.swiftsts.util.CrudUtil;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class UserModel {
 
@@ -26,12 +27,15 @@ public class UserModel {
         return null;
     }
 
-    public String getUserId(String username, String password) throws SQLException {
-        ResultSet resultSet = CrudUtil.execute("SELECT UserId FROM User WHERE UserName=? AND Password=?", username, password);
-        if (resultSet.next()) {
-            return resultSet.getString("UserId");
+    public ArrayList<String> getAllUserIds() throws SQLException {
+        ResultSet rst = CrudUtil.execute("SELECT UserId FROM User");
+        ArrayList<String> userIds = new ArrayList<>();
+
+        while (rst.next()) {
+            userIds.add(rst.getString(1));
         }
-        return null;
+
+        return userIds;
     }
 
 
