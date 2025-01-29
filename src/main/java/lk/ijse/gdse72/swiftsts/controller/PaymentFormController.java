@@ -33,7 +33,6 @@ import java.util.*;
 public class PaymentFormController implements Initializable {
 
 
-
     @FXML
     public JFXButton btnPaymentReceipt;
     @FXML
@@ -216,12 +215,13 @@ public class PaymentFormController implements Initializable {
             new Alert(Alert.AlertType.ERROR, "An error occurred while calculating the monthly fee: " + e.getMessage()).show();
         }
     }
+
     private void NotifyStudentByEmail() {
         try {
             String studentId = (String) cmbStudentNames.getValue();
             String email = studentModel.getEmailByStudentId(studentId);
             String subject = "Monthly Fee Notification";
-            String body = "Dear Student,\n\nYour monthly fee is: RS." + lblMonthlyFee.getText() +" \n\nYour Credit Balance is: RS." + lblCreditBalance.getText() + " \n\nThank you.";
+            String body = "Dear Student,\n\nYour monthly fee is: RS." + lblMonthlyFee.getText() + " \n\nYour Credit Balance is: RS." + lblCreditBalance.getText() + " \n\nThank you.";
 
             SendMailUtil emailThread = new SendMailUtil(email, subject, body);
             emailThread.start();

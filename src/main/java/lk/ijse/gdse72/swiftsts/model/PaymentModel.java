@@ -26,11 +26,11 @@ public class PaymentModel {
     public List<PaymentDto> getPaymentData() {
         List<PaymentDto> paymentData = new ArrayList<>();
         String query = """
-            SELECT p.PaymentId, s.StudentId, p.MonthlyFee, p.Amount,
-                   p.Balance, s.CreditBalance, p.Status, p.Date
-            FROM Payment p
-            INNER JOIN Student s ON p.StudentId = s.StudentId
-            """;
+                SELECT p.PaymentId, s.StudentId, p.MonthlyFee, p.Amount,
+                       p.Balance, s.CreditBalance, p.Status, p.Date
+                FROM Payment p
+                INNER JOIN Student s ON p.StudentId = s.StudentId
+                """;
 
         try {
             ResultSet rs = CrudUtil.execute(query);
@@ -70,7 +70,7 @@ public class PaymentModel {
 
         if (rs.next()) {
             double dayPrice = rs.getDouble("DayPrice");
-            if (dayCount>0){
+            if (dayCount > 0) {
                 return dayCount * dayPrice;
             }
             return 0.00;

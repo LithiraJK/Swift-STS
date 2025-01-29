@@ -1,4 +1,5 @@
 package lk.ijse.gdse72.swiftsts.controller;
+
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
@@ -24,6 +25,7 @@ import lk.ijse.gdse72.swiftsts.model.StudentModel;
 import lk.ijse.gdse72.swiftsts.model.StudentRegistrationModel;
 import lk.ijse.gdse72.swiftsts.model.VehicleModel;
 import lk.ijse.gdse72.swiftsts.util.CrudUtil;
+
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
@@ -143,6 +145,7 @@ public class StudentRegistrationController implements Initializable {
             return false;
         }
     }
+
     private boolean validateSeatCount() {
         try {
             int seatCount = Integer.parseInt(lblAvailableSeat.getText());
@@ -272,7 +275,6 @@ public class StudentRegistrationController implements Initializable {
     }
 
 
-
     @FXML
     void onClickTable(MouseEvent event) {
     }
@@ -281,6 +283,7 @@ public class StudentRegistrationController implements Initializable {
     void btnResetOnAction(ActionEvent event) throws SQLException {
         refreshPage();
     }
+
     private void refreshPage() throws SQLException {
         refreshTable();
         cmbStudentName.getSelectionModel().clearSelection();
@@ -402,6 +405,7 @@ public class StudentRegistrationController implements Initializable {
         List<String> destinations = routeModel.getAllDestinations();
         cmbDestination.getItems().addAll(destinations);
     }
+
     @FXML
     public void viewTableOnClicked(MouseEvent mouseEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/StudentRegistrations.fxml"));

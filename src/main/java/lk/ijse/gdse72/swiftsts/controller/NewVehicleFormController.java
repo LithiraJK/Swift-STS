@@ -119,7 +119,7 @@ public class NewVehicleFormController implements Initializable {
         }
 
         if (isValidModel && isValidRegistrationNo && isValidVehicleType && isValidFuelType && isValidSeatCount && isValidAvailableSeatCount && isValidEngineCapacity) {
-            VehicleDto vehicleDto = new VehicleDto(vehicleId, registrationNo, vehicleType,engineCapacity, fuelType,model,seatCount, availableSeatCount);
+            VehicleDto vehicleDto = new VehicleDto(vehicleId, registrationNo, vehicleType, engineCapacity, fuelType, model, seatCount, availableSeatCount);
 
             try {
                 boolean isSaved = vehicleModel.saveVehicle(vehicleDto);

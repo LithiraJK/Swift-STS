@@ -85,6 +85,7 @@ public class OverViewFormController implements Initializable {
             lblExpense.setText("Error fetching expense data");
         }
     }
+
     private void updateIncomeLabel() {
         YearMonth currentYearMonth = YearMonth.now();
         String formattedMonth = currentYearMonth.format(DateTimeFormatter.ofPattern("yyyy-MM"));
@@ -101,6 +102,7 @@ public class OverViewFormController implements Initializable {
             lblIncome.setText("Error fetching income data");
         }
     }
+
     @FXML
     void btnGetExpenseReportOnClick(MouseEvent event) {
         String selectedMonth = cmbMonthEx.getSelectionModel().getSelectedItem();
@@ -124,6 +126,7 @@ public class OverViewFormController implements Initializable {
             lblExpense.setText("Please select a month");
         }
     }
+
     @FXML
     void btnGetIncomeReportOnClick(MouseEvent event) {
         String selectedMonth = cmbMonthIn.getSelectionModel().getSelectedItem();
@@ -176,6 +179,7 @@ public class OverViewFormController implements Initializable {
             new Alert(Alert.AlertType.WARNING, "Please select a month.").show();
         }
     }
+
     private void updateProfitLabel() {
         YearMonth currentYearMonth = YearMonth.now();
         String formattedMonth = currentYearMonth.format(DateTimeFormatter.ofPattern("yyyy-MM"));
@@ -201,6 +205,7 @@ public class OverViewFormController implements Initializable {
             lblStudentCount.setText("Error fetching student count");
         }
     }
+
     private void updateDriverCountLabel() {
         try {
             int driverCount = driverModel.getDriverCount();
@@ -210,6 +215,7 @@ public class OverViewFormController implements Initializable {
             lblDriverCount.setText("Error fetching student count");
         }
     }
+
     private void updateVehicleCountLabel() {
         try {
             int vehicleCount = vehicleModel.getVehicleCount();

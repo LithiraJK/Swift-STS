@@ -79,7 +79,6 @@ public class StudentRegistrationModel {
     }
 
 
-
     public ArrayList<StudentRegistrationDto> getAllStudentRegistrations() throws SQLException {
         ResultSet rst = CrudUtil.execute("SELECT StudentRegistrationId, " +
                 "StudentId, Distance,DayPrice,RouteName,VehicleId,Date " +

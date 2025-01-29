@@ -47,7 +47,7 @@ public class NewStudentFormController implements Initializable {
     private AnchorPane paneStudent;
 
     private final StudentModel studentModel = new StudentModel();
-    UserModel userModel =  new UserModel();
+    UserModel userModel = new UserModel();
 
     public void setOverlayPane(AnchorPane overlayPane, AnchorPane paneStudent) {
         this.overlayPane = overlayPane;

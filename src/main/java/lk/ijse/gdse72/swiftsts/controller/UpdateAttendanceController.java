@@ -60,7 +60,7 @@ public class UpdateAttendanceController implements Initializable {
     private JFXTextField txtDayCount;
 
     private final AttendanceModel attendanceModel = new AttendanceModel();
-    DriverModel driverModel =  new DriverModel();
+    DriverModel driverModel = new DriverModel();
     StudentModel studentModel = new StudentModel();
 
     @Override

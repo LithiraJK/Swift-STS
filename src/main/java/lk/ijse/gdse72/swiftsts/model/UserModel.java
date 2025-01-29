@@ -27,14 +27,6 @@ public class UserModel {
         return null;
     }
 
-    public String getUserId(String username, String password) throws SQLException {
-        ResultSet resultSet = CrudUtil.execute("SELECT UserId FROM User WHERE UserName=? AND Password=?", username, password);
-        if (resultSet.next()) {
-            return resultSet.getString("UserId");
-        }
-        return null;
-    }
-
     public ArrayList<String> getAllUserIds() throws SQLException {
         ResultSet rst = CrudUtil.execute("SELECT UserId FROM User");
         ArrayList<String> userIds = new ArrayList<>();

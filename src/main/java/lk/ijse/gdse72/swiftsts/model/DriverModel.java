@@ -42,7 +42,6 @@ public class DriverModel {
     }
 
 
-
     public boolean updateDriver(DriverDto dto) throws SQLException {
         return CrudUtil.execute("UPDATE Driver SET Name=?, LicenseNo=?, NIC=?, ContactNo=?, Address=?, Email=? WHERE DriverId=?",
                 dto.getName(),
@@ -58,7 +57,7 @@ public class DriverModel {
     public String getNextDriverId() throws SQLException {
         ResultSet rst = CrudUtil.execute("SELECT DriverId FROM Driver ORDER BY DriverId DESC LIMIT 1");
 
-        if (rst.next()){
+        if (rst.next()) {
             String lastiD = rst.getString(1);
             String substring = lastiD.substring(1);
             int i = Integer.parseInt(substring);
@@ -68,7 +67,6 @@ public class DriverModel {
         }
         return "D001";
     }
-
 
 
     public ArrayList<String> getAllDriverIds() throws SQLException {
@@ -90,7 +88,7 @@ public class DriverModel {
     public int getDriverCount() throws SQLException {
         String query = "SELECT COUNT(*) FROM Driver";
         ResultSet resultSet = CrudUtil.execute(query);
-        if (resultSet.next()){
+        if (resultSet.next()) {
             return resultSet.getInt(1);
         }
         return 0;

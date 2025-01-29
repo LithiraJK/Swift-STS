@@ -100,11 +100,6 @@ public class DashBoardFormController implements Initializable {
 
 
     @FXML
-    void btnScheduleOnAction(ActionEvent event) {
-
-    }
-
-    @FXML
     void btnPaymentOnAction(ActionEvent event) {
         paneBody.getChildren().clear();
         try {

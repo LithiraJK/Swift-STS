@@ -92,7 +92,6 @@ public class AttendanceFormController implements Initializable {
 
     AttendanceModel attendanceModel = new AttendanceModel();
     StudentModel studentModel = new StudentModel();
-    DriverModel driverModel = new DriverModel();
     VehicleModel vehicleModel = new VehicleModel();
     StudentRegistrationModel studentRegistrationModel = new StudentRegistrationModel();
 

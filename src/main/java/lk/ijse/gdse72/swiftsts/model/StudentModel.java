@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class StudentModel{
+public class StudentModel {
 
     public ArrayList<StudentDto> getAllStudents() throws SQLException {
         ResultSet rst = CrudUtil.execute("SELECT * FROM Student");
@@ -147,10 +147,11 @@ public class StudentModel{
         }
         return null;
     }
+
     public int getStudentCount() throws SQLException {
         String query = "SELECT COUNT(*) FROM Student";
         ResultSet resultSet = CrudUtil.execute(query);
-        if (resultSet.next()){
+        if (resultSet.next()) {
             return resultSet.getInt(1);
         }
         return 0;
